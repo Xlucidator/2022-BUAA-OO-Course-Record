@@ -12,6 +12,7 @@
   - Unit2/ : 多线程设计 - 电梯调度
   - Unit3/ : 规格化设计 - 模拟社交系统(jml)
   - Unit4/ : 模型化设计 - UML解析器
+  - War_of_Holy_Grail/ : 圣杯之战 - 每周日的互测，不过第二单元就开始疲软了
   
 ## info
 课程博客：https://www.cnblogs.com/elucidator-xrb/
