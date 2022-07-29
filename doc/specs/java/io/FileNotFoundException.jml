@@ -1,0 +1,15 @@
+package java.io;
+ 
+//@ nullable_by_default
+public class FileNotFoundException extends IOException {
+  
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowable();
+    //@ pure
+    public FileNotFoundException();
+  
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowable(s);
+    //@ pure
+    public FileNotFoundException(String s);
+}

@@ -1,0 +1,483 @@
+// @(#)$Id: BigInteger.refines-spec 1388 2005-05-05 00:40:33Z davidcok $
+
+// Copyright (C) 2001 Iowa State University
+
+// This file is part of JML
+
+// JML is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
+
+// JML is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with JML; see the file COPYING.  If not, write to
+// the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+
+package java.math;
+
+import java.util.Random;
+
+// FIXME
+/** JML's specification of java.math.BigInteger.
+ *
+ * @version $Revision: 1388 $
+ * @author David R. Cok
+ * @author Gary T. Leavens
+ */
+//@ immutable nullable_by_default
+public /*@ pure @*/ class BigInteger extends Number implements Comparable<BigInteger> {
+
+    //-RAC@ public model \bigint value;
+
+    
+    // See also Number.parseable()
+    
+    /*-RAC@
+        public normal_behavior
+          requires Character.MIN_RADIX <= radix <= Character.MAX_RADIX;
+          requires Number.parseable(val,radix);
+        public static model pure heap_free \bigint parse(String val, int radix) {
+        // !FIXME! - should put in a non-circular computation for RAC
+            return new BigInteger(val,radix).value;
+        }
+        */
+    
+    /*@
+        //@ public normal_behavior
+        //@   ensures (\result == 0) <==> (\forall int i; 0<=i && i<val.length; val[i] == 0);
+        //@   ensures (\result < 0) <==> (val.length >= 1 && val[0] < 0);
+        //@   ensures (val.length >= 1 && val[0] >= 0) ==> (* \result.value == (\sum int i; 0<=i && i<val.length; -- sum over powers of 16 *); // FIXME 
+        //@ pure helper
+        public static model \bigint convert(byte non_null [] val) {
+        // !FIXME! - should put in a non-circular computation for RAC
+            return new BigInteger(val);
+        }
+    @*/
+
+    /*@ public normal_behavior
+      @     requires val != null;
+      @     requires val.length != 0;
+      @     //-RAC@ ensures value == convert(val);
+      @  also public exceptional_behavior
+      @     requires val != null;
+      @     requires val.length == 0;
+      @     signals_only java.lang.NumberFormatException;
+      @  also public exceptional_behavior
+      @     requires val == null;
+      @     signals_only java.lang.NullPointerException;
+      @*/
+    //@ pure
+    public BigInteger(byte[] val);
+
+    //@ public normal_behavior
+    //@    requires magnitude != null;
+    //@    requires signum == 0 || signum == 1 || signum == -1;
+    //@    requires signum == 0 <==> (\forall int i; 0 <= i && i < magnitude.length; magnitude[i] == 0);
+    //-RAC@    ensures signum == 0 <==> value == 0;
+    //-RAC@    ensures signum > 0 <==> value > 0;
+    //-RAC@    ensures signum < 0 <==> value < 0;
+    //-RAC@    ensures value == signum * convert(magnitude);
+    //@ also public exceptional_behavior
+    //@    requires !(signum == 0 || signum == 1 || signum == -1) || magnitude == null;
+    //@    signals (NumberFormatException) !(signum == 0 || signum == 1 || signum == -1);
+    //@    signals (NullPointerException) magnitude == null;
+    //@    signals_only NullPointerException, NumberFormatException;
+    //@ pure
+    public BigInteger(int signum, byte /*@ nullable @*/ [] magnitude);
+
+    /*-RAC@  public normal_behavior
+     @     requires val != null && Number.parseable(val,radix);
+     @     ensures this.value == parse(val,radix);
+     @     // The following are some special cases that have been useful
+     @     ensures (val.length() > 0 && (val.charAt(0) != '+' & val.charAt(0) != '-' & radix == 16)) ==> this.bitLength() <= (val.length()*4);
+     @     ensures (val.length() > 1 && (val.charAt(0) == '+' | val.charAt(0) == '-' & radix == 16)) ==> this.bitLength() <= ((val.length()-1)*4);
+     @     ensures (val.length() > 0 && (val.charAt(0) != '+' & val.charAt(0) != '-' & val.charAt(0) != '0' & radix == 16)) ==> (this.bitLength()) >= (val.length()*4-3);
+     @ also
+     @   public exceptional_behavior
+     @     requires val != null && !Number.parseable(val,radix);
+     @     signals_only java.lang.NumberFormatException;
+     @ also
+     @   public exceptional_behavior
+     @     requires val == null;
+     @     signals_only java.lang.NullPointerException;
+     @*/
+    //@ pure
+    public BigInteger(/*@ nullable */ String val, int radix);
+
+// FIXME - OpenJML does not like handling default visibility methods of binary classes
+//    /*@ normal_behavior
+//      @    ensures true;
+//      @*/
+//    //@ pure
+//    BigInteger(char[] val);
+
+    /*-RAC@  public normal_behavior
+      @     requires val != null && Number.parseable(val,16);
+      @     ensures this.value == parse(val,10);
+      @ also
+      @   public exceptional_behavior
+      @     requires val != null && !Number.parseable(val,16);
+      @     signals_only java.lang.NumberFormatException;
+      @ also
+      @   public exceptional_behavior
+      @     requires val == null;
+      @     signals_only java.lang.NullPointerException;
+      @*/
+    //@ pure
+    public BigInteger(/*@ nullable */ String val);
+
+    //@ pure
+    public BigInteger(int numBits, Random rnd);
+
+    //@ pure
+    public BigInteger(int bitLength, int certainty, Random rnd);
+
+    // FIXME - when bigint is not equivalent to long  //@ model pure public BigInteger(\bigint val);
+
+    public static /*@ pure @*/ BigInteger probablePrime(int bitLength,
+                                                          Random rnd);
+
+    boolean primeToCertainty(int certainty, java.util.Random r); // CHANGED in 1.6
+
+    private static int jacobiSymbol(int p, BigInteger n);
+
+    // BigInteger(MutableBigInteger val, int sign);
+
+    //Static Factory Methods
+
+    //@ public normal_behavior
+    //@   ensures \result != null;
+    //-RAC@   ensures \result.value == val;
+    public static /*@ pure helper @*/ BigInteger valueOf(long val);
+
+    public static final BigInteger ZERO;
+    public static final BigInteger ONE;
+
+    //-RAC@ public normal_behavior
+    //-RAC@   ensures ZERO != null && ZERO.value == 0;
+    //-RAC@   ensures ONE  != null && ONE.value == 1;
+    //-RAC@ static_initializer
+
+    // Arithmetic Operations
+
+    //@ public normal_behavior
+    //@   requires val != null;
+    //@   ensures \result != null;
+    //-RAC@   ensures \result.value == this.value + val.value;
+    public BigInteger add(BigInteger val);
+
+    //@ public normal_behavior
+    //@   requires val != null;
+    //@   ensures \result != null;
+    //-RAC@   ensures \result.value == this.value - val.value;
+    public BigInteger subtract(BigInteger val);
+
+    //@ public normal_behavior
+    //@   requires val != null;
+    //@   ensures \result != null;
+    //-RAC@   ensures \result.value == this.value * val.value;
+    public BigInteger multiply(BigInteger val);
+
+    //-RAC@ public normal_behavior
+    //-RAC@   requires val != null;
+    //-RAC@   requires val.value != 0;
+    //-RAC@   ensures \result != null;
+    //-RAC@   ensures equals(\result.multiply(val).add(remainder(val)));
+    //-RAC@   ensures \result.value == this.value / val.value;
+    //-RAC@ also public exceptional_behavior
+    //-RAC@   requires val != null;
+    //-RAC@   requires val.value == 0;
+    //-RAC@   signals_only ArithmeticException;
+    public BigInteger divide(BigInteger val);
+
+    //@ public normal_behavior
+    //-RAC@   requires val != null;
+    //-RAC@   requires val.value != 0;
+    //-RAC@   ensures \result != null;
+    //-RAC@ ensures \result[0].value == divide(val).value;
+    //-RAC@ ensures \result[1].value == remainder(val).value;
+    //-RAC@ also public exceptional_behavior
+    //-RAC@   requires val != null;
+    //-RAC@   requires val.value == 0;
+    //-RAC@   signals_only ArithmeticException;
+    public BigInteger[] divideAndRemainder(BigInteger val);
+
+    //-RAC@ public normal_behavior
+    //-RAC@   requires val != null;
+    //-RAC@   requires val.value != 0;
+    //-RAC@   ensures \result != null;
+    //-RAC@   ensures \result.value == this.value % val.value;
+    //-RAC@ also public exceptional_behavior
+    //-RAC@   requires val != null;
+    //-RAC@   requires val.value == 0;
+    //-RAC@   signals_only ArithmeticException;
+    public BigInteger remainder(BigInteger val);
+
+    public BigInteger pow(int exponent);
+
+    public BigInteger gcd(BigInteger val);
+
+    static void primitiveRightShift(int[] a, int len, int n);
+
+    static void primitiveLeftShift(int[] a, int len, int n);
+
+    //@ public normal_behavior
+    //@   ensures \result != null;
+    //@   ensures signum() >= 0 ==> \result == this;
+    //-RAC@ ensures signum() <  0 ==> \result.value == -this.value;
+    //+RAC@ ensures signum() <  0 ==> \result == this.negate();
+    public BigInteger abs();
+
+    //@ public normal_behavior
+    //-RAC@ ensures \result != null && \result.value == - this.value;
+    //@ pure
+    public BigInteger negate();
+
+    //@ public normal_behavior
+    //-RAC@   ensures \result == (value > 0 ? 1 : value < 0 ? -1: 0);
+    //@ pure helper
+    public int signum();
+
+    // Modular Arithmetic Operations
+
+    //@ public normal_behavior
+    //@   requires m != null;
+    //@   ensures \result != null;
+    //@ also public exceptional_behavior
+    //@   requires m == null;
+    //@   signals_only NullPointerException;
+    //@ pure
+    public BigInteger mod(BigInteger m);
+
+    //@ public normal_behavior
+    //@   requires m != null & exponent != null;
+    //@   ensures \result != null;
+    //@ also public exceptional_behavior
+    //@   requires m == null || exponent == null;
+    //@   signals_only NullPointerException;
+    //@ pure
+    public BigInteger modPow(BigInteger exponent, BigInteger m);
+
+    static int[] bnExpModThreshTable;
+
+    static int mulAdd(int[] out, int[] in, int offset, int len, int k);
+
+    static int addOne(int[] a, int offset, int mlen, int carry);
+
+    //@ public normal_behavior
+    //@   requires m != null;
+    //@   ensures \result != null;
+    //@ also public exceptional_behavior
+    //@   requires m == null;
+    //@   signals_only NullPointerException;
+    //@ pure
+    public BigInteger modInverse(BigInteger m);
+
+    // Shift Operations
+
+    public BigInteger shiftLeft(int n);
+
+    public BigInteger shiftRight(int n);
+
+    int[] javaIncrement(int[] val);
+
+    // Bitwise Operations
+
+    //@ public normal_behavior
+    //@   requires val != null;
+    //@   ensures \result != null;
+    //@ also public exceptional_behavior
+    //@   requires val == null;
+    //@   signals_only NullPointerException;
+    //@ pure
+    public BigInteger and(BigInteger val);
+
+    //@ public normal_behavior
+    //@   requires val != null;
+    //@   ensures \result != null;
+    //@ also public exceptional_behavior
+    //@   requires val == null;
+    //@   signals_only NullPointerException;
+    //@ pure
+    public BigInteger or(BigInteger val);
+
+    //@ public normal_behavior
+    //@   requires val != null;
+    //@   ensures \result != null;
+    //@ also public exceptional_behavior
+    //@   requires val == null;
+    //@   signals_only NullPointerException;
+    //@ pure
+    public BigInteger xor(BigInteger val);
+
+    //@ public normal_behavior
+    //@   ensures \result != null;
+    //@ pure
+    public BigInteger not();
+
+    //@ public normal_behavior
+    //@   requires val != null;
+    //@   ensures \result != null;
+    //@ also public exceptional_behavior
+    //@   requires val == null;
+    //@   signals_only NullPointerException;
+    //@ pure
+    public BigInteger andNot(BigInteger val);
+
+    // Single Bit Operations
+
+    public boolean testBit(int n);
+
+    public BigInteger setBit(int n);
+
+    public BigInteger clearBit(int n);
+
+    public BigInteger flipBit(int n);
+
+    public int getLowestSetBit();
+
+    // Miscellaneous Bit Operations
+
+    //@ public normal_behavior
+    //-RAC@   ensures value == 0 ==> \result == 0;
+    //-RAC@   ensures value != 0 ==> \result > 0;
+    //+RAC@   ensures \result >= 0;
+    //@ pure heap_free
+    public int bitLength();
+
+    // static int bitLen(int w);   package-level method removed from specification (dmz, 2009-11-17)
+
+    // static final byte[] trailingZeroTable;   package-level array removed from specification (dmz, 2009-11-17)
+
+    //@ public normal_behavior
+    //-RAC@   ensures value == 0 ==> \result == 0;
+    //-RAC@   ensures value != 0 ==> \result > 0;
+    //+RAC@   ensures \result >= 0;
+    //@ pure heap_free
+    public int bitCount();
+
+    // static int bitCnt(int val);   package-level method removed from specification (dmz, 2009-11-17)
+
+    // static int trailingZeroCnt(int val);   package-level method removed from specification (dmz, 2009-11-17)
+
+    // Primality Testing
+
+    //@    public normal_behavior
+    //@       requires certainty > 0;
+    //-RAC@   ensures \result == isProbablePrime(value,certainty);
+    //@    pure 
+    public boolean isProbablePrime(int certainty);
+
+    //@ public normal_behavior
+    //@   requires certainty > 0;
+    //@ pure heap_free
+    //@ model public static boolean isProbablePrime(\bigint v, int certainty);
+
+    // Comparison Operations
+
+    //@ also public normal_behavior
+    //@   requires val != null;
+    //-RAC@   ensures this.value < val.value <==> \result == -1;
+    //-RAC@   ensures this.value == val.value <==> \result == 0;
+    //-RAC@   ensures this.value > val.value <==> \result == 1;
+    //@ pure
+    public int compareTo(BigInteger val);
+
+    //@ also public normal_behavior
+    //@   requires x != null && x instanceof BigInteger;
+    //@   assignable \nothing;
+    //-RAC@   ensures \result == (this.value == ((BigInteger)x).value);
+    public /*@ pure helper @*/ boolean equals(Object x);
+
+    //@ public normal_behavior
+    //@   requires val != null;
+    //@   ensures \result != null;
+    //-RAC@   ensures \result.value == (this.value <= val.value ? this.value : val.value);
+    //@ also public exceptional_behavior
+    //@   requires val == null;
+    //@   signals_only NullPointerException;
+    //@ pure
+    public BigInteger min(BigInteger val);
+
+    //@ public normal_behavior
+    //@   requires val != null;
+    //@   ensures \result != null;
+    //-RAC@   ensures \result.value == (this.value >= val.value ? this.value : val.value);
+    //@ also public exceptional_behavior
+    //@   requires val == null;
+    //@   signals_only NullPointerException;
+    //@ pure
+    public BigInteger max(BigInteger val);
+
+    // Hash Function
+
+    public int hashCode();
+
+    //@  ensures \result != null;
+    //-RAC@ ensures  parse(\result,radix) == this.value;
+    public String toString(int radix);
+
+    //@ also
+    //@ ensures \result != null;
+    //-RAC@ ensures  parse(\result,10) == this.value;
+    public String toString();
+    
+    //@ public normal_behavior
+    //@   ensures \result == (n <= 0 ? 1 : 256 * pow256(n-1));
+    //@ model public static heap_free helper \bigint pow256(\bigint n);
+    
+    // @ axiom (\forall \bigint n; n >= 0 ==> pow256(n+1) > pow256(n)); // FIXME - this axiom causes infeasibility (cf. gitbug578)
+    // @ axiom (\forall \bigint m, n; m > n && n >= 0; pow256(m) > pow256(n)); // FIXME - this axiom causes infeasibility (cf. gitbug578)
+
+    //@     public normal_behavior
+    //@       requires this.signum() > 0;
+    //@       ensures \result != null;
+    //@       ensures \result.length > 0;
+    //-RAC@   ensures convert(\result) == this.value;
+    //-RAC@   ensures (pow256(\result.length-1)/2 <= this.value && this.value < pow256(\result.length-1)) ==> \result[0] == 0;
+    //-RAC@   ensures (pow256(\result.length-1) <= this.value && this.value < pow256(\result.length)/2) ==> \result[0] != 0;
+    //-RAC@   ensures (pow256(\result.length-1)/2 <= this.value && this.value < pow256(\result.length)/2);
+    //@     also public normal_behavior
+    //@       requires this.signum() < 0;
+    //@       ensures \result != null;
+    //@       ensures \result.length > 0;
+    //@       ensures \result[0] < 0;
+    //-RAC@   ensures convert(\result) == this.value;
+    //-RAC@   ensures pow256(\result.length-1)/2 < -this.value && -this.value <= pow256(\result.length)/2;
+    //@     also public normal_behavior
+    //@       requires this.signum() == 0;
+    //@       ensures \result != null;
+    //@       ensures \result.length == 1;
+    //@       ensures \result[0] == 0;
+    //-RAC@   ensures convert(\result) == this.value;
+    //@ pure helper
+    public byte[] toByteArray();
+
+    //-RAC@ also
+    //-RAC@ requires Integer.MIN_VALUE <= this.value <= Integer.MAX_VALUE;
+    //-RAC@ ensures \result == this.value;
+    //@ pure helper
+    public int intValue();
+
+    //-RAC@ also
+    //-RAC@ requires Long.MIN_VALUE <= this.value <= Long.MAX_VALUE;
+    //-RAC@ ensures \result == this.value;
+    //@ pure helper
+    public long longValue();
+
+    //@ also
+    //@ ensures_redundantly this.equals(\old(this));
+    //@ pure helper
+    public float floatValue();
+
+    //@ also
+    //@ ensures_redundantly this.equals(\old(this));
+    //@ pure helper
+    public double doubleValue();
+
+}

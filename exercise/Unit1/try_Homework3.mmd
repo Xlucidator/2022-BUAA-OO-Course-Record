@@ -1,0 +1,178 @@
+classDiagram
+	class MainClass{
+        +MYFUNCTIONS : HashMap< String, SelfFunction >
+
+		+main(String[] args)$ void
+		+clipDupOperator(String origin)$ String
+	}
+
+	class Lexer{
+		-input : String
+		-pos : int
+		-curToken : String
+
+		+peek() String
+		+next() void
+		+getNumber() String
+	}
+	
+	class Parser{
+		-lexer : Lexer
+
+		+parseExpression() Expression
+		+parseTerm(boolean exprSigned) Term
+        +parseNum() BigInteger
+        +parsePolyFactor() PolyFactor
+        +parseFunction() Expression
+        +parseSum() Expression
+        +parseTrig() TrigFunction
+        +getContentInBrackets() String
+        +getArguments() ArrayList<String>
+	}
+
+	class Expression{
+		-terms : ArrayList< Term >
+
+        +deepClone() Expression
+        +size() int
+        +getTerms() ArrayList<Term>
+        +getTerm(int i) Term
+		+addTerm(Term term) void
+		+delTerm(int index) void
+        +addExpression(Expression other) void
+
+        +clearExpressionInTerm() void
+		+uniteLikeTerm() void
+		+clearZeroTerm() void
+		+sortInCoefficientDescendingOrder() void
+        +reverseEachTerms() void
+
+		+multiplyTerm(Term other) void
+        +multiplyExpression(Expression other) void
+
+        +valueEquals(Expression other) boolean
+
+		+inFormat() String
+		+toString() String
+        +compareTo(Expression other) int
+	}
+
+	class Term{
+		-bracketExpression : Expression
+        -trigFunctions : ArrayList<TrigFunction>
+		-polyFactor : PolyFactor
+
+        +deepClone() : Term
+        +getPolyFactor() PolyFactor
+		+getBracketExpression() Expression
+        +clonePolyFactor() PolyFactor
+        +cloneTrigFunctions() ArrayList<TrigFunction>
+
+        +triSize() int
+		+addExpression(Expression other) void
+        +addTrig(TrigFunction other) void
+        +addTrigs(ArrayList< TrigFunction > other) void
+        +delTrig(int i) void
+        +getTrig(int i) TrigFunction
+        +addPolyFactor(PolyFactor poly) void
+        +getCoefficient() BigInteger
+		+setCoefficient(BigInteger coefficient) void
+        +hasExpressionFactor() boolean
+
+		+departBracket() ArrayList<Term>
+        +reverse() void
+
+        +multiplyTerm(Term other) void
+        +modeEquals(Term other) boolean
+        +findTrigSquarePair(Term other) int
+		
+        +valueEquals(Term other) boolean
+        +modeEquals(Term other) boolean
+
+		+inFormat() String
+		+toString() String
+        +compareTo(Term other) int
+	}
+
+    class TrigFunction{
+        -name : String
+        -innerFactor : Expression
+        -index : int
+        
+        +deepClone() TrigFunction
+        +getName() String
+        +getInnerFactor() PolyFactor
+        +getIndex() int
+
+        +modeEquals(TrigFunction other) boolean
+        +absorbIn(TrigFunction other) void
+        +reverseInnerNeg() BigInteger
+
+        +valueEquals(TrigFunction other) boolean
+        +modeEquals(TrigFunction other) boolean
+        +equalOne() boolean
+        +equalZero() boolean
+        +isInnerNegative() boolean
+        +isInnerSingle() boolean
+
+        +inFormat() String
+        +toString() String
+        +compareTo(TrigFunction other) int 
+    }
+    
+    class PolyFactor{
+        -coefficient : BigInteger
+        -index : int
+
+        +deepClone() PolyFactor
+        +getCoefficient() BigInteger
+        +setCoefficient(BigInteger coefficient) void
+        +getIndex() int
+
+        +multiplyPoly(PolyFactor other) void
+        
+        +valueEquals(PolyFactor other) boolean
+
+        +inFormat() String
+        +toString() String
+        +compareTo(PolyFactor other) int
+    }
+
+    class SelfFunction{
+        -expr : String
+        -parameters : ArrayList< String >
+
+        +getExpr() String
+        +getParameters() ArrayList<String>
+        +refractExpr() void
+    }
+
+    MainClass "1"*-->"*" SelfFunction
+    MainClass ..> SelfFunction : create
+    MainClass ..> Parser : create
+    MainClass ..> Lexer : create
+    MainClass ..> Expression
+
+    Parser ..> MainClass
+    Parser "1"*-->"1" Lexer
+    Parser ..> Lexer : create
+    Parser ..> Expression : create
+    Parser ..> Term : create
+    Parser ..> TrigFunction : create
+    Parser ..> PolyFactor : create
+    Parser ..> SelfFunction
+
+    Expression "1"*-->"*" Term
+    Expression ..> Term
+
+    Term "1"*-->"1" Expression
+    Term ..> Expression : create
+    Term "1"*-->"*" TrigFunction
+    Term ..> TrigFunction : create
+    Term "1"*-->"1" PolyFactor
+    Term ..> PolyFactor : create
+
+    TrigFunction "1"*-->"1" Expression
+    TrigFunction ..> Expression
+    TrigFunction ..> Term
+

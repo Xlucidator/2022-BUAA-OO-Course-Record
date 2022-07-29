@@ -1,0 +1,17 @@
+package java.net;
+ 
+//@ nullable_by_default
+public class ConnectException extends SocketException {
+  
+    /*@ public normal_behavior
+      @   ensures standardThrowable();
+      @*/
+    //@ pure
+    public ConnectException();
+  
+    /*@ public normal_behavior
+      @   ensures standardThrowable(s);
+      @*/
+    //@ pure
+    public ConnectException(String s);
+}

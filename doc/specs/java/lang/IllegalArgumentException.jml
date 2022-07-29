@@ -1,0 +1,15 @@
+package java.lang;
+
+//@ nullable_by_default
+public class IllegalArgumentException extends RuntimeException {
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowable();
+    //@ pure
+    public IllegalArgumentException();
+
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowable(s);
+    //@ pure
+    public IllegalArgumentException(String s);
+}
+

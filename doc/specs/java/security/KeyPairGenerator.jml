@@ -1,0 +1,76 @@
+package java.security;
+
+import javax.crypto.interfaces.DHPublicKey;
+
+//@ non_null_by_default
+public abstract class KeyPairGenerator extends KeyPairGeneratorSpi {
+
+    //@ model public int n;
+
+//      private static final sun.security.util.Debug pdebug;
+//      private static final boolean skipDebug;
+    
+      //@ spec_public
+      private final java.lang.String algorithm;
+      Provider provider;
+      
+      //@ protected normal_behavior
+      //@   ensures this.algorithm == algorithm;
+      //@ pure
+      protected KeyPairGenerator(java.lang.String algorithm);
+      
+      //@ public normal_behavior
+      //@   ensures \result == algorithm;
+      //@ pure
+      public java.lang.String getAlgorithm();
+      
+      //@ public normal_behavior
+      //@ pure heap_free
+      //@ model public static boolean algorithmIsSupported(String algorithm);
+      
+/*
+      //@ private behavior
+      //@   ensures \fresh(\result);
+      //@   signals_only NoSuchAlgorithmException;
+      //@ pure
+      private static KeyPairGenerator getInstance(sun.security.jca.GetInstance.Instance inst, java.lang.String s);
+ */     
+      //@ public normal_behavior
+      //@   requires algorithmIsSupported(algorithm);
+      //@   ensures \fresh(\result);
+      //@   ensures \result.algorithm == algorithm;
+      //@ also public exceptional_behavior
+      //@   requires !algorithmIsSupported(algorithm);
+      //@   signals_only NoSuchAlgorithmException;
+      //@ pure
+      public static KeyPairGenerator getInstance(java.lang.String algorithm) throws NoSuchAlgorithmException;
+      public static KeyPairGenerator getInstance(java.lang.String algorithm, java.lang.String ss) throws NoSuchAlgorithmException, NoSuchProviderException;
+      public static KeyPairGenerator getInstance(java.lang.String algorithm, Provider provider) throws NoSuchAlgorithmException;
+      public final Provider getProvider();
+      void disableFailover();
+      public void initialize(int n);
+      public void initialize(int n, SecureRandom random);
+      
+      //@ public normal_behavior
+      //@   ensures \result ==> alg.n == n;
+      //@ model public pure boolean validParameterSpec(java.security.spec.AlgorithmParameterSpec alg, int n);
+
+      //@ public normal_behavior
+      //@   requires validParameterSpec(alg, alg.n);
+      //@   assignable this.*;
+      //@   ensures this.algorithm == \old(this.algorithm);
+      //@   ensures this.n == alg.n;
+      //@ also public exceptional_behavior
+      //@   requires !validParameterSpec(alg, alg.n);
+      //@   signals_only InvalidAlgorithmParameterException;
+      public void initialize(java.security.spec.AlgorithmParameterSpec alg) throws InvalidAlgorithmParameterException;
+      public void initialize(java.security.spec.AlgorithmParameterSpec alg, SecureRandom random) throws InvalidAlgorithmParameterException;
+      public final KeyPair genKeyPair();
+      
+      //@ also public normal_behavior
+      //@   ensures \fresh(\result);
+      //@   ensures \result.getPublic() instanceof DHPublicKey ==> 0 <= ((DHPublicKey)\result.getPublic()).getY().value < java.math.BigInteger.pow256(this.n);
+      //@   ensures \result.getPublic().getEncoded() != null;
+      //@ pure
+      public KeyPair generateKeyPair();
+}

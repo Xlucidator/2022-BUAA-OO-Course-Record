@@ -1,0 +1,19 @@
+package java.io;
+ 
+//@ nullable_by_default
+public class InterruptedIOException extends IOException {
+
+    public int bytesTransferred;
+  
+    /*@ public normal_behavior
+      @   ensures standardThrowable();
+      @*/
+    //@ pure
+    public InterruptedIOException();
+  
+    /*@ public normal_behavior
+      @   ensures standardThrowable(s);
+      @*/
+    //@ pure
+    public InterruptedIOException(String s);
+}

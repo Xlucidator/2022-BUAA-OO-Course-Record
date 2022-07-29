@@ -1,0 +1,9 @@
+Project Name,Package Name,Type Name,NOF,NOPF,NOM,NOPM,LOC,WMC,NC,DIT,LCOM,FANIN,FANOUT,File path,Line no
+Unit1_Homework3,(default package),Expression,1,0,20,20,175,51,0,0,0.15,0,0,D:\0_Personal_File\Grade2_02_Spring\OO\Unit1\Unit1_Homework3\src\Expression.java,5
+Unit1_Homework3,(default package),Lexer,3,0,4,4,48,10,0,0,0.0,0,0,D:\0_Personal_File\Grade2_02_Spring\OO\Unit1\Unit1_Homework3\src\Lexer.java,1
+Unit1_Homework3,(default package),MainClass,1,1,2,2,40,7,0,0,1.0,1,0,D:\0_Personal_File\Grade2_02_Spring\OO\Unit1\Unit1_Homework3\src\MainClass.java,8
+Unit1_Homework3,(default package),Parser,1,0,10,10,182,37,0,0,0.0,0,1,D:\0_Personal_File\Grade2_02_Spring\OO\Unit1\Unit1_Homework3\src\Parser.java,5
+Unit1_Homework3,(default package),PolyFactor,2,0,10,10,71,20,0,0,0.2,0,0,D:\0_Personal_File\Grade2_02_Spring\OO\Unit1\Unit1_Homework3\src\PolyFactor.java,3
+Unit1_Homework3,(default package),SelfFunction,2,0,4,4,34,8,0,0,0.0,0,0,D:\0_Personal_File\Grade2_02_Spring\OO\Unit1\Unit1_Homework3\src\SelfFunction.java,6
+Unit1_Homework3,(default package),Term,3,0,28,28,257,72,0,0,0.10714285714285714,0,0,D:\0_Personal_File\Grade2_02_Spring\OO\Unit1\Unit1_Homework3\src\Term.java,5
+Unit1_Homework3,(default package),TrigFunction,3,0,16,16,107,29,0,0,0.125,0,0,D:\0_Personal_File\Grade2_02_Spring\OO\Unit1\Unit1_Homework3\src\TrigFunction.java,3

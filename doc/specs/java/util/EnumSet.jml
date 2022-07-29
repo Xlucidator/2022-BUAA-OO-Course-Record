@@ -1,0 +1,114 @@
+package java.util;
+
+//@ non_null_by_default
+public abstract class EnumSet<E extends java.lang.Enum<E>> extends AbstractSet<E> implements java.lang.Cloneable, java.io.Serializable {
+//      final java.lang.Class<E> elementType;
+//      final java.lang.Enum<?>[] universe;
+//      private static java.lang.Enum<?>[] ZERO_LENGTH_ENUM_ARRAY;
+//      EnumSet(java.lang.Class<E>, java.lang.Enum<?>[]);
+    
+    // FIXME - need specific output
+    
+    //@ public normal_behavior
+    //-RAC@   ensures \fresh(\result) && \fresh(\result.values);
+    //@   ensures \result.isEmpty();
+    //@ pure
+    public static <E extends java.lang.Enum<E>> EnumSet<E> noneOf(java.lang.Class<E> clazz);
+
+    //@ public normal_behavior
+    //-RAC@   ensures \fresh(\result);
+    //@ pure
+    public static <E extends java.lang.Enum<E>> EnumSet<E> allOf(java.lang.Class<E> clazz);
+
+    //@ normal_behavior
+    //@   requires true;
+    abstract void addAll();
+
+    //@ public normal_behavior
+    //@   requires true;
+    //@ pure
+    public static <E extends java.lang.Enum<E>> EnumSet<E> copyOf(EnumSet<E> clazz);
+
+    //@ public normal_behavior
+    //-RAC@   ensures \fresh(\result) && \fresh(\result.values);
+    //@ pure
+    public static <E extends java.lang.Enum<E>> EnumSet<E> copyOf(Collection<E> col);
+
+    //@ public normal_behavior
+    //@   ensures \fresh(\result) && \fresh(\result.values);
+    //@ pure
+    public static <E extends java.lang.Enum<E>> EnumSet<E> complementOf(EnumSet<E> set);
+
+    //@ public normal_behavior
+    //-RAC@   ensures \fresh(\result) && \fresh(\result.values);
+    //@   ensures \result.values.length == 1;
+    //@   ensures \result.values[0] == e;
+    //@ pure
+    public static <E extends java.lang.Enum<E>> EnumSet<E> of(E e);
+
+    //@ public normal_behavior
+    //-RAC@   ensures \fresh(\result) && \fresh(\result.values);
+    //@   ensures \result.values.length == 2;
+    //@   ensures \result.values[0] == e1;
+    //@   ensures \result.values[1] == e2;
+    //@ pure
+    public static <E extends java.lang.Enum<E>> EnumSet<E> of(E e1, E e2);
+
+    //@ public normal_behavior
+    //-RAC@   ensures \fresh(\result) && \fresh(\result.values);
+    //@   ensures \result.values.length == 3;
+    //@   ensures \result.values[0] == e1;
+    //@   ensures \result.values[1] == e2;
+    //@   ensures \result.values[2] == e3;
+    //@ pure
+    public static <E extends java.lang.Enum<E>> EnumSet<E> of(E e1, E e2, E e3);
+
+    //@ public normal_behavior
+    //-RAC@   ensures \fresh(\result) && \fresh(\result.values);
+    //@   ensures \result.values.length == 4;
+    //@   ensures \result.values[0] == e1;
+    //@   ensures \result.values[1] == e2;
+    //@   ensures \result.values[2] == e3;
+    //@   ensures \result.values[3] == e4;
+    //@ pure
+    public static <E extends java.lang.Enum<E>> EnumSet<E> of(E e1, E e2, E e3, E e4);
+
+    //@ public normal_behavior
+    //-RAC@   ensures \fresh(\result) && \fresh(\result.values);
+    //@   ensures \result.values.length == 5;
+    //@   ensures \result.values[0] == e1;
+    //@   ensures \result.values[1] == e2;
+    //@   ensures \result.values[2] == e3;
+    //@   ensures \result.values[3] == e4;
+    //@   ensures \result.values[4] == e5;
+    //@ pure
+    public static <E extends java.lang.Enum<E>> EnumSet<E> of(E e1, E e2, E e3, E e4, E e5);
+
+    //@ public normal_behavior
+    //-RAC@   ensures \fresh(\result) && \fresh(\result.values);
+    //@   ensures \result.values.length == ee.length + 1;
+    //@   ensures \result.values[0] == e;
+    //@   ensures (\forall int i; 0<=i && i<ee.length; \result.values[i+1] == ee[i]);
+    //@ pure
+    @java.lang.SafeVarargs
+    public static <E extends java.lang.Enum<E>> EnumSet<E> of(E e, E... ee);
+
+    //@ public normal_behavior
+    //@   requires to.ordinal() >= from.ordinal();
+    //-RAC@   ensures \fresh(\result) && \fresh(\result.values);
+    //@   ensures \result.values.length == to.ordinal() - from.ordinal() + 1;
+    //@   ensures \result.values[0] == from;
+    //@   ensures (* the rest of values[] *);
+    //@ pure
+    public static <E extends java.lang.Enum<E>> EnumSet<E> range(E from, E to);
+
+//      abstract void addRange(E, E);
+//      public EnumSet<E> clone();
+//      abstract void complement();
+//      final void typeCheck(E);
+//      private static <E extends java.lang.Enum<E>> E[] getUniverse(java.lang.Class<E>);
+//      java.lang.Object writeReplace();
+//      private void readObject(java.io.ObjectInputStream) throws java.io.InvalidObjectException;
+//      public java.lang.Object clone() throws java.lang.CloneNotSupportedException;
+    
+}

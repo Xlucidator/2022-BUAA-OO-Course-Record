@@ -1,0 +1,30 @@
+package java.util.function;
+
+@FunctionalInterface
+public interface Supplier<T> {
+
+    //-RAC@ model public instance nullable T valuex;
+    
+    //@ public behavior 
+    //@     requires true; 
+    //-RAC@ ensures \result == valuex;
+    /*@ nullable */ T get();
+    
+    
+    /*@
+
+    model public static interface Pure<T> extends Supplier<T> {
+         also public normal_behavior requires true;
+         pure nullable T get();
+    }
+
+    model public static interface PureNonNull<T> extends Supplier<T> {
+         // -RAC@ public invariant valuex != null; // FIXME - Resolve gives a static misuse error on this use of valuex
+         also public normal_behavior requires true;
+         pure non_null T get();
+    }
+
+    */
+
+}
+

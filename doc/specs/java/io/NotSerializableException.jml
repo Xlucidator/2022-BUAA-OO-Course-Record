@@ -1,0 +1,17 @@
+package java.io;
+ 
+//@ nullable_by_default
+public class NotSerializableException extends ObjectStreamException {
+  
+    /*@ public normal_behavior
+      @   ensures standardThrowable();
+      @*/
+    //@ pure
+    public NotSerializableException();
+  
+    /*@ public normal_behavior
+      @   ensures standardThrowable(classname);
+      @*/
+    //@ pure
+    public NotSerializableException(String classname);
+}

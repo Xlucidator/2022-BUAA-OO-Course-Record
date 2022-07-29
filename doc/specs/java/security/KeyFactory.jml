@@ -1,0 +1,46 @@
+package java.security;
+
+//@ non_null_by_default
+public class KeyFactory {
+
+      //@ spec_public
+      private final java.lang.String algorithm;
+      private Provider provider;
+      private volatile KeyFactorySpi spi;
+      private final java.lang.Object lock;
+      private java.util.Iterator<Provider.Service> serviceIterator;
+      
+      protected KeyFactory(KeyFactorySpi factory, Provider provider, java.lang.String s);
+      private KeyFactory(java.lang.String s) throws NoSuchAlgorithmException;
+      
+      //@ public normal_behavior
+      //@ pure
+      //@ model public static boolean validAlgorithm(String s);
+      
+      //@ public normal_behavior
+      //@   requires validAlgorithm(s);
+      //@   ensures \result.algorithm == s;
+      //@   ensures s == "DH" ==> \result instanceof javax.crypto.interfaces.DHPublicKey;
+      //@ also public exceptional_behavior
+      //@   requires !validAlgorithm(s);
+      //@   signals_only NoSuchAlgorithmException;
+      //@ pure
+      public static KeyFactory getInstance(java.lang.String s) throws NoSuchAlgorithmException;
+      public static KeyFactory getInstance(java.lang.String s, java.lang.String ss) throws NoSuchAlgorithmException, NoSuchProviderException;
+      public static KeyFactory getInstance(java.lang.String s, Provider provider) throws NoSuchAlgorithmException;
+      public final Provider getProvider();
+      
+      //@ public normal_behavior
+      //@   ensures \result == algorithm;
+      //@ pure
+      public final java.lang.String getAlgorithm();
+      private KeyFactorySpi nextSpi(KeyFactorySpi spi);
+      
+      //@ public normal_behavior
+      //@   ensures (spec instanceof javax.crypto.spec.DHPublicKeySpec) ==> (\result instanceof javax.crypto.interfaces.DHPublicKey);
+      //@ pure
+      public final PublicKey generatePublic(java.security.spec.KeySpec spec) throws java.security.spec.InvalidKeySpecException;
+      public final PrivateKey generatePrivate(java.security.spec.KeySpec spec) throws java.security.spec.InvalidKeySpecException;
+      public final <T extends java.security.spec.KeySpec> T getKeySpec(Key key, java.lang.Class<T> clazz) throws java.security.spec.InvalidKeySpecException;
+      public final Key translateKey(Key key) throws InvalidKeyException;
+}

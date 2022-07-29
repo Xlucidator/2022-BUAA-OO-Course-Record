@@ -1,0 +1,47 @@
+END_OF_MODEL
+STATE_COUNT StateMachine1
+STATE_COUNT StateMachine2
+STATE_COUNT StateMachine3
+STATE_IS_CRITICAL_POINT StateMachine1 State1
+STATE_IS_CRITICAL_POINT StateMachine1 State2
+STATE_IS_CRITICAL_POINT StateMachine1 State3
+STATE_IS_CRITICAL_POINT StateMachine1 State4
+STATE_IS_CRITICAL_POINT StateMachine1 State5
+STATE_IS_CRITICAL_POINT StateMachine1 State6
+STATE_IS_CRITICAL_POINT StateMachine1 State7
+STATE_IS_CRITICAL_POINT StateMachine1 State8
+STATE_IS_CRITICAL_POINT StateMachine1 State9
+STATE_IS_CRITICAL_POINT StateMachine3 State7
+STATE_IS_CRITICAL_POINT StateMachine2 State1
+STATE_IS_CRITICAL_POINT StateMachine2 State2
+TRANSITION_TRIGGER StateMachine1 State1 State4
+TRANSITION_TRIGGER StateMachine1 State2 State5
+TRANSITION_TRIGGER StateMachine1 State3 State6
+TRANSITION_TRIGGER StateMachine1 State6 State6
+TRANSITION_TRIGGER StateMachine1 State6 State8
+TRANSITION_TRIGGER StateMachine1 State5 State2
+TRANSITION_TRIGGER StateMachine1 State8 State7
+TRANSITION_TRIGGER StateMachine1 State7 State7
+TRANSITION_TRIGGER StateMachine1 State3 State7
+TRANSITION_TRIGGER StateMachine3 State3 State7
+TRANSITION_TRIGGER StateMachine2 State2 State1
+TRANSITION_TRIGGER StateMachine2 State1 State2
+PTCP_OBJ_COUNT Interaction1
+PTCP_OBJ_COUNT Interaction2
+PTCP_OBJ_COUNT Interaction3
+PTCP_OBJ_COUNT Interaction4
+PTCP_CREATOR Interaction1 Lifeline1
+PTCP_CREATOR Interaction1 Lifeline2
+PTCP_CREATOR Interaction1 Lifeline3
+PTCP_CREATOR Interaction2 Lifeline1
+PTCP_CREATOR Interaction2 Lifeline2
+PTCP_CREATOR Interaction2 Lifeline3
+PTCP_CREATOR Interaction2 Lifeline4
+PTCP_CREATOR Interaction4 Lifeline4
+PTCP_CREATOR Interaction2 Lifeline5
+PTCP_LOST_AND_FOUND Interaction1 Lifeline1
+PTCP_LOST_AND_FOUND Interaction1 Lifeline2
+PTCP_LOST_AND_FOUND Interaction1 Lifeline3
+PTCP_LOST_AND_FOUND Interaction3 Lifeline1
+PTCP_LOST_AND_FOUND Interaction3 Lifeline2
+PTCP_LOST_AND_FOUND Interaction4 Lifeline2

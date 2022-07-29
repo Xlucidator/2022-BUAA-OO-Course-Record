@@ -1,0 +1,64 @@
+{}
+{/* UMLStateMachine */
+    "_parent":"AAAAAAFF+h6SjaM2Hec=",
+    "name":"StateMachine1",
+    "_type":"UMLStateMachine",
+    "_id":"AAAAAAGBN7S2fFw+rNw="
+}
+
+{/* UMLRegion */
+    "_parent":"AAAAAAGBN7S2fFw+rNw=",
+    "visibility":"public",
+    "name":null,
+    "_type":"UMLRegion",
+    "_id":"AAAAAAGBN7S2fFw\/5Qs="
+}
+
+{/* UMLPseudostate */
+    "_parent":"AAAAAAGBN7S2fFw\/5Qs=",
+    "visibility":"public",
+    "name":null,
+    "_type":"UMLPseudostate",
+    "_id":"AAAAAAGBN8hAWl09nm8="
+}
+
+{/* UMLState */
+    "_parent":"AAAAAAGBN7S2fFw\/5Qs=",
+    "visibility":"public",
+    "name":"State1",
+    "_type":"UMLState",
+    "_id":"AAAAAAGBN8hxz11Z4Do="
+}
+
+{/* UMLTransition */
+    "_parent":"AAAAAAGBN7S2fFw\/5Qs=",
+    "visibility":"public",
+    "guard":"permission == true",
+    "name":null,
+    "_type":"UMLTransition",
+    "_id":"AAAAAAGBN8jPm12618s=",
+    "source":"AAAAAAGBN8hxz11Z4Do=",
+    "target":"AAAAAAGBN8ioR12D+QM="
+}
+
+{/* UMLEvent */
+    "_parent":"AAAAAAGBN8jPm12618s=",
+    "expression":null,
+    "visibility":"public",
+    "name":"change()",
+    "_type":"UMLEvent",
+    "_id":"AAAAAAGBN8vS8l4AYps=",
+    "value":null
+}
+
+{/* UMLOpaqueBehavior */
+
+}
+
+{/* UMLFinalState */
+    "_parent":"AAAAAAGBN7S2fFw\/5Qs=",
+    "visibility":"public",
+    "name":null,
+    "_type":"UMLFinalState",
+    "_id":"AAAAAAGBN8hK8V1OqLk="
+}

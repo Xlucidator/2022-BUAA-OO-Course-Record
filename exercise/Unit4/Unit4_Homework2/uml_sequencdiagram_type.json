@@ -1,0 +1,44 @@
+{}{}
+{/* UMLCollaboration */
+    "_parent":"AAAAAAFF+h6SjaM2Hec=",
+    "name":"Collaboration1",
+    "_type":"UMLCollaboration",
+    "_id":"AAAAAAGBN7TE5FxFbpw="
+}
+
+{/* UMLInteraction */
+    "_parent":"AAAAAAGBN7TE5FxFbpw=",
+    "visibility":"public",
+    "name":"Interaction1",
+    "_type":"UMLInteraction",
+    "_id":"AAAAAAGBN7TE5FxGMKE="
+}
+
+{/* UMLMessage */
+    "messageSort":["synchCall", "asynchCall", "createMessage", "deleteMessage", "reply"],
+    "_parent":"AAAAAAGBN7TE5FxGMKE=",
+    "visibility":"public",
+    "name":"Message1",
+    "_type":"UMLMessage",
+    "_id":"AAAAAAGBN8dL\/10L7Ts=",
+    "source":"AAAAAAGBN8dL\/l0J7Eo=",
+    "target":"AAAAAAGBN8CgVlxaQcQ="
+}
+
+{/* UMLLifeline */
+    "_parent":"AAAAAAGBN7TE5FxGMKE=",
+    "visibility":"public",
+    "name":"Lifeline1",
+    "_type":"UMLLifeline",
+    "isMultiInstance":false,
+    "_id":"AAAAAAGBN8CgVlxaQcQ=",
+    "represent":"AAAAAAGBN8CgVlxZwRU="
+}
+
+{/* UMLEndpoint */
+    "_parent":"AAAAAAGBN7TE5FxGMKE=",
+    "visibility":"public",
+    "name":"Endpoint1",
+    "_type":"UMLEndpoint",
+    "_id":"AAAAAAGBN8dL\/l0J7Eo="
+}

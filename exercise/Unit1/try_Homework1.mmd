@@ -1,0 +1,68 @@
+classDiagram
+	class MainClass{
+		+main(String[] args)$ void
+		+clipDupOperator(String origin)$ String
+		+unfoldPower(String origin)$ String
+	}
+
+	class Lexer{
+		-input : String
+		-pos : int
+		-curToken : String
+		+peek() String
+		+next() void
+		+getNumber() String
+	}
+	
+	class Parser{
+		-lexer : Lexer
+		+parseExpression() Expression
+		+parseTerm() Term
+	}
+
+	class Expression{
+		-terms : ArrayList< Term >
+		+addTerm(Term term) void
+		+delTerm(int index) void
+		+uniteLikeTerm() void
+		+clearZeroTerm() void
+		+sortInCoefficientDescendingOrder() void
+		+size() int
+		+get(int i) Term
+		+inFormat() String
+		+toString() String
+	}
+
+	class Term{
+		-bracketExpressions : ArrayList< Expression >
+		-coefficient : BigInteger
+		-degree : int
+		+getBracketExpressions() ArrayList<Expression>
+		+addExpression(Expression expression) void
+		+departBracket() ArrayList<Term>
+		+mergeAllExpressions() void
+		+mergeTwoExpressions(Expression exp1, Expression exp2) Expression
+		+multiplyTwoTerms(Term t1, Term t2) Term
+		+getCoefficient() BigInteger
+		+setCoefficient(BigInteger coefficient) void
+		+getDegree() int
+		+setDegree(int degree) void
+		+inFormat() String
+		+toString() String
+		+compareTo(Term other) int
+	}
+	
+	MainClass ..> Lexer : create
+	MainClass ..> Parser : create
+	MainClass ..> Expression
+	MainClass ..> Term
+	
+	Parser "1"*-->"1" Lexer
+	Parser ..> Lexer
+	Parser ..> Expression : create
+	Parser ..> Term : create
+
+	Expression "0..*"*--*"0..*" Term
+	Expression ..> Term
+
+	Term ..> Expression : create

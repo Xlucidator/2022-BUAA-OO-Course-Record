@@ -1,0 +1,17 @@
+package java.io;
+ 
+//@ nullable_by_default
+public class UTFDataFormatException extends IOException {
+  
+    /*@ public normal_behavior
+      @   ensures standardThrowable();
+      @*/
+    //@ pure
+    public UTFDataFormatException();
+  
+    /*@ public normal_behavior
+      @   ensures standardThrowable(s);
+      @*/
+    //@ pure
+    public UTFDataFormatException(String s);
+}

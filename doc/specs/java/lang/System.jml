@@ -1,0 +1,433 @@
+// @(#)$Id: System.spec 2251 2006-12-18 03:35:16Z chalin $
+
+// Copyright (C) 1998-2006 Iowa State University
+
+// This file is part of JML
+
+// JML is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
+
+// JML is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with JML; see the file COPYING.  If not, write to
+// the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+
+package java.lang;
+
+import java.io.*;
+import java.util.Properties;
+
+/** JML's specification of java.lang.System.
+ *
+ * @version $Revision: 2251 $
+ * @author Gary T. Leavens
+ * @author David R. Cok
+ * @author Joseph R. Kiniry
+ */
+//@ nullable_by_default
+public final class System {
+
+    private /*@ pure @*/ System();
+
+    //@ public final ghost static boolean allowNullStreams = false;
+
+    /*  In declaring allowNullStreams to be final, we restrict beyond what
+        the JDK requires.  The JDK allows in, out and err to be set to null
+        streams, in which case a NullPointerException is raised on any
+        attempt to read or write to in, out or err.  By declaring 
+        allowNullStreams final we introduce the invariant that it is always
+        non-null.  If we don't do this, we will need to include in preconditions
+        whereever in, out and err are used that they are non null.  This is
+        a decided nuisance, and I think the programmer would rather be
+        warned that a possibly null stream is being assigned. 
+
+    Since allowNullStreams = false and is declared as final, this means
+    that in, out and err are effectively non-null.  The only way to allow
+    them to be nullable is to modify this specification (or make a copy of
+    it) and change the value of allowNullStreams.  Since changing the
+    nullity requires changing the spec, and since some tools can do more
+    if in, out and err are explicitly declared non-null, we are going one
+    step further and annotating in, out and err as non_null.  If ever you
+    change allowNullStreams to be true, then you will need to change the
+    annotations of in, out and err to be nullable.
+    */
+
+    public final static /*@ non_null*//*see note above*/ InputStream in;
+    //@ public static invariant !allowNullStreams ==> System.in != null;
+    //@ public static invariant System.in == null || \invariant_for(System.in);
+    public final static /*@ non_null*//*see note above*/ PrintStream out;
+    //@ public static invariant !allowNullStreams ==> System.out != null;
+    //@ public static invariant System.out == null || \invariant_for(System.out);
+    public final static /*@ non_null*//*see note above*/ PrintStream err;
+    //@ public static invariant !allowNullStreams ==> System.err != null;
+    //@ public static invariant System.err == null || \invariant_for(System.err);
+
+    //-RAC@ public normal_behavior
+    //-RAC@   ensures (allowNullStreams || in != null) && (in == null || in.isOpen);
+    //-RAC@   ensures (allowNullStreams || out != null) && (out == null || out.isOpen);
+    //-RAC@   ensures (allowNullStreams || err != null) && (err == null || err.isOpen);
+    //-RAC@ static_initializer
+    
+    //@ requires allowNullStreams || in != null;
+    //@ reads \nothing;
+    //@ assignable System.in;
+    //@ ensures System.in == in;
+    //@ helper
+    public static void setIn(InputStream in);
+
+    //@ requires allowNullStreams || out != null;
+    //@ reads \nothing;
+    //@ assignable System.out;
+    //@ ensures System.out == out;
+    //@ helper
+    public static void setOut(PrintStream out);
+
+    //@ requires allowNullStreams || err != null;
+    //@ reads \nothing;
+    //@ assignable System.err;
+    //@ ensures System.err == err;
+    //@ helper
+    public static void setErr(PrintStream err);
+
+
+    //@ public model static nullable SecurityManager systemSecurityManager;
+
+    /*@  public normal_behavior
+      @    requires sm == null;
+      @    assignable \nothing;
+      @    ensures \not_modified(systemSecurityManager);
+      @ also
+      @  public behavior
+      @    requires sm != null;
+      @    assignable systemSecurityManager;
+      @    ensures  systemSecurityManager == sm;
+      @    signals (SecurityException) (* if the change is not permitted *);
+      @*/
+    //@ helper
+    public static void setSecurityManager(/*@nullable*/ SecurityManager sm) throws SecurityException;
+
+    //@ public normal_behavior
+    //@   reads systemSecurityManager;
+    //@   ensures \result == systemSecurityManager;
+    //@ helper
+    public /*@ pure @*/ static /*@nullable*/ SecurityManager getSecurityManager();
+
+    /** The last value of currentTimeMillis() that was returned */
+
+    //@// The most recently read time
+    //@ public static model long time;
+    //@ public static model long nexttime; in time;
+
+    // OPENJML - modeling the behavior as that on a call of currentTimeMillis()
+    // the field time gets a new value, such that 'time' always has the value
+    // returned by the most recent call of currentTimeMillis(), and does not change
+    // in between calls.
+    // The specs do not allow the time to overflow, as it actually will in a
+    // few hundred million years.
+    /*-RAC@
+      @ public normal_behavior
+      @   assignable time, nexttime;
+      @   reads time, nexttime;
+      @   ensures time >= \old(time);
+      @   ensures time == nexttime;
+      @   ensures \result == time;
+      @   ensures \result >= 0;
+      @*/
+    //@ helper
+    public static native long currentTimeMillis();
+
+    // FIXME - exceptional cases
+    /*@  public exceptional_behavior
+      @    requires src == null || dest == null;
+      @    reads \nothing;
+      @    assignable \nothing;
+      @    signals (NullPointerException) src == null || dest == null;
+      @ also public exceptional_behavior
+           requires (src instanceof byte[]) &&
+                 (dest instanceof byte[]) &&
+                 ( length_ < 0 || srcPos < 0 || destPos < 0 ||
+                     ((byte[])src).length - srcPos < length_ ||
+                     ((byte[])dest).length - destPos < length_);
+           assignable \nothing;
+           signals_only ArrayIndexOutOfBoundsException;
+        also
+      @*/
+    /*
+      @  public exceptional_behavior
+      @    // requires !(src == null || dest == null);
+      @    requires !(!(src.getClass().isArray()) || !(dest.getClass().isArray()));
+      @    requires (srcPos < 0 || destPos < 0 || length_ < 0
+      @                  || srcPos + length_ > ((Object[])src).length
+      @                  || destPos + length_ > ((Object[])dest).length);
+              // FIXME - need the length restriction for primitive type arrays also
+      @    reads \nothing;
+      @    assignable \nothing;
+      @    signals_only ArrayIndexOutOfBoundsException;
+      @  also
+      @*/
+    /*
+      @  public exceptional_behavior
+      @    requires !(src == null || dest == null);
+      @    requires !(src.getClass().isArray()) || !(dest.getClass().isArray());
+      @    // TODO her and in the following reads \nothing;
+      @    assignable \nothing;
+      @    signals_only ArrayStoreException;
+      @ also // FIXME - unify with the previous spec case
+      @ public exceptional_behavior
+      @   // requires (* neither array is null *);
+      @   // requires !(src == null || dest == null);
+      @   requires (* either the src or dest are not arrays, or
+      @               both src and dest are primitive arrays, but not of the sam
+e primitive type, or
+      @               one of them is a primitive type, but the other is an objec
+t *);
+      @   requires !src.getClass().isArray() || !dest.getClass().isArray()
+      @            || (!(\elemtype(\typeof(src)) <: \type(Object))
+      @                && !(\elemtype(\typeof(dest)) <: \type(Object))
+      @                && !(\elemtype(\typeof(src)) == \elemtype(\typeof(dest)))
+)
+      @            || (\elemtype(\typeof(src)) <: \type(Object)
+      @                && !(\elemtype(\typeof(dest)) <: \type(Object)))
+      @            || (!(\elemtype(\typeof(src)) <: \type(Object))
+      @                && \elemtype(\typeof(dest)) <: \type(Object));
+      @   assignable \nothing;
+      @   signals_only ArrayStoreException;
+      @ also
+      */
+    /*@   public normal_behavior
+    @    requires !(    srcPos < 0 || destPos < 0 || length_ < 0 );
+      {|
+        requires (src instanceof Object[]) &&
+                 (dest instanceof Object[]) &&
+                 \elemtype(\typeof(src)) <: \elemtype(\typeof(dest)) &&
+    @                 srcPos + length_ <= ((Object[])src).length
+    @                && destPos + length_ <= ((Object[])dest).length;
+    @   {|
+    @      old Object [] sa = (Object[]) src;
+    @      old Object [] da = (Object[]) dest;
+    @      assignable da[destPos .. destPos + length_ - 1];
+    @      ensures java.util.Arrays.equalArrays(da,destPos,sa,srcPos,length_);
+    @   |}
+       also
+        requires (src instanceof int[]) &&
+                 (dest instanceof int[]) &&
+    @                 srcPos + length_ <= ((int[])src).length
+    @                && destPos + length_ <= ((int[])dest).length;
+    @   {|
+    @      old int [] sa = (int[]) src;
+    @      old int [] da = (int[]) dest;
+    @      assignable da[destPos .. destPos + length_ - 1];
+    @      ensures java.util.Arrays.equalArrays(da,destPos,sa,srcPos,length_);
+    @   |}
+       also
+        requires (src instanceof long[]) &&
+                 (dest instanceof long[]) &&
+    @                 srcPos + length_ <= ((long[])src).length
+    @                && destPos + length_ <= ((long[])dest).length;
+    @   {|
+    @      old long [] sa = (long[]) src;
+    @      old long [] da = (long[]) dest;
+    @      assignable da[destPos .. destPos + length_ - 1];
+    @      ensures java.util.Arrays.equalArrays(da,destPos,sa,srcPos,length_);
+    @   |}
+       also
+        requires (src instanceof char[]) &&
+                 (dest instanceof char[]) &&
+    @                 srcPos + length_ <= ((char[])src).length
+    @                && destPos + length_ <= ((char[])dest).length;
+    @   {|
+    @      old char [] sa = (char[]) src;
+    @      old char [] da = (char[]) dest;
+    @      assignable da[destPos .. destPos + length_ - 1];
+    @      ensures java.util.Arrays.equalArrays(da,destPos,sa,srcPos,length_);
+    @   |}
+       also
+        requires (src instanceof boolean[]) &&
+                 (dest instanceof boolean[]) &&
+    @                 srcPos + length_ <= ((boolean[])src).length
+    @                && destPos + length_ <= ((boolean[])dest).length;
+    @   {|
+    @      old boolean [] sa = (boolean[]) src;
+    @      old boolean [] da = (boolean[]) dest;
+    @      assignable da[destPos .. destPos + length_ - 1];
+    @      ensures java.util.Arrays.equalArrays(da,destPos,sa,srcPos,length_);
+    @   |}
+       also
+        requires (src instanceof short[]) &&
+                 (dest instanceof short[]) &&
+    @                 srcPos + length_ <= ((short[])src).length
+    @                && destPos + length_ <= ((short[])dest).length;
+    @   {|
+    @      old short [] sa = (short[]) src;
+    @      old short [] da = (short[]) dest;
+    @      assignable da[destPos .. destPos + length_ - 1];
+    @      ensures java.util.Arrays.equalArrays(da,destPos,sa,srcPos,length_);
+    @   |}
+       also
+        requires (src instanceof byte[]) &&
+                 (dest instanceof byte[]) &&
+    @                 srcPos + length_ <= ((byte[])src).length
+    @                && destPos + length_ <= ((byte[])dest).length;
+    @   {|
+    @      old byte [] sa = (byte[]) src;
+    @      old byte [] da = (byte[]) dest;
+    @      assignable da[destPos .. destPos + length_ - 1];
+    @      ensures java.util.Arrays.equalArrays(da,destPos,sa,srcPos,length_);
+    @   |}
+    @*//* @
+
+//       also  // FIXME - if we enable these cases, then a real-arithmetic logic is required and solving times are very long
+//        requires (src instanceof double[]) &&
+//                 (dest instanceof double[]) &&
+//      @                 srcPos + length <= ((double[])src).length
+//      @                && destPos + length <= ((double[])dest).length;
+//      @   {|
+//      @      old double [] sa = (double[]) src;
+//      @      old double [] da = (double[]) dest;
+//      @      assignable da[destPos .. destPos + length - 1];
+//    @      ensures java.util.Arrays.equalArrays(da,destPos,sa,srcPos,length);
+//      @   |}
+//       also
+//        requires (src instanceof float[]) &&
+//                 (dest instanceof float[]) &&
+//      @                 srcPos + length <= ((float[])src).length
+//      @                && destPos + length <= ((float[])dest).length;
+//      @   {|
+//      @      old float [] sa = (float[]) src;
+//      @      old float [] da = (float[]) dest;
+//      @      assignable da[destPos .. destPos + length - 1];
+//    @      ensures java.util.Arrays.equalArrays(da,destPos,sa,srcPos,length);
+//      @   |}
+//      @
+      @*/
+//@       |}
+    //@ helper
+    @org.jmlspecs.annotation.Options("-lang=jml+")
+    public static native void arraycopy(/*@nullable*/ Object src,
+                                        int srcPos,
+                                        /*@nullable*/ Object dest,
+                                        int destPos,
+                                        int length_);
+
+    //@ axiom (\forall Object x, y; identityHashCode(x) != identityHashCode(y); x != y);
+    
+    //@ public normal_behavior
+    //@  requires \invariant_for(x); // FIXME - should not be needed?
+    //@ pure helper heap_free
+    public static native int identityHashCode(/*@nullable*/ Object x);
+
+    //-RAC@ public model static non_null Properties systemProperties;
+    //-RAC@    initially systemProperties.containsKey("java.home");
+    //-RAC@    initially systemProperties.getProperty("java.home") != null;
+    //-RAC@    initially !systemProperties.containsKey("xxxxxx");
+
+    /* Models the set of properties that you get when setProperties is called
+       with a null argument.  This is not the same as the default (original)
+       set of system properties, but it appears to be the same (per equals)
+       throughout a program.
+     */
+    //-RAC@ public model static final non_null Properties nullSystemProperties;
+
+    /*-RAC@ public normal_behavior
+      @    ensures \result == systemProperties;
+      @    //signals (SecurityException) (* if access is not permitted *);
+      @*/
+    //@ helper // TODO - reads?
+    public /*@ pure heap_free @*/ static /*@ non_null @*/ Properties getProperties();
+
+    /*-RAC@ 
+      @ public behavior
+      @    requires props == null;
+      @    assignable systemProperties;
+      @    ensures systemProperties.equals(nullSystemProperties);
+      @    signals_only SecurityException;
+      @    signals (SecurityException) (* if access is not permitted *) &&
+                                       \not_modified(systemProperties);
+      @ also public behavior
+      @    requires props != null;
+      @    assignable systemProperties;
+      @    ensures systemProperties == props;
+      @    signals_only SecurityException;
+      @    signals (SecurityException) (* if access is not permitted *) &&
+                                       \not_modified(systemProperties);
+      @*/
+    //@ helper // TODO - reads?
+    public static void setProperties(Properties props);
+
+
+    //@ public behavior
+    //@   ensures key != null && \result == getProperties().getProperty(key);
+    //@   signals_only SecurityException, NullPointerException;
+    //@   signals (SecurityException) (* if access is not permitted *);
+    //@   signals (NullPointerException) key == null;
+    //@ helper // TODO - reads?
+    public /*@ pure @*/ static /*@nullable*/ String getProperty(/*@non_null*/ String key) throws RuntimeException;
+
+
+    //@ public behavior
+    //@   ensures key != null && \result == getProperties().getProperty(key,def);
+    //@   signals_only SecurityException, NullPointerException;
+    //@   signals (SecurityException) (* if access is not permitted *);
+    //@   signals (NullPointerException) key == null;
+    //@ helper // TODO - reads?
+    public /*@ pure @*/ static /*@nullable*/ String getProperty(/*@non_null*/ String key, /*@nullable*/ String def) throws RuntimeException;    
+
+
+    //@ public behavior
+    //@    requires key != null && value != null;
+    //-RAC@    assignable systemProperties;
+    //@   signals_only SecurityException, NullPointerException;
+    //-RAC@   signals (SecurityException) (* if access is not permitted *) && \not_modified(systemProperties);
+    //-RAC@   signals (NullPointerException) key == null || value == null && \not_modified(systemProperties);
+    //@ helper // TODO - reads?
+    public static /*@nullable*/ String setProperty(/*@non_null*/ String key, /*@nullable*/ String value) throws RuntimeException;
+
+
+    /** @deprecated use java.lang.System.getProperty. */
+    @Deprecated
+    public static /*@ pure nullable @*/ String getenv(/*@non_null*/ String name);
+
+    /*@ public behavior
+      @    diverges true;
+      @    assignable \nothing;
+      @    ensures false;
+      @    signals_only SecurityException;
+      @    signals (SecurityException) (* if exiting is not permitted *);
+      @*/
+    //@ helper // TODO - reads?
+    public static void exit(int status);
+
+    //@ public normal_behavior
+    //@   requires true;
+    //@ pure helper
+    public static void gc();
+
+    public static void runFinalization();
+
+    public static void load(/*@ non_null @*/ String filename);
+
+    public static void loadLibrary(/*@ non_null @*/ String libname);
+
+    public /*@ pure @*/ static native String mapLibraryName(/*@non_null*/ String libname);
+
+    //@ model public static long nanoTime;
+    
+    // OPENJML - modeling the behavior as that on a call of nanoTime()
+    // the field nanoTime gets a new value. Thus nanoTime always has the value
+    // returned by the most recent call of nanoTime(), and does not change in between calls.
+    /*-RAC@ public normal_behavior
+     @   requires true;
+     @   reads nanoTime;
+     @   assignable nanoTime;
+     @   ensures nanoTime - \old(nanoTime) >= 0; // Time increasees and never extends more than 2**63 nanoseconds.
+     @   ensures \result == nanoTime;
+     @*/
+    //@ helper
+    public static long nanoTime();
+}

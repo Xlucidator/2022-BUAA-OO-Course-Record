@@ -1,0 +1,15 @@
+package java.lang;
+ 
+//@ nullable_by_default
+public class ArrayStoreException extends RuntimeException {
+  
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowable();
+    //@ pure
+    public ArrayStoreException();
+  
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowable(s);
+    //@ pure
+    public ArrayStoreException(String s);
+}

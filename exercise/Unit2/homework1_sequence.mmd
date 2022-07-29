@@ -1,0 +1,27 @@
+sequenceDiagram
+    participant Main
+    participant InputThread
+    participant ScheduleThread
+    participant ProcessThread
+
+    Main->>InputThread: 1:start
+    activate InputThread
+
+    Main->>ProcessThread: 2:start
+    activate ProcessThread
+
+    Main->>ScheduleThread: 3:start
+    activate ScheduleThread
+
+    InputThread-->>ScheduleThread: 4:add input request to waitQueue
+    ScheduleThread-->>ProcessThread: 5:schedule request from waitQueueu to corresponding processQueue
+
+    InputThread-->>ScheduleThread: setEnd
+    InputThread->>Main: thread end
+    deactivate InputThread
+
+    ScheduleThread-->>ProcessThread:setEnd
+    ScheduleThread->>Main: thread end
+    deactivate ScheduleThread
+
+    

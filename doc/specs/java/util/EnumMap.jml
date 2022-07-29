@@ -1,0 +1,114 @@
+package java.util;
+
+//@ non_null_by_default
+public class EnumMap<K extends Enum<K>, V> extends AbstractMap<K, V> implements java.io.Serializable, Cloneable {
+    //@ spec_public
+    private final java.lang.Class<K> keyType;
+        
+    //@ axiom \forall K k; k != null; 0 <= k.ordinal() & (k.uniqueHash == k.ordinal());
+    
+    //@ spec_public
+    private transient int size;
+    //@ public invariant size >= 0;
+    
+//  private static final java.lang.Object NULL;
+//  private static final java.lang.Enum<?>[] ZERO_LENGTH_ENUM_ARRAY;
+//  private transient java.util.Set<java.util.Map$Entry<K, V>> entrySet;
+//  private static final long serialVersionUID;
+//  private java.lang.Object maskNull(java.lang.Object);
+//  private V unmaskNull(java.lang.Object);
+
+    //@ public normal_behavior
+    //@   ensures keyType == clazz;
+    //@ pure
+    public EnumMap(Class<K> clazz);
+    //@ public normal_behavior
+    //@   ensures this.modelMap == map.modelMap;
+    //@ pure
+    public EnumMap(EnumMap<K, ? extends V> map);
+    //@ public normal_behavior
+    //@   ensures this.modelMap == map.modelMap;
+    //@ pure
+    public EnumMap(Map<K, ? extends V> map);
+    
+    //@// Inherited
+    public int size();
+    
+    //@ also public normal_behavior
+    //@    ensures \result == \exists int i; 0 <= i; value == modelMap[i];
+    public boolean containsValue(Object value);
+
+    //@ also public normal_behavior
+    //@    requires key != null && \typeof(key) <: \type(Enum<K>);
+    //@    ensures \result == keys[((Enum)key).ordinal()];
+    @SuppressWarnings("unchecked")
+    public boolean containsKey(Object key);
+
+    private boolean containsMapping(Object key, Object value);
+ 
+    //@ also public normal_behavior
+    //@    requires key != null && \typeof(key) <: \type(Enum<K>);
+    //@    old int ord = ((Enum)key).ordinal();
+    //@    ensures keys[ord] ==> \result == modelMap[ord];
+    //@    ensures !keys[ord] ==> \result == null;
+    //@ pure
+    @Override
+    @SuppressWarnings("unchecked")
+    public /*@ nullable */ V get(/*@ nullable */ Object key);
+
+    // spec inherited from Map
+    //@ also public normal_behavior
+    //@    requires key instanceof Enum;
+    //@    old int ord = ((Enum<K>)key).ordinal();
+    //@    assignable objectState;
+    //@    ensures (value == modelMap[ord]) & keys[ord];
+    //@    ensures \forall int i; i >= 0 && i != ord; modelMap[i] == \old(modelMap[i]);
+    //@    ensures \forall int i; i >= 0 && i != ord; keys[i] == \old(keys[i]);
+    @Override
+    @SuppressWarnings("unchecked")
+    public /*@ nullable */ V put(/*@ nullable */ K key, /*@ nullable */ V value);
+
+    //@ also public normal_behavior
+    //@    requires key != null && key instanceof Enum;
+    //@    old int ord = ((Enum<K>)key).ordinal();
+    //@    assignable objectState;
+    //@    ensures !keys[ord];
+    //@    ensures \forall int i; i != ord && i >= 0; keys[i] == \old(keys[i]);
+    //@    ensures \forall int i; i != ord && i >= 0; modelMap[i] == \old(modelMap[i]);
+    @SuppressWarnings("unchecked")
+    public /*@ nullable */ V remove(/*@ nullable */ Object key);
+
+//  private boolean removeMapping(/*@ nullable */ java.lang.Object, /*@ nullable */ java.lang.Object);
+//  private boolean isValidKey(java.lang.Object);
+//  public void putAll(java.util.Map<? extends K, ? extends V>);
+
+    //@ also public normal_behavior
+    //@    assignable objectState;
+    //@    ensures \forall int i; i >= 0; !keys[i];
+    public void clear();
+
+//  public java.util.Set<K> keySet();
+//  public java.util.Collection<V> values();
+//  public java.util.Set<java.util.Map$Entry<K, V>> entrySet();
+//  public boolean equals(java.lang.Object);
+//  private boolean equals(java.util.EnumMap<?, ?>);
+//  public int hashCode();
+//  private int entryHashCode(int);
+//  public java.util.EnumMap<K, V> clone();
+//  private void typeCheck(K);
+//  private static <K extends java.lang.Enum<K>> K[] getKeyUniverse(java.lang.Class<K>);
+//  private void writeObject(java.io.ObjectOutputStream) throws java.io.IOException;
+//  private void readObject(java.io.ObjectInputStream) throws java.io.IOException, java.lang.ClassNotFoundException;
+//  public java.lang.Object clone() throws java.lang.CloneNotSupportedException;
+//  public java.lang.Object put(java.lang.Object, java.lang.Object);
+//  static int access$200(java.util.EnumMap);
+//  static java.lang.Object access$500(java.util.EnumMap, java.lang.Object);
+//  static java.lang.Object[] access$600(java.util.EnumMap);
+//  static int access$210(java.util.EnumMap);
+//  static boolean access$900(java.util.EnumMap, java.lang.Object, java.lang.Object);
+//  static boolean access$1000(java.util.EnumMap, java.lang.Object, java.lang.Object);
+//  static java.lang.Enum[] access$1100(java.util.EnumMap);
+//  static java.lang.Object access$1200(java.util.EnumMap, java.lang.Object);
+//  static int access$1600(java.util.EnumMap, int);
+//  static {};
+}

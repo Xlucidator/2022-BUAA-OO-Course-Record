@@ -1,0 +1,14 @@
+package java.lang;
+import java.net.URL;
+
+// TODO - This is not complete
+
+public class Package extends java.lang.NamedPackage implements java.lang.reflect.AnnotatedElement {
+
+    Package(String name,
+            String spectitle, String specversion, String specvendor,
+            String impltitle, String implversion, String implvendor,
+            URL sealbase, ClassLoader loader);
+    
+    Package(String name, Module module);
+}

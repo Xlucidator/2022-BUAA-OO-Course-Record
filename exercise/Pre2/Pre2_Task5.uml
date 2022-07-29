@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Task5</OriginalElement>
+  <nodes>
+    <node x="0.0" y="1173.0">HealingPotion</node>
+    <node x="212.50000000000006" y="905.0">Bottle</node>
+    <node x="858.0" y="928.0">Sword</node>
+    <node x="537.0" y="491.4856396866841">Equipment</node>
+    <node x="858.0" y="279.2174808937567">ValueBody</node>
+    <node x="984.0" y="1173.0">EpicSword</node>
+    <node x="344.00000000000006" y="1173.0">ExpBottle</node>
+    <node x="878.8956559439301" y="188.47539889191663">java.lang.Comparable</node>
+    <node x="1178.4621409921672" y="491.4856396866842">Adventurer</node>
+    <node x="858.0" y="595.9856396866842">Task5</node>
+    <node x="660.0" y="1173.0">RareSword</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="HealingPotion" target="Bottle" relationship="GENERALIZATION">
+      <point x="0.0" y="-86.0" />
+      <point x="162.0" y="1148.0" />
+      <point x="327.00000000000006" y="1148.0" />
+      <point x="0.0" y="109.0" />
+    </edge>
+    <edge source="EpicSword" target="Sword" relationship="GENERALIZATION">
+      <point x="0.0" y="-86.0" />
+      <point x="1135.0" y="1148.0" />
+      <point x="973.5" y="1148.0" />
+      <point x="0.0" y="86.0" />
+    </edge>
+    <edge source="Sword" target="Equipment" relationship="GENERALIZATION">
+      <point x="0.0" y="-86.0" />
+      <point x="973.5" y="880.0" />
+      <point x="648.5" y="880.0" />
+      <point x="0.0" y="155.0" />
+    </edge>
+    <edge source="Adventurer" target="java.lang.Comparable" relationship="REALIZATION">
+      <point x="0.0" y="-281.5" />
+      <point x="1303.4621409921672" y="215.47539889191663" />
+      <point x="1067.7089461170372" y="215.47539889191663" />
+      <point x="1067.7089461170372" y="215.10374166816334" />
+      <point x="84.26027323404094" y="-0.3716572237532887" />
+    </edge>
+    <edge source="ExpBottle" target="Bottle" relationship="GENERALIZATION">
+      <point x="0.0" y="-86.0" />
+      <point x="492.00000000000006" y="1148.0" />
+      <point x="327.00000000000006" y="1148.0" />
+      <point x="0.0" y="109.0" />
+    </edge>
+    <edge source="Adventurer" target="ValueBody" relationship="REALIZATION">
+      <point x="0.0" y="-281.5" />
+      <point x="1303.4621409921672" y="436.6317233578873" />
+      <point x="1001.920758194024" y="436.6317233578873" />
+      <point x="32.42075819402396" y="59.84780803608393" />
+    </edge>
+    <edge source="Equipment" target="java.lang.Comparable" relationship="REALIZATION">
+      <point x="0.0" y="-155.0" />
+      <point x="648.5" y="215.47539889191663" />
+      <point x="874.0609896442736" y="215.47539889191663" />
+      <point x="874.0609896442736" y="215.74602344750917" />
+      <point x="-84.65983473390872" y="0.2706245555925477" />
+    </edge>
+    <edge source="Bottle" target="Equipment" relationship="GENERALIZATION">
+      <point x="0.0" y="-109.0" />
+      <point x="327.00000000000006" y="880.0" />
+      <point x="648.5" y="880.0" />
+      <point x="0.0" y="155.0" />
+    </edge>
+    <edge source="RareSword" target="Sword" relationship="GENERALIZATION">
+      <point x="0.0" y="-86.0" />
+      <point x="812.0" y="1148.0" />
+      <point x="973.5" y="1148.0" />
+      <point x="0.0" y="86.0" />
+    </edge>
+    <edge source="Equipment" target="ValueBody" relationship="REALIZATION">
+      <point x="0.0" y="-155.0" />
+      <point x="648.5" y="436.6317233578873" />
+      <point x="921.1887322568928" y="436.6317233578873" />
+      <point x="-48.31126774310724" y="53.48319042386865" />
+    </edge>
+    <edge source="ValueBody" target="java.lang.Comparable" relationship="INTERFACE_GENERALIZATION">
+      <point x="-9.43948027071417" y="-58.70361304314849" />
+      <point x="960.0605197292858" y="191.54739018760932" />
+      <point x="960.4675285778899" y="191.54739018760932" />
+      <point x="-2.4281273660402576" y="-11.921247670488668" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.656949040370615" showDependencies="false" x="1062.6635877855172" y="959.9980355613766" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

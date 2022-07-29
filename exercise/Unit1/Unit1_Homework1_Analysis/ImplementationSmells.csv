@@ -1,0 +1,7 @@
+Project Name,Package Name,Type Name,Method Name,Implementation Smell,Cause of the Smell,Method start line no
+Unit1_Homework1,(default package),MainClass,clipDupOperator,Magic Number,The method contains a magic number: 2,42
+Unit1_Homework1,(default package),MainClass,clipDupOperator,Magic Number,The method contains a magic number: 2,42
+Unit1_Homework1,(default package),MainClass,clipDupOperator,Magic Number,The method contains a magic number: 2,42
+Unit1_Homework1,(default package),MainClass,clipDupOperator,Magic Number,The method contains a magic number: 2,42
+Unit1_Homework1,(default package),MainClass,clipDupOperator,Magic Number,The method contains a magic number: 3,42
+Unit1_Homework1,(default package),Term,inFormat,Magic Number,The method contains a magic number: 2,89

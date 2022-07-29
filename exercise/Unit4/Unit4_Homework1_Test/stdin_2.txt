@@ -1,0 +1,18 @@
+{"_parent":"AAAAAAAAAAAtaZATttTj","visibility":"protected","name":"class0","_type":"UMLClass","_id":"AAAAAAAAAAAtaZAT8jZa"}
+{"_parent":"AAAAAAAAAAAtaZAT8jZa","visibility":"protected","name":"class0method6","_type":"UMLOperation","_id":"AAAAAAAAAAAtaAYRAaRR"}
+{"_parent":"AAAAAAAAAAAtaAYRAaRR","name":"para4","_type":"UMLParameter","_id":"AAAAAAAAAAAtaAY8Ac8Y","type":"byte","direction":"in"}
+{"_parent":"AAAAAAAAAAAtaAYRAaRR","name":"para2","_type":"UMLParameter","_id":"AAAAAAAAAAAtaZATYZAY","type":"String","direction":"in"}
+{"_parent":"AAAAAAAAAAAtaAYRAaRR","name":"para3","_type":"UMLParameter","_id":"AAAAAAAAAAAtaZAjcAYT","type":"char","direction":"in"}
+{"_parent":"AAAAAAAAAAAtaAYRAaRR","name":"para0","_type":"UMLParameter","_id":"AAAAAAAAAAAtaZATa8tt","type":{"$ref":"AAAAAAAAAAAtaZAT8jZa"},"direction":"in"}
+{"_parent":"AAAAAAAAAAAtaAYRAaRR","name":"return","_type":"UMLParameter","_id":"AAAAAAAAAAAtaAYYZacc","type":{"$ref":"AAAAAAAAAAAtaZAT8jZa"},"direction":"return"}
+{"_parent":"AAAAAAAAAAAtaAYRAaRR","name":"para1","_type":"UMLParameter","_id":"AAAAAAAAAAAtaZAccR8Z","type":{"$ref":"AAAAAAAAAAAtaZAT8jZa"},"direction":"in"}
+{"_parent":"AAAAAAAAAAAtaZAT8jZa","visibility":"public","name":"class0method6","_type":"UMLOperation","_id":"AAAAAAAAAAAtaZAAY8tT"}
+{"_parent":"AAAAAAAAAAAtaZAAY8tT","name":"para2","_type":"UMLParameter","_id":"AAAAAAAAAAAtaZAT8RRt","type":{"$ref":"AAAAAAAAAAAtaZAT8jZa"},"direction":"in"}
+{"_parent":"AAAAAAAAAAAtaZAAY8tT","name":"para0","_type":"UMLParameter","_id":"AAAAAAAAAAAtaAYtjc8A","type":"double","direction":"in"}
+{"_parent":"AAAAAAAAAAAtaZAAY8tT","name":"para1","_type":"UMLParameter","_id":"AAAAAAAAAAAtaZATRZaT","type":"float","direction":"in"}
+{"_parent":"AAAAAAAAAAAtaZAT8jZa","visibility":"package","name":"class0method6","_type":"UMLOperation","_id":"AAAAAAAAAAAtaZATRatA"}
+{"_parent":"AAAAAAAAAAAtaZATRatA","name":"para2","_type":"UMLParameter","_id":"AAAAAAAAAAAtaZAZtYZZ","type":{"$ref":"AAAAAAAAAAAtaZAT8jZa"},"direction":"in"}
+{"_parent":"AAAAAAAAAAAtaZATRatA","name":"para0","_type":"UMLParameter","_id":"AAAAAAAAAAAtaZAAZ8ta","type":{"$ref":"AAAAAAAAAAAtaZAT8jZa"},"direction":"in"}
+{"_parent":"AAAAAAAAAAAtaZATRatA","name":"para1","_type":"UMLParameter","_id":"AAAAAAAAAAAtaZAjjcZA","type":{"$ref":"AAAAAAAAAAAtaZAT8jZa"},"direction":"in"}
+END_OF_MODEL
+CLASS_OPERATION_COUPLING_DEGREE class0 class0method6

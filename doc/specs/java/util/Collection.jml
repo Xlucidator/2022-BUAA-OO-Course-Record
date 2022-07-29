@@ -1,0 +1,316 @@
+// @(#)$Id: Collection.spec 2383 2007-04-16 17:02:07Z mikolas $
+
+// Adapted in part from Compaq SRC's specification for ESC/Java
+
+// Copyright (C) 2009.
+
+// This file is part of JML
+
+// JML is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
+
+// JML is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with JML; see the file COPYING.  If not, write to
+// the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+
+
+package java.util;
+
+/** JML's specification of java.util.Collection.
+ * Part of this specification is adapted from ESC/Java.
+ * @version $Revision: 2383 $
+ * @author Gary T. Leavens
+ * @author Brandon Shilling
+ * @author Erik Poll 
+ * @author David Cok
+ */
+//@ non_null_by_default
+public interface Collection<E> extends Iterable<E> {
+
+    //-RAC@ model public instance JMLDataGroup localState; in objectState;
+
+    /** A utility method that compares possibly-null objects,
+        according to how the Collection classes do the comparison. 
+        The presumption that o==oo ==> o.equals(oo) for non-null o,oo is
+        also used to help proofs along.
+     */
+    /*@ public normal_behavior
+      @   ensures \result == ( o==oo || (o != null && oo != null && (o.uniqueHash == oo.uniqueHash)));
+      @ static public model pure helper heap_free boolean nullequals(nullable Object o, nullable Object oo);
+      @*/
+        // FIXME - use Objects.equals for the above?
+
+
+
+    /*-RAC@ public normal_behavior
+          ensures \result <==> ( values.length == 0
+                              && containsNull == true);
+        pure
+         public model boolean initialCollection();
+      @*/
+    //------------------------------------------------------------
+
+    /*-RAC@ public normal_behavior
+      @    ensures \result == values.length;
+      @*/
+    /*@ pure helper @*/ int size();
+
+    /*-RAC@ public normal_behavior
+      @  ensures \result <==> (values.length == 0);
+      @*/
+    /*@ pure @*/ boolean isEmpty();
+    
+    /*-RAC@ public behavior
+      @   ensures values.length == 0 ==> !\result;
+      @   ensures \result == (\exists int i; 0 <= i < values.length; Collection.nullequals(o,values[i]));
+          // various exceptions may get thrown, but are optional,
+          // so they are specified in the implementing classes
+      @   signals (NullPointerException) o == null;   // but o==null might be allowed also
+      @   signals_only ClassCastException,NullPointerException;
+      @*/
+    /*@ pure @*/ boolean contains(/*@ nullable */ Object o);
+
+
+
+    //@ also public normal_behavior
+    //-RAC@   ensures \fresh(\result);
+    /* FIXME
+      @   ensures (\forall int i; 0 <= i && i < size();
+      @                 contains(\result.nthNextElement(i)));
+      @   ensures (\forall Object o; contains(o) ==>
+      @              (\exists int i; 0 <= i && i < size(); 
+      @                 o == \result.nthNextElement(i)));
+      @   ensures size() > 0 ==> \result.hasNext((int)(size()-1));
+      @   ensures !\result.hasNext((int)(size()));
+      @   ensures_redundantly
+      @           (\forall int i; 0 <= i && i < size();
+      @                 this.contains(\result.nthNextElement(i)));
+      @   ensures_redundantly size() != 0 ==> \result.moreElements;
+      @*/
+    //@ pure
+    /*@ non_null @*/ Iterator<E> iterator();
+
+    //@ public normal_behavior
+    //-RAC@   ensures  (containsNull || \nonnullelements(\result));
+    //@       ensures \result.length == size();
+    //@       ensures \typeof(\result) == \type(Object[]);
+    // NOTE: does not worry about duplicate entries - see subclasses for that
+    //@       ensures (\forall int i; 0 <= i < \result.length; containsObject(\result[i]));
+    //-RAC@   ensures  (\forall Object o; containsObject(o) <==> Arrays.contains(\result,o));
+    /*@ pure @*//*@ non_null */ Object[] toArray();
+       
+    /*  FIXME @ public normal_behavior
+      @   requires a!= null;
+      @   {|
+      @     requires content.theSize <= a.length;
+      @     assignable a[*];
+      @     ensures \result == a;
+      @     ensures (\forall Object o; containsObject(o) <==> Arrays.contains(\result,content.theSize,o));
+      @     ensures (\forall int i; content.theSize <= i && i < a.length; 
+      @                             \result[i] == null);
+      @   also
+      @     requires content.theSize > a.length;
+      @     assignable \nothing;
+      @     ensures \result != null;
+      @     ensures \fresh(\result) && \result.length == content.theSize;
+      @     ensures (\forall Object o; containsObject(o) <==> Arrays.contains(\result,o));
+      @     ensures \typeof(\result) == \typeof(a);
+      @   |}
+      @ also
+      @ public exceptional_behavior
+      @   requires a == null;
+      @   assignable \nothing;
+      @   signals_only NullPointerException ;
+      @ also
+      @ public exceptional_behavior
+      @   requires a != null;
+      @   assignable a[*];
+      @   signals_only ArrayStoreException ;
+      @*/
+    <T> T[] toArray(T[] a) throws NullPointerException, ArrayStoreException;
+
+    /*-RAC@ public behavior
+      @   requires containsNull || o != null;
+      @   assignable values; 
+      @   ensures \result == false ==> values == \old(values);
+      @   ensures \result == true ==> values.length == \old(values.length+1);
+      @   ensures \exists \bigint i; 0 <= i < values.length; values[i] == o;
+      @   signals (Exception) values == \old(values);
+      @   signals_only Exception;
+      @*/
+
+           // Various unspecified exceptions may be thrown if the element
+          // is not allowed to be added to the Collection, or the add
+          // operation is not supported.
+    boolean add(E o);
+
+    /*-RAC@ public behavior
+      @   requires !containsNull ==> o != null;
+      @   assignable values; 
+      @   ensures \not_modified(containsNull);
+      @   ensures \result ==> values.length == \old(values.length-1);
+      @   ensures !\result ==> values.length == \old(values.length);
+
+          // Various unspecified exceptions may be thrown if the element
+          // is not allowed to be removed from the Collection, or the remove
+          // operation is not supported.
+          
+          // The following special cases are broken out because we cannot put method calls in \old, so we have to
+          // put them in requires clauses
+      @ also 
+      @
+      @ public behavior
+      @   requires !containsNull ==> o != null;
+      @   requires containsObject(o);
+      @   assignable values; 
+      @   ensures \result;
+      @ also public behavior
+      @   requires !containsNull ==> o != null;
+      @   requires !containsObject(o);
+      @   assignable values; 
+      @   ensures !\result;
+      @ also public behavior
+      @   requires !containsNull ==> o != null;
+      @   requires !containsObject(null);
+      @   assignable values; 
+      @   ensures !containsObject(null);
+      @ also public behavior
+      @   requires !containsNull ==> o != null;
+      @   requires o!=null && containsObject(null);
+      @   assignable values; 
+      @   ensures containsObject(null);
+      @*/
+    boolean remove(/*@ nullable*/ Object o) throws RuntimeException;
+
+    /*@ public behavior
+      @   requires c != null && c != this;
+      @   //ensures \result <==> 
+          //          (\forall Object o; \old(c.contains(o)) ==> contains(o)); // FIXME
+      @ also public normal_behavior
+          requires c == this;
+          ensures \result;
+      @ also public exceptional_behavior
+      @  requires c == null;
+      @  signals_only NullPointerException;
+      @*/
+              // FIXME - also the optional exceptions
+    /*@ pure @*/ boolean containsAll(Collection<?> c) throws NullPointerException;
+
+    // FIXME - what if c == this in the following calls?
+
+    /*-RAC@ public behavior
+      @   requires c != null;
+      @   requires !\key("RAC") ==> !containsNull ==> !c.containsNull;
+      @   assignable values; 
+      @   ensures !\key("RAC") ==> \not_modified(containsNull);
+      @   ensures size() >= \old(size());
+      @   ensures !\result <==> (size() == \old(size()));
+      @   // FIXME ensures (\forall Object o; \old(c.contains(o) || contains(o)) <==> contains(o));
+      @   // FIXME ensures \old(c.contains(null) || contains(null)) <==> contains(null);
+          // See note in add about exceptions
+      @ also public exceptional_behavior
+      @  requires c == null;
+      @  assignable \nothing;
+      @  signals_only NullPointerException;
+      @*/
+              // FIXME - also the optional exceptions
+    boolean addAll(Collection<? extends E> c) throws NullPointerException;
+
+    /*-RAC@ public behavior
+      @   requires c != null;
+      @   assignable values; 
+      @   ensures c == this ==> isEmpty();
+          // See note in remove about exceptions       
+          // FIXME - also the optional exceptions
+      @ also public exceptional_behavior
+      @  requires c == null;
+      @  assignable \nothing;
+      @  signals_only NullPointerException;
+      @*/
+    /*-RAC@ also public behavior
+      @   requires c != null;
+      @   assignable values; 
+      @   ensures \not_modified(containsNull);
+      @   // FIXME ensures (\forall Object o; ( contains(o) || \old(c.contains(o))) <==>
+          //                              \old(contains(o)));
+      @   // FIXME ensures (contains(null) || \old(c.contains(null))) <==> \old(contains(null));
+      @   ensures values.length <= \old(values.length);
+      @   ensures !\result <==> (values.length == \old(values.length));
+      @*/  // FIXME - what if c == this
+    boolean removeAll(Collection<?> c) throws NullPointerException;
+
+    /*-RAC@ public behavior
+      @   requires c != null;
+      @   assignable values; 
+      @   ensures c == this ==> !\result;
+          // See note in remove about exceptions
+      @ also public exceptional_behavior
+      @  requires c == null;
+      @  assignable \nothing;
+      @  signals_only NullPointerException;
+      @*/
+    /*-RAC@ also public behavior
+      @   requires c != null;
+      @   assignable values; 
+      @   ensures \not_modified(containsNull);
+        // See note in remove about exceptions
+      @   // FIXME ensures (\forall Object o; contains(o) <==>
+          //            \old(contains(o) && c.contains(o)) );
+      @   // FIXME ensures contains(null) <==> \old(c.contains(null) && contains(null));
+      @   ensures values.length <= \old(values.length);
+      @   ensures !\result <==> (values.length == \old(values.length));
+      @   // FIXME ensures !\result ==> (\forall Object o; contains(o) <==> \old(contains(o)));
+      @   // FIXME ensures !\result ==> (contains(null) <==> \old(contains(null)));
+      @*/
+    // FIXME - also the optional exceptions; what if c == this
+    boolean retainAll(Collection<?> c) throws NullPointerException;
+
+    /*-RAC@ public behavior
+      @   assignable values; 
+      @   ensures isEmpty();
+      @   ensures_redundantly size() == 0;
+          // FIXME See note in remove about exceptions
+      @*/
+    void clear();
+
+    // FIXME
+    // Note: if the collections are equal they must have the same size and
+    // must at least contain elements in common.  However, the latter two
+    // conditions are not sufficient to imply equality for arbitrary collections,
+    // hence the use of ==> below instead of <==>.
+    /*@ also public normal_behavior
+      @   requires c != null && c instanceof Collection;
+      @   ensures \result ==> ( \forall Object oo; 
+      @                         contains(oo) <==> ((Collection)c).contains(oo));
+      @   ensures \result ==> (size() == ((Collection)c).size());
+      @*/
+    boolean equals(/*@ nullable*/ Object c);
+
+    // Specification is inherited
+    int hashCode();
+    
+    //@ public normal_behavior
+    //-RAC@   ensures \fresh(\result);
+    //-RAC@   ensures \result.values.length == this.values.length;
+    //-RAC@   ensures (\forall int i; 0 <= i < \result.values.length; \result.values[i] == this.values[i]);
+    //@ pure
+    public java.util.stream.Stream<E> stream();
+
+    //@ public normal_behavior
+    //@   requires true;
+    //@ pure
+    public java.util.stream.Stream<E> parallelStream();
+
+    // FIXME - crash if we have this spec.
+//    //@ public normal_behavior
+//    //@   requires true;
+//    //@ pure
+//    public String toString();
+}

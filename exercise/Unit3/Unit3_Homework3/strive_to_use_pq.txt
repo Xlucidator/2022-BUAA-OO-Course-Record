@@ -1,0 +1,5 @@
+PriorityQueue<Map.Entry<Person, Integer>> tarSet =
+                new PriorityQueue<>(Map.Entry.comparingByValue());
+tarSet.add(Map.entry(p1, 0));
+
+Map.Entry<Person, Integer> x = tarSet.poll();

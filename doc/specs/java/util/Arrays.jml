@@ -1,0 +1,2066 @@
+// @(#)$Id: Arrays.refines-spec 2258 2006-12-21 04:58:57Z chalin $
+
+// Copyright (C) 2004 Iowa State University
+
+// This file is part of JML
+
+// JML is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
+
+// JML is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with JML; see the file COPYING.  If not, write to
+// the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+
+package java.util;
+
+/** JML's specification of java.util.Arrays.
+ * @version $Revision: 2258 $
+ * @author Ajani Thomas
+ * @author Gary T. Leavens
+ */
+//@ non_null_by_default
+@SuppressWarnings("unchecked")
+public class Arrays {
+
+
+    //-----------------------------------------------------------------------
+// FIXME - the quantifiers in the following specs do not get triggered because
+// they do not have any functions in them (<= does not trigger expansion)
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   old int[] perm = new int[a.length];
+      @   assignable a[*], perm[*];
+      @   ensures (\forall int i,j;
+      @           0 <= i < j < a.length; a[i] <= a[j]);
+      @   ensures \forall int i; 0 <= i < a.length; 
+      @            0 <= perm[i] < a.length && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; 0 <= i < a.length; 
+      @            \exists int j; 0 <= j < a.length; i == perm[j];
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null; 
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static void sort(long[] a);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   requires 0 <= fromIndex <= toIndex <= a.length;
+      @   old int[] perm = new int[a.length];
+      @   assignable a[fromIndex .. toIndex-1], perm[*];
+      @   ensures (\forall int i;
+      @            fromIndex < i < toIndex;
+      @            a[i-1] <= a[i]);
+      @   ensures_redundantly (\forall int i;
+      @            0 <= i < fromIndex  
+      @            || toIndex <= i < a.length; 
+      @                \old(a[i]) == a[i]);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            fromIndex <= perm[i] < toIndex && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            \exists int j; fromIndex < j < toIndex; i == perm[j];
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex 
+      @            || fromIndex < 0 || toIndex > a.length;
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException,
+                    ArrayIndexOutOfBoundsException;
+      @   signals (NullPointerException) a == null;
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @            fromIndex < 0 || toIndex > a.length;
+      @*/
+    public static void sort(long[] a, int fromIndex, int toIndex);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   old int[] perm = new int[a.length];
+      @   assignable a[*], perm[*];
+      @   ensures (\forall int i,j; 0 <= i < j < a.length; a[i] <= a[j]);
+      @   ensures \forall int i; 0 <= i < a.length; 
+      @            0 <= perm[i] < a.length && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; 0 <= i < a.length; 
+      @            \exists int j; 0 <= j < a.length; i == perm[j];
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static void sort(int[] a) throws NullPointerException;
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   requires 0 <= fromIndex <= toIndex <= a.length;
+      @   old int[] perm = new int[a.length];
+      @   assignable a[fromIndex .. toIndex-1], perm[*];
+      @   ensures (\forall int i; fromIndex < i < toIndex; a[i-1] <= a[i]);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            fromIndex <= perm[i] < toIndex && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            \exists int j; fromIndex < j < toIndex; i == perm[j];
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException,
+                    ArrayIndexOutOfBoundsException;
+      @   signals (NullPointerException) a == null;
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @             fromIndex < 0;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @             a != null && toIndex > a.length;
+      @*/
+    public static void sort(int[] a, int fromIndex, int toIndex);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   old int[] perm = new int[a.length];
+      @   assignable a[*], perm[*];
+      @   ensures_redundantly a.length == \old(a.length) && a != null;
+      @   ensures (\forall int i,j; 0 <= i < j < a.length; a[i] <= a[j]);
+      @   ensures \forall int i; 0 <= i < a.length; 
+      @            0 <= perm[i] < a.length && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; 0 <= i < a.length; 
+      @            \exists int j; 0 <= j < a.length; i == perm[j];
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null; 
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static void sort(short[] a);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   requires 0 <= fromIndex <= toIndex <= a.length;
+      @   old int[] perm = new int[a.length];
+      @   assignable a[fromIndex .. toIndex-1], perm[*];
+      @   ensures_redundantly (\forall int i;
+      @            0 <= i < fromIndex  
+      @            || toIndex <= i < a.length; 
+      @                \old(a[i]) == a[i]);
+      @   ensures (\forall int i; fromIndex < i < toIndex; a[i-1] <= a[i]);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            fromIndex <= perm[i] < toIndex && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            \exists int j; fromIndex < j < toIndex; i == perm[j];
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException,
+                    ArrayIndexOutOfBoundsException;
+      @   signals (NullPointerException) a == null;
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @             fromIndex < 0 || toIndex > a.length;
+      @*/
+    public static void sort(short[] a, int fromIndex, int toIndex);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   old int[] perm = new int[a.length];
+      @   assignable a[*], perm[*];
+      @   ensures (\forall int i,j; 0 <= i < j < a.length; a[i] <= a[j]);
+      @   ensures \forall int i; 0 <= i < a.length; 
+      @            0 <= perm[i] < a.length && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; 0 <= i < a.length; 
+      @            \exists int j; 0 <= j < a.length; i == perm[j];
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null; 
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static void sort(char[] a);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   requires 0 <= fromIndex <= toIndex <= a.length;
+      @   old int[] perm = new int[a.length];
+      @   assignable a[fromIndex .. toIndex-1], perm[*];
+      @   ensures_redundantly (\forall int i;
+      @            0 <= i < fromIndex  
+      @            || toIndex <= i < a.length; 
+      @                \old(a[i]) == a[i]);
+      @   ensures (\forall int i; fromIndex < i < toIndex; a[i-1] <= a[i]);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            fromIndex <= perm[i] < toIndex && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            \exists int j; fromIndex < j < toIndex; i == perm[j];
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException, 
+                           ArrayIndexOutOfBoundsException;
+      @   signals (NullPointerException) a == null;
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @            fromIndex < 0 || toIndex > a.length;
+      @*/
+    public static void sort(char[] a, int fromIndex, int toIndex);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   old int[] perm = new int[a.length];
+      @   assignable a[*], perm[*];
+      @   ensures (\forall int i,j; 0 <= i < j < a.length; a[i] <= a[j]);
+      @   ensures \forall int i; 0 <= i < a.length; 
+      @            0 <= perm[i] < a.length && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; 0 <= i < a.length; 
+      @            \exists int j; 0 <= j < a.length; i == perm[j];
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null; 
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static void sort(byte[] a);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   requires 0 <= fromIndex <= toIndex <= a.length;
+      @   old int[] perm = new int[a.length];
+      @   assignable a[fromIndex .. toIndex-1], perm[*];
+      @   ensures_redundantly (\forall int i;
+      @            0 <= i < fromIndex  
+      @            || toIndex <= i < a.length; 
+      @                \old(a[i]) == a[i]);
+      @   ensures (\forall int i;
+      @            fromIndex < i < toIndex;
+      @            a[i-1] <= a[i]);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            fromIndex <= perm[i] < toIndex && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            \exists int j; fromIndex < j < toIndex; i == perm[j];
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException,
+                          ArrayIndexOutOfBoundsException;
+      @   signals (NullPointerException) a == null;
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @            fromIndex < 0 || toIndex > a.length;
+      @*/
+    public static void sort(byte[] a, int fromIndex, int toIndex);
+
+// FIXME - imporve the comparison
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   old int[] perm = new int[a.length];
+      @   assignable a[*], perm[*];
+      @   ensures (\forall int i,j;
+      @            0 <= i < j < a.length;
+      @            Double.valueOf(a[i]).compareTo(Double.valueOf(a[j])) <= 0);
+      @   ensures \forall int i; 0 <= i < a.length; 
+      @            0 <= perm[i] < a.length && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; 0 <= i < a.length; 
+      @            \exists int j; 0 <= j < a.length; i == perm[j];
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null ;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static void sort(double[] a);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   requires 0 <= fromIndex <= toIndex <= a.length;
+      @   old int[] perm = new int[a.length];
+      @   assignable a[fromIndex .. toIndex-1], perm[*];
+      @   ensures_redundantly (\forall int i;
+      @            0 <= i < fromIndex  
+      @            || toIndex <= i < a.length; 
+      @                \old(a[i]) == a[i]);
+      @   ensures_redundantly a.length == \old(a.length) && a != null;
+      @   ensures (\forall int i;
+      @            fromIndex < i < toIndex;
+      @            Double.valueOf(a[i-1]).compareTo(Double.valueOf(a[i])) <= 0);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            fromIndex <= perm[i] < toIndex && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            \exists int j; fromIndex < j < toIndex; i == perm[j];
+      @ also
+      @  public exceptional_behavior 
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException,
+                    ArrayIndexOutOfBoundsException;
+      @   signals (NullPointerException) a == null;
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException)  
+      @             fromIndex < 0 || toIndex > a.length;
+      @*/
+    public static void sort(double[] a, int fromIndex, int toIndex);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   old int[] perm = new int[a.length];
+      @   assignable a[*], perm[*];
+      @   ensures (\forall int i,j;
+      @            0 <= i < j < a.length;
+      @            Double.valueOf(a[i]).compareTo(Double.valueOf(a[j])) <= 0);
+      @   ensures \forall int i; 0 <= i < a.length; 
+      @            0 <= perm[i] < a.length && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; 0 <= i < a.length; 
+      @            \exists int j; 0 <= j < a.length; i == perm[j];
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null ;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static void sort(float[] a);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   requires 0 <= fromIndex <= toIndex <= a.length;
+      @   old int[] perm = new int[a.length];
+      @   assignable a[fromIndex .. toIndex-1], perm[*];
+      @   ensures_redundantly (\forall int i;
+      @            0 <= i < fromIndex  
+      @            || toIndex <= i < a.length; 
+      @                \old(a[i]) == a[i]);
+      @   ensures (\forall int i;
+      @            fromIndex < i < toIndex;
+      @            Float.valueOf(a[i-1]).compareTo(Float.valueOf(a[i])) <= 0);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            fromIndex <= perm[i] < toIndex && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            \exists int j; fromIndex < j < toIndex; i == perm[j];
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException,
+                    ArrayIndexOutOfBoundsException;
+      @   signals (NullPointerException) a == null;
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @            fromIndex < 0 || toIndex > a.length;
+      @*/
+    public static void sort(float[] a, int fromIndex, int toIndex);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   requires (\forall int i; 0 <= i < a.length; 
+      @             \typeof(a[i]) <: \type(Comparable<Object>));
+      @   old int[] perm = new int[a.length];
+      @   assignable a[*], perm[*];
+      @   ensures (\forall int i;
+      @            0 < i < a.length;
+      @            ((Comparable<Object>)a[i-1]).compareTo(a[i]) <= 0);
+      @   ensures \forall int i; 0 <= i < a.length; 
+      @            0 <= perm[i] < a.length && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; 0 <= i < a.length; 
+      @            \exists int j; 0 <= j < a.length; i == perm[j];
+      @
+      @*/
+    @SuppressWarnings("unchecked")
+    public static void sort(Object[] a);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   requires 0 <= fromIndex <= toIndex <= a.length;
+      @   requires (\forall int i; fromIndex <= i < toIndex; 
+      @              \typeof(a[i]) <: \type(Comparable<Object>));
+      @   old int[] perm = new int[a.length];
+      @   assignable a[fromIndex .. toIndex-1], perm[*];
+      @   ensures_redundantly (\forall int i;
+      @            0 <= i < fromIndex  
+      @            || toIndex <= i < a.length; 
+      @                \old(a[i]) == a[i]);
+      @   ensures (\forall int i;
+      @            fromIndex < i < toIndex;
+      @            ((Comparable<Object>)a[i-1]).compareTo(a[i]) <= 0);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            fromIndex <= perm[i] < toIndex && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            \exists int j; fromIndex < j < toIndex; i == perm[j];
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @      // || !(* array elements are mutually comparable *);
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException,
+                    ArrayIndexOutOfBoundsException, ClassCastException;
+      @   signals (NullPointerException) a == null;
+      @   signals (ClassCastException)
+      @           (* array contains elements not mutually comparable *);
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @            fromIndex < 0 || toIndex > a.length;
+      @*/
+    @SuppressWarnings("unchecked")
+    public static void sort(Object[] a, int fromIndex, int toIndex);
+
+    /*@  public normal_behavior
+      @   requires a != null && c != null;
+      @   assignable a[*];
+      @   ensures (\forall int i;
+      @            0 < i < a.length;
+      @            c.compare(a[i-1],a[i]) <= 0);
+      @ also
+      @  public normal_behavior
+      @   requires a != null && c == null;
+      @   requires (\forall int i; 0 <= i < a.length; 
+      @             \typeof(a[i]) <: \type(Comparable<T>));
+      @   assignable a[*];
+      @   ensures_redundantly a.length == \old(a.length) && a != null;
+      @   ensures (\forall int i;
+      @            0 < i < a.length;
+      @            ((Comparable<T>)a[i-1]).compareTo(a[i]) <= 0);
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null; 
+      @     // || !(* array elements are all mutually comparable *);
+      @   assignable \nothing;
+      @   signals_only NullPointerException, ClassCastException;
+      @   signals (NullPointerException) a == null;
+      @   signals (ClassCastException)
+      @     (* array contains elements not mutually comparable *);
+      @*/
+    @SuppressWarnings("unchecked")
+    public static <T>void sort(T[] a, /*@nullable*/ Comparator<? super T> c);
+
+    /*@  public normal_behavior
+      @   requires a != null && c != null;
+      @   requires 0 <= fromIndex <= toIndex <= a.length;
+      @   old int[] perm = new int[a.length];
+      @   assignable a[fromIndex .. toIndex-1], perm[*];
+      @   ensures_redundantly (\forall int i;
+      @            0 <= i < fromIndex  
+      @            || toIndex <= i < a.length; 
+      @                \old(a[i]) == a[i]);
+      @   ensures (\forall int i;
+      @            fromIndex < i < toIndex;
+      @            c.compare(a[i-1],a[i]) <= 0);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            fromIndex <= perm[i] < toIndex && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            \exists int j; fromIndex < j < toIndex; i == perm[j];
+      @ also
+      @  public normal_behavior
+      @   requires a != null && c == null;
+      @   requires 0 <= fromIndex <= toIndex <= a.length;
+      @   requires (\forall int i; 0 <= i < a.length; 
+      @             \typeof(a[i]) <: \type(Comparable<T>));
+      @   old int[] perm = new int[a.length];
+      @   assignable a[fromIndex .. toIndex-1], perm[*];
+      @   ensures_redundantly (\forall int i;
+      @            0 <= i < fromIndex  
+      @            || toIndex <= i < a.length; 
+      @                \old(a[i]) == a[i]);
+      @   ensures (\forall int i;
+      @            fromIndex < i < toIndex;
+      @            ((Comparable<T>)a[i-1]).compareTo(a[i]) <= 0);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            fromIndex <= perm[i] < toIndex && a[i] == \old(a[perm[i]]);
+      @   ensures \forall int i; fromIndex < i < toIndex; 
+      @            \exists int j; fromIndex < j < toIndex; i == perm[j];
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @        //    || !(* array elements are mutually comparable *);
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException,
+                    ArrayIndexOutOfBoundsException, ClassCastException;
+      @   signals (NullPointerException) a == null;
+      @   signals (ClassCastException)
+      @     (* array contains elements not mutually comparable *);
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @            fromIndex < 0 || toIndex > a.length;
+      @*/
+    @SuppressWarnings("unchecked")
+    public static <T> void sort(T[] a, int fromIndex, int toIndex, /*@nullable*/ Comparator<? super T> c);
+
+    //------------------------------------------------------------------------
+
+    /*@  public normal_behavior
+      @   requires a != null &&
+      @            (\forall int i; 
+      @             0 < i < a.length;
+      @             a[i-1] <= a[i]); 
+      @  old boolean hasKey = (\exists int i; 0 <= i < a.length; a[i] == key);
+      @  {| 
+      @     requires hasKey;
+      @     assignable \nothing;
+      @     ensures 0 <= \result && \result < a.length 
+      @           && a[\result] == key;
+      @    also
+      @     requires !hasKey;
+      @     assignable \nothing;
+      @     ensures \result < 0;
+      @     ensures (\exists int j; 0 <= j < a.length; 
+      @              a[j] < key)
+      @             ==> a[(\result*-1) - 2] < key;
+      @     ensures ((\result*-1)-1 < a.length && 
+      @              a[(\result*-1)-1] > key) 
+      @              || (\result*-1)-1 == a.length; 
+      @     ensures_redundantly (\exists int j; 0 <= j < a.length;
+      @                          a[j] > key)
+      @              ==> a[(\result*-1)-1] > key;
+      @   |}
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null ;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static int binarySearch(long[] a, long key);
+
+    /*@  public normal_behavior
+      @   requires a != null &&
+      @            (\forall int i; 
+      @             0 < i < a.length;
+      @             a[i-1] <= a[i]); 
+      @  old boolean hasKey = (\exists int i; 0 <= i < a.length; a[i] == key);
+      @  {| 
+      @     requires hasKey;
+      @     ensures 0 <= \result && \result < a.length 
+      @           && a[\result] == key;
+      @    also
+      @     requires !hasKey;
+      @     ensures \result < 0 && (-a.length-1) <= \result;
+      @     ensures (\forall int j; 0 <= j < (-1-\result); a[j] < key);
+      @     ensures (\forall int j; (-1-\result) <= j < a.length; key < a[j]);
+      @   |}
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null ;
+      @   signals_only NullPointerException;
+      @*/
+    //@ pure
+    public static int binarySearch(int[] a, int key) throws NullPointerException;
+
+    /*@  public normal_behavior
+      @   requires a != null &&
+      @            (\forall int i; 
+      @             0 < i < a.length;
+      @             a[i-1] <= a[i]); 
+      @  old boolean hasKey = (\exists int i; 0 <= i < a.length; a[i] == key);
+      @  {| 
+      @     requires hasKey;
+      @     assignable \nothing;
+      @     ensures 0 <= \result && \result < a.length 
+      @           && a[\result] == key;
+      @    also
+      @     requires !hasKey;
+      @     assignable \nothing;
+      @     ensures \result < 0;
+      @     ensures (\exists int j; 0 <= j < a.length; 
+      @              a[j] < key)
+      @             ==> a[(\result*-1) - 2] < key;
+      @     ensures ((\result*-1)-1 < a.length && 
+      @              a[(\result*-1)-1] > key) 
+      @              || (\result*-1)-1 == a.length; 
+      @     ensures_redundantly (\exists int j; 0 <= j < a.length;
+      @                          a[j] > key)
+      @              ==> a[(\result*-1)-1] > key;
+      @   |}
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null ;
+      @   assignable \nothing;
+      @*/
+    public static int binarySearch(short[] a, short key);
+
+    /*@  public normal_behavior
+      @   requires a != null &&
+      @            (\forall int i; 
+      @             0 < i < a.length;
+      @             a[i-1] <= a[i]); 
+      @  old boolean hasKey = (\exists int i; 0 <= i < a.length; a[i] == key);
+      @  {| 
+      @     requires hasKey;
+      @     assignable \nothing;
+      @     ensures 0 <= \result && \result < a.length 
+      @           && a[\result] == key;
+      @    also
+      @     requires !hasKey;
+      @     assignable \nothing;
+      @     ensures \result < 0;
+      @     ensures (\exists int j; 0 <= j < a.length; 
+      @              a[j] < key)
+      @             ==> a[(\result*-1) - 2] < key;
+      @     ensures ((\result*-1)-1 < a.length && 
+      @              a[(\result*-1)-1] > key) 
+      @              || (\result*-1)-1 == a.length; 
+      @     ensures_redundantly (\exists int j; 0 <= j < a.length;
+      @                          a[j] > key)
+      @              ==> a[(\result*-1)-1] > key;
+      @   |}
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null ;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static int binarySearch(char[] a, char key);
+
+    /*@  public normal_behavior
+      @   requires a != null &&
+      @            (\forall int i; 
+      @             0 < i < a.length;
+      @             a[i-1] <= a[i]); 
+      @  old boolean hasKey = (\exists int i; 0 <= i < a.length; a[i] == key);
+      @  {| 
+      @     requires hasKey;
+      @     assignable \nothing;
+      @     ensures 0 <= \result && \result < a.length 
+      @           && a[\result] == key;
+      @    also
+      @     requires !hasKey;
+      @     assignable \nothing;
+      @     ensures \result < 0;
+      @     ensures (\exists int j; 0 <= j < a.length; 
+      @              a[j] < key)
+      @             ==> a[(\result*-1) - 2] < key;
+      @     ensures ((\result*-1)-1 < a.length && 
+      @              a[(\result*-1)-1] > key) 
+      @              || (\result*-1)-1 == a.length; 
+      @     ensures_redundantly (\exists int j; 0 <= j < a.length;
+      @                          a[j] > key)
+      @              ==> a[(\result*-1)-1] > key;
+      @   |}
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null ;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static int binarySearch(byte[] a, byte key);
+
+    /*@  public normal_behavior
+      @   requires a != null &&
+      @            (\forall int i;
+      @             0 < i < a.length;
+      @             Double.valueOf(a[i-1]).compareTo(Double.valueOf(a[i])) <= 0);
+      @  old boolean hasKey = (\exists int i; 0 <= i < a.length; a[i] == key);
+      @   {| 
+      @      requires hasKey;
+      @      assignable \nothing;
+      @      ensures 0 <= \result && \result < a.length 
+      @              && Double.valueOf(a[\result]).compareTo(Double.valueOf(key))
+      @                     == 0;
+      @     also
+      @      requires !hasKey;
+      @      assignable \nothing;
+      @      ensures \result < 0;
+      @      ensures (\exists int j; 0 <= j < a.length; 
+      @               Double.valueOf(a[j]).compareTo(Double.valueOf(key)) < 0)
+      @            ==> 
+      @           Double.valueOf(a[(\result*-1)-2]).compareTo(Double.valueOf(key))
+      @                < 0;
+      @      ensures ((\result*-1)-1 < a.length && 
+      @      Double.valueOf(a[(\result*-1)-1]).compareTo(Double.valueOf(key)) > 0)
+      @              || (\result*-1)-1 == a.length; 
+      @      ensures_redundantly (\exists int j; 0 <= j < a.length;
+      @                   Double.valueOf(a[j]).compareTo(Double.valueOf(key)) > 0)
+      @       ==> 
+      @      Double.valueOf(a[(\result*-1)-1]).compareTo(Double.valueOf(key)) > 0;
+      @    |}
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null ;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static int binarySearch(double[] a, double key);
+
+    /*@  public normal_behavior
+      @   requires a != null &&
+      @            (\forall int i;
+      @             0 < i < a.length;
+      @             Float.valueOf(a[i-1]).compareTo(Float.valueOf(a[i])) <= 0);
+      @   old boolean hasKey = (\exists int i; 0 <= i < a.length; a[i] == key);
+      @   {| 
+      @      requires hasKey;
+      @      assignable \nothing;
+      @      ensures 0 <= \result && \result < a.length 
+      @              && Float.valueOf(a[\result]).compareTo(Float.valueOf(key))
+      @                     == 0;
+      @     also
+      @      requires !hasKey;
+      @      assignable \nothing;
+      @      ensures \result < 0;
+      @      ensures (\exists int j; 0 <= j < a.length; 
+      @               Float.valueOf(a[j]).compareTo(Float.valueOf(key)) < 0)
+      @            ==> 
+      @           Float.valueOf(a[(\result*-1)-2]).compareTo(Float.valueOf(key))
+      @                < 0;
+      @      ensures ((\result*-1)-1 < a.length && 
+      @      Float.valueOf(a[(\result*-1)-1]).compareTo(Float.valueOf(key)) > 0)
+      @              || (\result*-1)-1 == a.length; 
+      @      ensures_redundantly (\exists int j; 0 <= j < a.length;
+      @                   Float.valueOf(a[j]).compareTo(Float.valueOf(key)) > 0)
+      @       ==> 
+      @      Float.valueOf(a[(\result*-1)-1]).compareTo(Float.valueOf(key)) > 0;
+      @    |}
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null ;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static int binarySearch(float[] a, float key);
+
+    /*@  public normal_behavior
+      @   requires a != null; 
+      @   requires (\forall int i; 0 <= i < a.length; 
+      @             \typeof(a[i]) <: \type(Comparable<Object>)) && 
+      @             \typeof(key) <: \type(Comparable<Object>);
+      @   requires (\forall int i;
+      @             0 < i < a.length;
+      @             ((Comparable<Object>)a[i-1]).compareTo(a[i]) <= 0);
+      @  old boolean hasKey = (\exists int j; 0 <= j < a.length; 
+      @                ((Comparable<Object>)a[j]).compareTo(key) == 0);
+
+      @   {| 
+      @      requires hasKey;
+      @      assignable \nothing;
+      @      ensures 0 <= \result && \result < a.length 
+      @              && ((Comparable<Object>)a[\result]).compareTo(key) == 0;
+      @     also
+      @      requires !hasKey;
+      @      assignable \nothing;
+      @      ensures \result < 0;
+      @      ensures (\exists int j; 0 <= j < a.length; 
+      @               ((Comparable<Object>)a[j]).compareTo(key) < 0)
+      @       ==> ((Comparable<Object>)a[(\result*-1) - 2]).compareTo(key) < 0;
+      @      ensures ((\result*-1)-1 < a.length && 
+      @              ((Comparable<Object>)a[(\result*-1)-1]).compareTo(key) > 0)
+      @               || (\result*-1)-1 == a.length; 
+      @      ensures_redundantly (\exists int j; 0 <= j < a.length;
+      @               ((Comparable<Object>)a[j]).compareTo(key) > 0)
+      @       ==> ((Comparable<Object>)a[(\result*-1)-1]).compareTo(key) > 0;
+      @    |}
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null ||
+      @            (* array contains elements not comparable to key *);
+      @   assignable \nothing;
+      @   signals_only NullPointerException, ClassCastException;
+      @   signals (NullPointerException) a == null;
+      @   signals (ClassCastException) 
+      @            (* array contains elements not comparable to key *);
+      @*/
+    @SuppressWarnings("unchecked")
+    public static int binarySearch(Object[] a, Object key);
+
+//    /*@  public normal_behavior
+//      @   requires a != null && c != null;
+//      @   requires (\forall int i; 0 < i < a.length;
+//      @             c.compare(a[i-1],a[i]) <= 0);
+//      @   {| 
+//      @      requires (\exists int j; 0 <= j < a.length; 
+//      @                c.compare(a[j],key) == 0);
+//      @      assignable \nothing;
+//      @      ensures 0 <= \result && \result < a.length 
+//      @              && c.compare(a[\result],key) == 0;
+//      @     also
+//      @      requires !(\exists int j; 0 <= j < a.length; 
+//      @                 c.compare(a[j],key) == 0);
+//      @      assignable \nothing;
+//      @      ensures \result < 0;
+//      @      ensures (\exists int j; 0 <= j < a.length; 
+//      @               c.compare(a[j],key) < 0)
+//      @           ==> c.compare(a[(\result*-1) - 2],key) < 0;
+//      @      ensures ((\result*-1)-1 < a.length && 
+//      @               c.compare(a[(\result*-1)-1],key) > 0) 
+//      @               || (\result*-1)-1 == a.length; 
+//      @      ensures_redundantly (\exists int j; 0 <= j < a.length;
+//      @               c.compare(a[j],key) > 0)
+//      @           ==> c.compare(a[(\result*-1)-1],key) > 0;
+//      @    |}
+//      @ also
+//      @  public normal_behavior
+//      @   requires a != null && c == null;
+//      @   requires (\forall int i; 0 <= i < a.length; 
+//      @             \typeof(a[i]) <: \type(Comparable<T>)) && 
+//      @             \typeof(key) <: \type(Comparable<T>));
+//      @   requires (\forall int i;
+//      @             0 < i < a.length;
+//      @             ((Comparable<T>)a[i-1]).compareTo(a[i]) <= 0);
+//      @   {| 
+//      @      requires (\exists int j; 0 <= j < a.length;
+//      @               ((Comparable<T>)a[j]).compareTo(key) == 0);
+//      @      assignable \nothing;
+//      @      ensures 0 <= \result && \result < a.length 
+//      @              && ((Comparable<T>)a[\result]).compareTo(key) == 0;
+//      @     also
+//      @      requires !(\exists int j; 0 <= j < a.length; 
+//      @                ((Comparable<T>)a[j]).compareTo(key) == 0);
+//      @      assignable \nothing;
+//      @      ensures \result < 0;
+//      @      ensures (\exists int j; 0 <= j < a.length; 
+//      @               ((Comparable<T>)a[j]).compareTo(key) < 0)
+//      @       ==> ((Comparable<T>)a[(\result*-1) - 2]).compareTo(key) < 0;
+//      @      ensures ((\result*-1)-1 < a.length && 
+//      @              ((Comparable<T>)a[(\result*-1)-1]).compareTo(key) > 0) 
+//      @               || (\result*-1)-1 == a.length; 
+//      @      ensures_redundantly (\exists int j; 0 <= j < a.length;
+//      @               ((Comparable<T>)a[j]).compareTo(key) > 0)
+//      @        ==> ((Comparable<T>)a[(\result*-1)-1]).compareTo(key) > 0;
+//      @    |}
+//      @ also
+//      @  public exceptional_behavior
+//      @   requires a == null ||
+//      @            (* array contains elements not comparable to key *);
+//      @   assignable \nothing;
+//      @   signals_only NullPointerException, ClassCastException;
+//      @   signals (NullPointerException) a == null;
+//      @   signals (ClassCastException) 
+//      @            (* array contains elements not comparable to key *);
+//      @*/
+//    public static <T> int binarySearch(T[] a, T key, /*@nullable*/ Comparator<? extends T> c);
+// FIXME - don't handle matching of generic methods yet
+    
+    /*@  public normal_behavior
+      @   requires a == null || a2 == null;
+      @   ensures \result <==> a == a2;
+      @ also 
+      @  public normal_behavior
+      @   requires a != null && a2 != null;
+      @   ensures \result <==> a.length == a2.length && 
+      @                   (\forall \bigint i; 0 <= i < a.length; a[i] == a2[i]);
+      @*/
+    public static /*@ pure@*/ boolean equals(long[] a, long[] a2);
+
+    /*@  public normal_behavior
+      @   requires a == null || a2 == null;
+      @   ensures \result <==> a == a2;
+      @ also 
+      @  public normal_behavior
+      @   requires a != null && a2 != null;
+      @   ensures \result <==> a.length == a2.length && 
+      @                   (\forall \bigint i; 0 <= i < a.length; a[i] == a2[i]);
+      @*/
+    public static /*@ pure@*/ boolean equals(int /*@ nullable */ [] a, int /*@ nullable */ [] a2);
+
+    /*@  public normal_behavior
+      @   requires a == null || a2 == null;
+      @   ensures \result <==> a == a2;
+      @ also 
+      @  public normal_behavior
+      @   requires a != null && a2 != null;
+      @   ensures \result <==> a.length == a2.length && 
+      @                   (\forall \bigint i; 0 <= i < a.length; a[i] == a2[i]);
+      @*/
+    public static /*@ pure@*/ boolean equals(short /*@ nullable */ [] a, short /*@ nullable */[] a2);
+
+    /*@  public normal_behavior
+      @   requires a == null || a2 == null;
+      @   ensures \result <==> a == a2;
+      @ also 
+      @  public normal_behavior
+      @   requires a != null && a2 != null;
+      @   ensures \result <==> a.length == a2.length && 
+      @                   (\forall \bigint i; 0 <= i < a.length; a[i] == a2[i]);
+      @*/
+    public static /*@ pure @*/ boolean equals(char /*@ nullable */ [] a, char /*@ nullable */ [] a2);
+
+    /*@  public normal_behavior
+      @   requires a == null || a2 == null;
+      @   ensures \result <==> a == a2;
+      @ also 
+      @  public normal_behavior
+      @   requires a != null && a2 != null;
+      @   ensures \result <==> 
+      @                 (a.length == a2.length && 
+      @                   (\forall \bigint i; 0 <= i < a.length; a[i] == a2[i]));
+      @*/
+    public static /*@ pure @*/ boolean equals(byte /*@ nullable */ [] a, byte /*@ nullable */[] a2);
+
+    /*@  public normal_behavior
+      @   requires a == null || a2 == null;
+      @   ensures \result <==> a == a2;
+      @ also 
+      @  public normal_behavior
+      @   requires a != null && a2 != null;
+      @   ensures \result <==> (a.length == a2.length && 
+      @                   (\forall \bigint i; 0 <= i < a.length; a[i] == a2[i]));
+      @*/
+    public static /*@ pure@*/ boolean equals(boolean /*@ nullable */ [] a, boolean /*@ nullable */[] a2);
+
+// FIXME - better comparison
+    /*@  public normal_behavior
+      @   requires a == null || a2 == null;
+      @   ensures \result <==> a == a2;
+      @ also 
+      @  public normal_behavior
+      @   requires a != null && a2 != null;
+      @   ensures \result <==> (a.length == a2.length && 
+      @                    (\forall \bigint i; 0 <= i < a.length;
+      @                     Double.valueOf(a[i]).equals(Double.valueOf(a2[i]))));
+      @*/
+    public static /*@ pure@*/ boolean equals(double /*@ nullable */ [] a, double /*@ nullable */[] a2);
+
+// FIXME - better comparison
+    /*@  public normal_behavior
+      @   requires a == null || a2 == null;
+      @   ensures \result <==> a == a2;
+      @ also 
+      @  public normal_behavior
+      @   requires a != null && a2 != null;
+      @   ensures \result <==> (a.length == a2.length && 
+      @                    (\forall int i; 0 <= i < a.length;
+      @                     Float.valueOf(a[i]).equals(Float.valueOf(a2[i]))));
+      @*/
+    public static /*@ pure@*/ boolean equals(float /*@ nullable */ [] a, float /*@ nullable */ [] a2);
+
+// FIXME - Object comparisons as well as equals comparison?
+    /*@  public normal_behavior
+      @   requires a == null || a2 == null;
+      @   ensures \result <==> a == a2;
+      @ also 
+      @  public normal_behavior
+      @   requires a != null && a2 != null;
+      @   ensures \result <==> (a.length == a2.length && 
+      @              (\forall \bigint i; 0 <= i < a.length;
+      @                a[i].equals(a2[i])));
+      @*/
+    public static /*@ pure helper@*/ boolean equals(Object /*@ nullable */ [] a, Object /*@ nullable */[] a2);
+
+    /*@
+      @ public normal_behavior
+      @   ensures \result == ( o == oo ||
+                 ( o != null && oo != null && o.length == oo.length &&
+                   (\forall \bigint i; 0<= i < o.length; o[i] == oo[i])));
+      @
+      @ public static pure model boolean equalElements(Object[] o, Object[] oo) {
+          if (o == oo) return true;
+          if (o == null || oo == null) return false;
+          if (o.length != oo.length) return false;
+          for (int i=0; i<o.length; ++i) {
+            if (o[i] != oo[i]) return false;
+          }
+          return true;
+        }
+      @*/
+
+    //@ public normal_behavior
+    //@   requires len >= 0;
+    //@   requires 0 <= index1 <= arr1.length - len;
+    //@   requires 0 <= index2 <= arr2.length - len;
+    //@// All of these ensures are included because solvers have a hard time with index arithmetic
+    //@   ensures \result == (\forall \bigint i; index1 <= i < index1 + len; arr1[i] == arr2[i-index1+index2]);
+    //@   ensures \result == (\forall \bigint i; index2 <= i < index2 + len; arr2[i] == arr1[i-index2+index1]);
+    //@   ensures \result == (\forall \bigint i; 0 <= i < len; arr1[i+index1] == arr2[i+index2]);
+    //@ model public static pure helper heap_free boolean equalArrays(boolean[] arr1, \bigint index1, boolean[] arr2, \bigint index2, \bigint len);
+
+    //@ public normal_behavior
+    //@   requires arr1.length != arr2.length;
+    //@   ensures \result == false;
+    //@ also public normal_behavior
+    //@   requires arr1.length == arr2.length;
+    //@   ensures \result == (\forall \bigint i; 0 <= i < arr1.length; arr1[i] == arr2[i]);
+    //@ model public static pure helper heap_free boolean equalArrays(boolean[] arr1, boolean[] arr2);
+
+    // NOTE: These methods+specs do not always trigger well - hence they are not declared heap_free
+    //@ public normal_behavior
+    //@   requires len >= 0;
+    //@   requires 0 <= index1 <= arr1.length - len;
+    //@   requires 0 <= index2 <= arr2.length - len;
+    //@// All of these ensures are included because solvers have a hard time with index arithmetic
+    //@   ensures \result == (\forall \bigint i; index1 <= i < index1 + len; arr1[i] == arr2[i-index1+index2]);
+    //@   ensures \result == (\forall \bigint i; index2 <= i < index2 + len; arr2[i] == arr1[i-index2+index1]);
+    //@   ensures \result == (\forall \bigint i; 0 <= i < len; arr1[i+index1] == arr2[i+index2]);
+    //@ model public static pure helper boolean equalArraysNF(byte[] arr1, \bigint index1, byte[] arr2, \bigint index2, \bigint len);
+
+    //@ public normal_behavior
+    //@   requires len >= 0;
+    //@   requires 0 <= index1 <= arr1.length - len;
+    //@   requires 0 <= index2 <= arr2.length - len;
+    //@// All of these ensures are included because solvers have a hard time with index arithmetic
+    //@   ensures \result == (\forall \bigint i; index1 <= i < index1 + len; arr1[i] == arr2[i-index1+index2]);
+    //@   ensures \result == (\forall \bigint i; index2 <= i < index2 + len; arr2[i] == arr1[i-index2+index1]);
+    //@   ensures \result == (\forall \bigint i; 0 <= i < len; arr1[i+index1] == arr2[i+index2]);
+    //@ model public static pure helper heap_free boolean equalArrays(byte[] arr1, \bigint index1, byte[] arr2, \bigint index2, \bigint len);
+
+    //@ public normal_behavior
+    //@   requires arr1.length != arr2.length;
+    //@   ensures \result == false;
+    //@ also public normal_behavior
+    //@   requires arr1.length == arr2.length;
+    //@   ensures \result == (\forall \bigint i; 0 <= i < arr1.length; arr1[i] == arr2[i]);
+    //@ model public static pure helper boolean equalArraysNF(byte[] arr1, byte[] arr2);
+
+    //@ public normal_behavior
+    //@   requires arr1.length != arr2.length;
+    //@   ensures \result == false;
+    //@ also public normal_behavior
+    //@   requires arr1.length == arr2.length;
+    //@   ensures \result == (\forall \bigint i; 0 <= i < arr1.length; arr1[i] == arr2[i]);
+    //@ model public static pure helper heap_free boolean equalArrays(byte[] arr1, byte[] arr2);
+
+    //@ public normal_behavior
+    //@   requires len >= 0;
+    //@   requires 0 <= index1 <= arr1.length - len;
+    //@   requires 0 <= index2 <= arr2.length - len;
+    //@// All of these ensures are included because solvers have a hard time with index arithmetic
+    //@   ensures \result == (\forall \bigint i; index1 <= i < index1 + len; arr1[i] == arr2[i-index1+index2]);
+    //@   ensures \result == (\forall \bigint i; index2 <= i < index2 + len; arr2[i] == arr1[i-index2+index1]);
+    //@   ensures \result == (\forall \bigint i; 0 <= i < len; arr1[i+index1] == arr2[i+index2]);
+    //@ model public static pure helper heap_free boolean equalArrays(char[] arr1, \bigint index1, char[] arr2, \bigint index2, \bigint len);
+
+    //@ public normal_behavior
+    //@   requires arr1.length != arr2.length;
+    //@   ensures \result == false;
+    //@ also public normal_behavior
+    //@   requires arr1.length == arr2.length;
+    //@   ensures \result == (\forall \bigint i; 0 <= i < arr1.length; arr1[i] == arr2[i]);
+    //@ model public static pure helper heap_free boolean equalArrays(char[] arr1, char[] arr2);
+
+    //@ public normal_behavior
+    //@   requires len >= 0;
+    //@   requires 0 <= index1 <= arr1.length - len;
+    //@   requires 0 <= index2 <= arr2.length - len;
+    //@// All of these ensures are included because solvers have a hard time with index arithmetic
+    //@   ensures \result == (\forall \bigint i; index1 <= i < index1 + len; arr1[i] == arr2[i-index1+index2]);
+    //@   ensures \result == (\forall \bigint i; index2 <= i < index2 + len; arr2[i] == arr1[i-index2+index1]);
+    //@   ensures \result == (\forall \bigint i; 0 <= i < len; arr1[i+index1] == arr2[i+index2]);
+    //@ model public static pure helper heap_free boolean equalArrays(short[] arr1, \bigint index1, short[] arr2, \bigint index2, \bigint len);
+
+    //@ public normal_behavior
+    //@   requires arr1.length != arr2.length;
+    //@   ensures \result == false;
+    //@ also public normal_behavior
+    //@   requires arr1.length == arr2.length;
+    //@   ensures \result == (\forall \bigint i; 0 <= i < arr1.length; arr1[i] == arr2[i]);
+    //@ model public static pure helper heap_free boolean equalArrays(short[] arr1, short[] arr2);
+
+    //@ public normal_behavior
+    //@   requires len >= 0;
+    //@   requires 0 <= index1 <= arr1.length - len;
+    //@   requires 0 <= index2 <= arr2.length - len;
+    //@// All of these ensures are included because solvers have a hard time with index arithmetic
+    //@   ensures \result == (\forall \bigint i; index1 <= i < index1 + len; arr1[i] == arr2[i-index1+index2]);
+    //@   ensures \result == (\forall \bigint i; index2 <= i < index2 + len; arr2[i] == arr1[i-index2+index1]);
+    //@   ensures \result == (\forall \bigint i; 0 <= i < len; arr1[i+index1] == arr2[i+index2]);
+    //@ model public static pure helper heap_free boolean equalArrays(int[] arr1, \bigint index1, int[] arr2, \bigint index2, \bigint len);
+
+    //@ public normal_behavior
+    //@   requires arr1.length != arr2.length;
+    //@   ensures \result == false;
+    //@ also public normal_behavior
+    //@   requires arr1.length == arr2.length;
+    //@   ensures \result == (\forall \bigint i; 0 <= i < arr1.length; arr1[i] == arr2[i]);
+    //@ model public static pure helper heap_free boolean equalArrays(int[] arr1, int[] arr2);
+
+    //@ public normal_behavior
+    //@   requires len >= 0;
+    //@   requires 0 <= index1 <= arr1.length - len;
+    //@   requires 0 <= index2 <= arr2.length - len;
+    //@// All of these ensures are included because solvers have a hard time with index arithmetic
+    //@   ensures \result == (\forall \bigint i; index1 <= i < index1 + len; arr1[i] == arr2[i-index1+index2]);
+    //@   ensures \result == (\forall \bigint i; index2 <= i < index2 + len; arr2[i] == arr1[i-index2+index1]);
+    //@   ensures \result == (\forall \bigint i; 0 <= i < len; arr1[i+index1] == arr2[i+index2]);
+    //@ model public static pure helper heap_free boolean equalArrays(long[] arr1, \bigint index1, long[] arr2, \bigint index2, \bigint len);
+
+    //@ public normal_behavior
+    //@   requires arr1.length != arr2.length;
+    //@   ensures \result == false;
+    //@ also public normal_behavior
+    //@   requires arr1.length == arr2.length;
+    //@   ensures \result == (\forall \bigint i; 0 <= i < arr1.length; arr1[i] == arr2[i]);
+    //@ model public static pure helper heap_free boolean equalArrays(long[] arr1, long[] arr2);
+
+    //@ public normal_behavior
+    //@   requires len >= 0;
+    //@   requires 0 <= index1 <= arr1.length - len;
+    //@   requires 0 <= index2 <= arr2.length - len;
+    //@// All of these ensures are included because solvers have a hard time with index arithmetic
+    //@   ensures \result == (\forall \bigint i; index1 <= i < index1 + len; arr1[i] == arr2[i-index1+index2]);
+    //@   ensures \result == (\forall \bigint i; index2 <= i < index2 + len; arr2[i] == arr1[i-index2+index1]);
+    //@   ensures \result == (\forall \bigint i; 0 <= i < len; arr1[i+index1] == arr2[i+index2]);
+    //@ model public static pure helper heap_free boolean equalArrays(float[] arr1, \bigint index1, float[] arr2, \bigint index2, \bigint len);
+
+    //@ public normal_behavior
+    //@   requires arr1.length != arr2.length;
+    //@   ensures \result == false;
+    //@ also public normal_behavior
+    //@   requires arr1.length == arr2.length;
+    //@   ensures \result == (\forall \bigint i; 0 <= i < arr1.length; arr1[i] == arr2[i]);
+    //@ model public static pure helper heap_free boolean equalArrays(float[] arr1, float[] arr2);
+
+    //@ public normal_behavior
+    //@   requires len >= 0;
+    //@   requires 0 <= index1 <= arr1.length - len;
+    //@   requires 0 <= index2 <= arr2.length - len;
+    //@// All of these ensures are included because solvers have a hard time with index arithmetic
+    //@   ensures \result == (\forall \bigint i; index1 <= i < index1 + len; arr1[i] == arr2[i-index1+index2]);
+    //@   ensures \result == (\forall \bigint i; index2 <= i < index2 + len; arr2[i] == arr1[i-index2+index1]);
+    //@   ensures \result == (\forall \bigint i; 0 <= i < len; arr1[i+index1] == arr2[i+index2]);
+    //@ model public static pure helper heap_free boolean equalArrays(double[] arr1, \bigint index1, double[] arr2, \bigint index2, \bigint len);
+
+    //@ public normal_behavior
+    //@   requires arr1.length != arr2.length;
+    //@   ensures \result == false;
+    //@ also public normal_behavior
+    //@   requires arr1.length == arr2.length;
+    //@   ensures \result == (\forall int i; 0 <= i < arr1.length; arr1[i] == arr2[i]);
+    //@ model public static pure helper heap_free boolean equalArrays(double[] arr1, double[] arr2);
+
+    //@ public normal_behavior
+    //@   requires len >= 0;
+    //@   requires 0 <= index1 <= arr1.length - len;
+    //@   requires 0 <= index2 <= arr2.length - len;
+    //@// All of these ensures are included because solvers have a hard time with index arithmetic
+    //@   ensures \result == (\forall \bigint i; index1 <= i < index1 + len; arr1[i] == arr2[i-index1+index2]);
+    //@   ensures \result == (\forall \bigint i; index2 <= i < index2 + len; arr2[i] == arr1[i-index2+index1]);
+    //@   ensures \result == (\forall \bigint i; 0 <= i < len; arr1[i+index1] == arr2[i+index2]);
+    //@ model public static pure helper heap_free boolean equalArrays(Object[] arr1, \bigint index1, Object[] arr2, \bigint index2, \bigint len);
+
+    //@ public normal_behavior
+    //@   requires arr1.length != arr2.length;
+    //@   ensures \result == false;
+    //@ also public normal_behavior
+    //@   requires arr1.length == arr2.length;
+    //@   ensures \result == (\forall \bigint i; 0 <= i < arr1.length; arr1[i] == arr2[i]);
+    //@ model public static pure helper heap_free boolean equalArrays(Object[] arr1, Object[] arr2);
+
+    //-----------------------------------------------------------------------
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   assignable a[*];
+      @   ensures (\forall \bigint i; 0 <= i < a.length; 
+      @            a[i] == val);
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static void fill(long /*@ nullable */ [] a, long val) throws NullPointerException;
+
+// FIXME - check this
+    /*@  public normal_behavior
+      @   requires a != null && fromIndex < toIndex;
+      @   assignable a[fromIndex .. toIndex-1];
+      @   ensures_redundantly a.length == \old(a.length) && a != null;
+      @   ensures (\forall int i; fromIndex <= i < toIndex; 
+      @            a[i] == val);
+      @   ensures_redundantly (\forall int i;
+      @            0 <= i < fromIndex  
+      @            || toIndex <= i < a.length; 
+      @                \old(a[i]) == a[i]);
+      @ also
+      @  public normal_behavior
+      @   requires a != null && fromIndex == toIndex;
+      @   assignable \nothing;
+      @   ensures_redundantly a.length == \old(a.length) && a != null;
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException,
+      @                  ArrayIndexOutOfBoundsException;
+      @   signals (NullPointerException) a == null;
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @            fromIndex < 0 || toIndex > a.length;
+      @*/
+    public static void fill(long /*@ nullable */ [] a, int fromIndex, int toIndex, long val);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   assignable a[*];
+      @   ensures (\forall int i; 0 <= i < a.length; 
+      @            a[i] == val);
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static void fill(int /*@ nullable */ [] a, int val) throws NullPointerException;
+
+// CHECK THIS - FIXME
+    /*@  public normal_behavior
+      @   requires a != null && fromIndex < toIndex;
+      @   assignable a[fromIndex .. toIndex-1];
+      @   ensures_redundantly a.length == \old(a.length) && a != null;
+      @   ensures (\forall int i; fromIndex <= i < toIndex; 
+      @            a[i] == val);
+      @   ensures_redundantly (\forall int i;
+      @            0 <= i < fromIndex  
+      @            || toIndex <= i < a.length; 
+      @                \old(a[i]) == a[i]);
+      @ also
+      @  public normal_behavior
+      @   requires a != null && fromIndex == toIndex;
+      @   assignable \nothing;
+      @   ensures_redundantly a != null && a.length == \old(a.length);
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException,
+                    ArrayIndexOutOfBoundsException;
+      @   signals (NullPointerException) a == null;
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @            fromIndex < 0 || toIndex > a.length;
+      @*/
+    public static void fill(int /*@ nullable */ [] a, int fromIndex, int toIndex, int val);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   assignable a[*];
+      @   ensures (\forall int i; 0 <= i < a.length; 
+      @            a[i] == val);
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static void fill(short /*@ nullable */ [] a, short val) throws NullPointerException;
+
+// FIXME - checkthis
+    /*@  public normal_behavior
+      @   requires a != null && fromIndex < toIndex;
+      @   assignable a[fromIndex .. toIndex-1];
+      @   ensures_redundantly a.length == \old(a.length) && a != null;
+      @   ensures (\forall int i; fromIndex <= i < toIndex; 
+      @            a[i] == val);
+      @   ensures_redundantly (\forall int i;
+      @            0 <= i < fromIndex  
+      @            || toIndex <= i < a.length; 
+      @                \old(a[i]) == a[i]);
+      @ also
+      @  public normal_behavior
+      @   requires a != null && fromIndex == toIndex;
+      @   assignable \nothing;
+      @   ensures_redundantly a.length == \old(a.length);
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException,
+      @                  ArrayIndexOutOfBoundsException;
+      @   signals (NullPointerException) a == null;
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @            fromIndex < 0 || toIndex > a.length;
+      @*/
+    public static void fill(short /*@ nullable */ [] a, int fromIndex, int toIndex, short val);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   assignable a[*];
+      @   ensures (\forall int i; 0 <= i < a.length; 
+      @            a[i] == val);
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static void fill(char /*@ nullable */ [] a, char val) throws NullPointerException;
+
+// FIXME - check this
+    /*@  public normal_behavior
+      @   requires a != null && fromIndex < toIndex;
+      @   assignable a[fromIndex .. toIndex-1];
+      @   ensures_redundantly a.length == \old(a.length) && a != null;
+      @   ensures (\forall int i; fromIndex <= i < toIndex; 
+      @            a[i] == val);
+      @   ensures_redundantly (\forall int i;
+      @            0 <= i < fromIndex  
+      @            || toIndex <= i < a.length; 
+      @                \old(a[i]) == a[i]);
+      @ also
+      @  public normal_behavior
+      @   requires a != null && fromIndex == toIndex;
+      @   assignable \nothing;
+      @   ensures_redundantly a.length == \old(a.length);
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException, 
+                           ArrayIndexOutOfBoundsException;
+      @   signals (NullPointerException) a == null;
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @            fromIndex < 0 || toIndex > a.length;
+      @*/
+    public static void fill(char /*@ nullable */ [] a, int fromIndex, int toIndex, char val);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   assignable a[*];
+      @   ensures (\forall int i; 0 <= i < a.length; 
+      @            a[i] == val);
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static void fill(byte /*@ nullable */ [] a, byte val);
+
+// FIXME - check this
+    /*@  public normal_behavior
+      @   requires a != null && fromIndex < toIndex;
+      @   assignable a[fromIndex .. toIndex-1];
+      @   ensures_redundantly a.length == \old(a.length);
+      @   ensures (\forall int i; fromIndex <= i < toIndex; 
+      @            a[i] == val);
+      @   ensures_redundantly (\forall int i;
+      @            0 <= i < fromIndex  
+      @            || toIndex <= i < a.length; 
+      @                \old(a[i]) == a[i]);
+      @ also
+      @  public normal_behavior
+      @   requires a != null && fromIndex == toIndex;
+      @   assignable \nothing;
+      @   ensures_redundantly a.length == \old(a.length);
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException, 
+                           ArrayIndexOutOfBoundsException;
+      @   signals (NullPointerException) a == null;
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @            fromIndex < 0 || toIndex > a.length;
+      @*/
+    public static void fill(byte /*@ nullable */[] a, int fromIndex, int toIndex, byte val);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   assignable a[*];
+      @   ensures (\forall int i; 0 <= i < a.length; 
+      @            a[i] == val);
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static void fill(boolean /*@ nullable */[] a, boolean val) throws NullPointerException;
+
+// CHECK THIS = FIXME
+    /*@  public normal_behavior
+      @   requires a != null && fromIndex < toIndex;
+      @   assignable a[fromIndex .. toIndex-1];
+      @   ensures_redundantly a.length == \old(a.length);
+      @   ensures (\forall int i; fromIndex <= i < toIndex; 
+      @            a[i] == val);
+      @   ensures_redundantly (\forall int i;
+      @            0 <= i < fromIndex  
+      @            || toIndex <= i < a.length; 
+      @                \old(a[i]) == a[i]);
+      @ also
+      @  public normal_behavior
+      @   requires a != null && fromIndex == toIndex;
+      @   assignable \nothing;
+      @   ensures_redundantly a.length == \old(a.length);
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException,
+      @                  ArrayIndexOutOfBoundsException;
+      @   signals (NullPointerException) a == null;
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @            fromIndex < 0 || toIndex > a.length;
+      @*/
+    public static void fill(boolean /*@ nullable */ [] a, int fromIndex, int toIndex, boolean val);
+
+// FIXME - better comparison
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   assignable a[*];
+      @   ensures (\forall int i; 0 <= i < a.length; 
+      @            Double.valueOf(a[i]).compareTo(Double.valueOf(val)) == 0);
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static void fill(double /*@ nullable */ [] a, double val) throws NullPointerException;
+
+// FIXME - check this
+    /*@  public normal_behavior
+      @   requires a != null && fromIndex < toIndex;
+      @   assignable a[*];
+      @   ensures_redundantly a.length == \old(a.length);
+      @   ensures (\forall int i; fromIndex <= i < toIndex; 
+      @            Double.valueOf(a[i]).compareTo(Double.valueOf(val)) == 0);
+      @ also
+      @  public normal_behavior
+      @   requires a != null && fromIndex == toIndex;
+      @   assignable \nothing;
+      @   ensures_redundantly a.length == \old(a.length);
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException,
+                    ArrayIndexOutOfBoundsException;
+      @   signals (NullPointerException) a == null;
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @            fromIndex < 0 || toIndex > a.length;
+      @*/
+    public static void fill(double /*@ nullable */ [] a, int fromIndex, int toIndex, double val);
+
+// FIXME - better comparison
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   assignable a[*];
+      @   ensures (\forall int i; 0 <= i < a.length; 
+      @            Float.valueOf(a[i]).compareTo(Float.valueOf(val)) == 0);
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static void fill(float /*@ nullable */ [] a, float val) throws NullPointerException;
+
+// FIXME - check this
+    /*@  public normal_behavior
+      @   requires a != null && fromIndex < toIndex;
+      @   assignable a[*];
+      @   ensures_redundantly a.length == \old(a.length);
+      @   ensures (\forall int i; fromIndex <= i < toIndex; 
+      @            Float.valueOf(a[i]).compareTo(Float.valueOf(val)) == 0);
+      @ also
+      @  public normal_behavior
+      @   requires a != null && fromIndex == toIndex;
+      @   assignable \nothing;
+      @   ensures_redundantly a.length == \old(a.length);
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException,
+                    ArrayIndexOutOfBoundsException;
+      @   signals (NullPointerException) a == null;
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @            fromIndex < 0 || toIndex > a.length;
+      @*/
+    public static void fill(float /*@ nullable */ [] a, int fromIndex, int toIndex, float val);
+
+    /*@  public normal_behavior
+      @   requires a != null;
+      @   requires val == null || ( \typeof(val) <: \elemtype(\typeof(a)) );
+      @   assignable a[*];
+      @   ensures (\forall int i; 0 <= i < a.length; 
+      @            a[i] == val);
+      @ also public exceptional_behavior
+      @   requires a != null;
+      @   requires val != null && !( \typeof(val) <: \elemtype(\typeof(a)) );
+      @   assignable \nothing;
+      @   signals_only ArrayStoreException;
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null;
+      @   assignable \nothing;
+      @   signals_only NullPointerException;
+      @*/
+    public static void fill(Object /*@ nullable */ [] a, Object val) 
+                         throws NullPointerException, ArrayStoreException;
+
+// FIXME - check this
+    /*@  public normal_behavior
+      @   requires a != null && fromIndex < toIndex;
+      @   requires ( \typeof(val) <: \elemtype(\typeof(a)) );
+      @   assignable a[*];
+      @   ensures_redundantly a.length == \old(a.length);
+      @   ensures (\forall int i; fromIndex <= i < toIndex; a[i] == val);
+      @ also
+      @  public normal_behavior
+      @   requires a != null && fromIndex == toIndex;
+      @   assignable \nothing;
+      @   ensures_redundantly a.length == \old(a.length);
+      @ also public exceptional_behavior
+      @   requires a != null;
+      @   requires !( \typeof(val) <: \elemtype(\typeof(a)) );
+      @   assignable \nothing;
+      @   signals_only ArrayStoreException;
+      @ also
+      @  public exceptional_behavior
+      @   requires a == null || fromIndex > toIndex ||
+      @            fromIndex < 0 || toIndex > a.length;
+      @   assignable \nothing;
+      @   signals_only NullPointerException, IllegalArgumentException,
+      @                  ArrayIndexOutOfBoundsException;
+      @   signals (NullPointerException) a == null;
+      @   signals (IllegalArgumentException) fromIndex > toIndex;
+      @   signals (ArrayIndexOutOfBoundsException) 
+      @            fromIndex < 0 || toIndex > a.length;
+      @*/
+    public static void fill(Object /*@ nullable */[] a, int fromIndex, int toIndex, Object val);
+
+    //-----------------------------------------------------------------------
+
+    //@  public normal_behavior
+    //@       requires a != null;
+    //-RAC@   ensures \fresh(\result);
+    //-RAC@   ensures \result.values.length == a.length;
+    //@       ensures \result.size() == a.length;
+    //-RAC@  ensures (\forall int i; 0 <= i < a.length; \result.values[i] == a[i]);
+    //        ensures \nonnullelements(a) ==> \nonnullelements(\result.values);
+
+    //@ also public exceptional_behavior
+    //@   requires a == null;
+    //@   signals_only NullPointerException;
+    //@ pure
+    @SuppressWarnings({"unchecked","varargs-unchecked"})
+    public static <T> /*@ non_null @*/ List<T> asList(/*@ nullable @*/T ... a) throws NullPointerException;
+
+    //-----------------------------------------------------------------------
+
+    /*@
+        public normal_behavior
+          requires array != null;
+          ensures \result <==> (\exists int i; 0 <= i < array.length; 
+                                                        array[i] == o);
+        //+OPENJML@ heap_free
+        static pure public model <T> boolean contains(T[] array, Object o);
+
+        public normal_behavior
+          requires array != null;
+          requires len <= array.length;
+          ensures \result <==> (\exists \bigint i; 0 <= i < len; array[i] == o);
+        //+OPENJML@ heap_free
+        static pure public model <T> boolean contains(T[] array, \bigint len, 
+                                                                   Object o);
+
+        public normal_behavior
+          requires array != null;
+          ensures (\exists int i; 0 <= i < array.length; array[i] == o);
+        //+OPENJML@ heap_free
+        static pure public model boolean contains(int[] array, int o);
+
+        public normal_behavior
+          requires array != null;
+          ensures (\exists int i; 0 <= i < array.length; array[i] == o);
+        //+OPENJML@ heap_free
+        static pure public model boolean contains(boolean[] array, boolean o);
+
+        public normal_behavior
+          requires array != null;
+          ensures (\exists int i; 0 <= i < array.length; array[i] == o);
+        //+OPENJML@ heap_free
+        static pure public model boolean contains(char[] array, char o);
+
+        public normal_behavior
+          requires array != null;
+          ensures (\exists int i; 0 <= i < array.length; array[i] == o);
+        //+OPENJML@ heap_free
+        static pure public model boolean contains(byte[] array, byte o);
+
+        public normal_behavior
+          requires array != null;
+          ensures (\exists int i; 0 <= i < array.length; array[i] == o);
+        //+OPENJML@ heap_free
+        static pure public model boolean contains(short[] array, short o);
+
+        public normal_behavior
+          requires array != null;
+          ensures (\exists int i; 0 <= i < array.length; array[i] == o);
+        //+OPENJML@ heap_free
+        static pure public model boolean contains(long[] array, long o);
+
+        public normal_behavior
+          requires array != null;
+          ensures (\exists int i; 0 <= i < array.length; array[i] == o);
+        //+OPENJML@ heap_free
+        static pure public model boolean contains(float[] array, float o);
+
+        public normal_behavior
+          requires array != null;
+          ensures (\exists int i; 0 <= i < array.length; array[i] == o);
+        //+OPENJML@ heap_free
+        static pure public model boolean contains(double[] array, double o);
+
+// FIXME _ need to implement bigint and real
+//        public normal_behavior
+//          requires array != null;
+//          ensures (\exists int i; 0 <= i < array.length; array[i] == o);
+//        //+OPENJML@ heap_free
+//        static pure public model boolean contains(\bigint[] array, \bigint o);
+
+//        public normal_behavior
+//          requires array != null;
+//          ensures (\exists int i; 0 <= i < array.length; array[i] == o);
+//        //+OPENJML@ heap_free
+//        static pure public model boolean contains(\real[] array, \real o);
+     */
+    
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from <= to <= original.length;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures (\forall int i; from <= i < to; \result[i-from] == original[i]);
+    //@ also public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from && from <= original.length && original.length < to;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures (\forall int i; from <= i < original.length; \result[i-from] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < to; \result[i-from] == 0);
+    //@ also private exceptional_behavior
+    //@   requires original == null || from < 0 || from > original.length || from > to;
+    //@   signals (ArrayIndexOutOfBoundsException) from < 0 || (original != null && from > original.length);
+    //@   signals (NullPointerException) original == null;
+    //@   signals (IllegalArgumentException) from > to;
+    //@ pure
+    public static byte[] copyOfRange(byte /*@ nullable @*/ [] original, int from, int to);
+    
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from && from <= to && to <= original.length;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures (\forall int i; from <= i < to; \result[i-from] == original[i]);
+    //@ also public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from && from <= original.length && original.length < to;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures (\forall int i; from <= i < original.length; \result[i-from] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < to; \result[i-from] == false);
+    //@ also private exceptional_behavior
+    //@   requires original == null || from < 0 || from > original.length || from > to;
+    //@   signals (ArrayIndexOutOfBoundsException) from < 0 || (original != null && from > original.length);
+    //@   signals (NullPointerException) original == null;
+    //@   signals (IllegalArgumentException) from > to;
+    //@ pure
+    public static boolean[] copyOfRange(boolean /*@ nullable @*/ [] original, int from, int to);
+    
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from && from <= to && to <= original.length;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures (\forall int i; from <= i < to; \result[i-from] == original[i]);
+    //@ also public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from && from <= original.length && original.length < to;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures (\forall int i; from <= i < original.length; \result[i-from] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < to; \result[i-from] == 0);
+    //@ also private exceptional_behavior
+    //@   requires original == null || from < 0 || from > original.length || from > to;
+    //@   signals (ArrayIndexOutOfBoundsException) from < 0 || (original != null && from > original.length);
+    //@   signals (NullPointerException) original == null;
+    //@   signals (IllegalArgumentException) from > to;
+    //@ pure
+    public static short[] copyOfRange(short /*@ nullable @*/ [] original, int from, int to);
+    
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from && from <= to && to <= original.length;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures (\forall int i; from <= i < to; \result[i-from] == original[i]);
+    //@ also public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from && from <= original.length && original.length < to;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures (\forall int i; from <= i < original.length; \result[i-from] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < to; \result[i-from] == 0);
+    //@ also private exceptional_behavior
+    //@   requires original == null || from < 0 || from > original.length || from > to;
+    //@   signals (ArrayIndexOutOfBoundsException) from < 0 || (original != null && from > original.length);
+    //@   signals (NullPointerException) original == null;
+    //@   signals (IllegalArgumentException) from > to;
+    //@ pure
+    public static int[] copyOfRange(int /*@ nullable @*/ [] original, int from, int to);
+    
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from && from <= to && to <= original.length;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures (\forall int i; from <= i < to; \result[i-from] == original[i]);
+    //@ also public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from && from <= original.length && original.length < to;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures (\forall int i; from <= i < original.length; \result[i-from] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < to; \result[i-from] == 0);
+    //@ also private exceptional_behavior
+    //@   requires original == null || from < 0 || from > original.length || from > to;
+    //@   signals (ArrayIndexOutOfBoundsException) from < 0 || (original != null && from > original.length);
+    //@   signals (NullPointerException) original == null;
+    //@   signals (IllegalArgumentException) from > to;
+    //@ pure
+    public static long[] copyOfRange(long /*@ nullable @*/ [] original, int from, int to);
+    
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from <= to <= original.length;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures (\forall int i; from <= i < to; \result[i-from] == original[i]);
+    //@ also public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from <= original.length < to;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures (\forall int i; from <= i < original.length; \result[i-from] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < to; \result[i-from] == 0);
+    //@ also private exceptional_behavior
+    //@   requires original == null || from < 0 || from > original.length || from > to;
+    //@   signals (ArrayIndexOutOfBoundsException) from < 0 || (original != null && from > original.length);
+    //@   signals (NullPointerException) original == null;
+    //@   signals (IllegalArgumentException) from > to;
+    //@ pure
+    public static float[] copyOfRange(float /*@ nullable @*/ [] original, int from, int to);
+    
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from <= to<= original.length;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures (\forall int i; from <= i < to; \result[i-from] == original[i]);
+    //@ also public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from <= original.length < to;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures (\forall int i; from <= i < original.length; \result[i-from] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < to; \result[i-from] == 0);
+    //@ also private exceptional_behavior
+    //@   requires original == null || from < 0 || from > original.length || from > to;
+    //@   signals (ArrayIndexOutOfBoundsException) from < 0 || (original != null && from > original.length);
+    //@   signals (NullPointerException) original == null;
+    //@   signals (IllegalArgumentException) from > to;
+    //@ pure
+    public static double[] copyOfRange(double /*@ nullable @*/ [] original, int from, int to);
+    
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from <= to;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures \elemtype(\typeof(\result)) == \type(char);
+    //@   {|
+    //@       requires to <= original.length;
+    //@       ensures (\forall int i; 0 <= i < to-from; \result[i] == original[i+from]);
+    //@   also 
+    //@       requires original.length < to;
+    //@       ensures (\forall int i; 0 <= i < original.length - from; \result[i] == original[i+from]);
+    //@       ensures (\forall int i; 0 <= i < to - original.length; \result[i+original.length-from] == 0);
+    //@   |}
+    //@ also private exceptional_behavior
+    //@   requires original == null || from < 0 || from > original.length || from > to;
+    //@   signals (ArrayIndexOutOfBoundsException) from < 0 || (original != null && from > original.length);
+    //@   signals (NullPointerException) original == null;
+    //@   signals (IllegalArgumentException) from > to;
+    //@ pure
+    public static char[] copyOfRange(char /*@ nullable @*/ [] original, int from, int to);
+
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from <= to;
+    //-RAC@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures \elemtype(\typeof(\result)) == \type(T);
+    //@   {|
+    //@       requires to <= original.length;
+    //@       ensures (\forall int i; 0 <= i < to-from; \result[i] == original[i+from]);
+    //@   also 
+    //@       requires original.length < to;
+    //@       ensures (\forall int i; 0 <= i < original.length - from; \result[i] == original[i+from]);
+    //@       ensures (\forall int i; 0 <= i < to - original.length; \result[i+original.length-from] == null);
+    //@   |}
+    //@ also private exceptional_behavior
+    //@   requires original == null || from < 0 || from > original.length || from > to;
+    //@   signals (ArrayIndexOutOfBoundsException) from < 0 || (original != null && from > original.length);
+    //@   signals (NullPointerException) original == null;
+    //@   signals (IllegalArgumentException) from > to;
+    //@ pure
+    public static <T> T[] copyOfRange(T /*@ nullable @*/ [] original, int from, int to);
+    
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= from <= to;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == to - from;
+    //@   ensures \elemtype(\typeof(\result)) == \type(T);
+    //@   {|
+    //@       requires to <= original.length;
+    //@       ensures (\forall int i; 0 <= i < to-from; \result[i] == original[i+from]);
+    //@   also 
+    //@       requires original.length < to;
+    //@       ensures (\forall int i; 0 <= i < original.length - from; \result[i] == original[i+from]);
+    //@       ensures (\forall int i; 0 <= i < to - original.length; \result[i+original.length-from] == null);
+    //@   |}
+    //@ // FIXME another exceptional case: if T and U are not compatible types. Not clear how to specify it
+    //@ also private exceptional_behavior
+    //@   requires original == null || from < 0 || from > original.length || from > to;
+    //@   signals (ArrayIndexOutOfBoundsException) from < 0 || (original != null && from > original.length);
+    //@   signals (NullPointerException) original == null;
+    //@   signals (IllegalArgumentException) from > to;
+    //@ pure
+    public static <T,U> T[] copyOfRange(U /*@ nullable @*/ [] original, int from, int to, Class<? extends T[]> newType);
+
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires 0 <= newLength <= Integer.MAX_VALUE;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == newLength;
+    //@   ensures (\forall int i; 0 <= i < original.length && i < newLength; \result[i] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < newLength; \result[i] == 0);
+    //@ also private exceptional_behavior
+    //@   requires original == null || newLength < 0;
+    //@   signals (NullPointerException) original == null;
+    //@   signals (NegativeArraySizeException) newLength < 0;
+    //@ pure
+    public static byte[] copyOf(byte /*@ nullable @*/ [] original, int newLength);
+
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires newLength >= 0;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == newLength;
+    //@   ensures (\forall int i; 0 <= i < original.length && i < newLength; \result[i] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < newLength; \result[i] == false);
+    //@ also private exceptional_behavior
+    //@   requires original == null || newLength < 0;
+    //@   signals (NullPointerException) original == null;
+    //@   signals (NegativeArraySizeException) newLength < 0;
+    //@ pure
+    public static boolean[] copyOf(boolean /*@ nullable @*/ [] original, int newLength);
+
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires newLength >= 0;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == newLength;
+    //@   ensures (\forall int i; 0 <= i < original.length && i < newLength; \result[i] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < newLength; \result[i] == 0);
+    //@ also private exceptional_behavior
+    //@   requires original == null || newLength < 0;
+    //@   signals (NullPointerException) original == null;
+    //@   signals (NegativeArraySizeException) newLength < 0;
+    //@ pure
+    public static char[] copyOf(char /*@ nullable @*/ [] original, int newLength);
+
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires newLength >= 0;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == newLength;
+    //@   ensures (\forall int i; 0 <= i < original.length && i < newLength; \result[i] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < newLength; \result[i] == 0);
+    //@ also private exceptional_behavior
+    //@   requires original == null || newLength < 0;
+    //@   signals (NullPointerException) original == null;
+    //@   signals (NegativeArraySizeException) newLength < 0;
+    //@ pure
+    public static short[] copyOf(short /*@ nullable @*/ [] original, int newLength);
+
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires newLength >= 0;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == newLength;
+    //@   ensures (\forall int i; 0 <= i < original.length && i < newLength; \result[i] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < newLength; \result[i] == 0);
+    //@ also private exceptional_behavior
+    //@   requires original == null || newLength < 0;
+    //@   signals (NullPointerException) original == null;
+    //@   signals (NegativeArraySizeException) newLength < 0;
+    //@ pure
+    public static int[] copyOf(int /*@ nullable @*/ [] original, int newLength);
+
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires newLength >= 0;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == newLength;
+    //@   ensures (\forall int i; 0 <= i < original.length && i < newLength; \result[i] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < newLength; \result[i] == 0);
+    //@ also private exceptional_behavior
+    //@   requires original == null || newLength < 0;
+    //@   signals (NullPointerException) original == null;
+    //@   signals (NegativeArraySizeException) newLength < 0;
+    //@ pure
+    public static long[] copyOf(long /*@ nullable @*/ [] original, int newLength);
+
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires newLength >= 0;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == newLength;
+    //@   ensures (\forall int i; 0 <= i < original.length && i < newLength; \result[i] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < newLength; \result[i] == 0);
+    //@ also private exceptional_behavior
+    //@   requires original == null || newLength < 0;
+    //@   signals (NullPointerException) original == null;
+    //@   signals (NegativeArraySizeException) newLength < 0;
+    //@ pure
+    public static float[] copyOf(float /*@ nullable @*/ [] original, int newLength);
+    
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires newLength >= 0;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == newLength;
+    //@   ensures (\forall int i; 0 <= i < original.length && i < newLength; \result[i] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < newLength; \result[i] == 0);
+    //@ also private exceptional_behavior
+    //@   requires original == null || newLength < 0;
+    //@   signals (NullPointerException) original == null;
+    //@   signals (NegativeArraySizeException) newLength < 0;
+    //@ pure
+    public static double[] copyOf(double /*@ nullable @*/ [] original, int newLength);
+
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires newLength >= 0;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == newLength;
+    //@   ensures (\forall int i; 0 <= i < original.length && i < newLength; \result[i] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < newLength; \result[i] == null);
+    //@ also private exceptional_behavior
+    //@   requires original == null || newLength < 0;
+    //@   signals (NullPointerException) original == null;
+    //@   signals (NegativeArraySizeException) newLength < 0;
+    //@ pure
+    public static <T> T[] copyOf(T /*@ nullable @*/ [] original, int newLength);
+
+    //@ public normal_behavior
+    //@   requires original != null;
+    //@   requires newLength >= 0;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.length == newLength;
+    //@   ensures (\forall int i; 0 <= i < original.length && i < newLength; \result[i] == original[i]);
+    //@   ensures (\forall int i; original.length <= i < newLength; \result[i] == null);
+    //@   ensures \elemtype(\typeof(\result)) == \type(T);
+    //@ // FIXME another exceptional case: if T and U are not compatible types. Not clear how to specify it
+    //@ also private exceptional_behavior
+    //@   requires original == null || newLength < 0;
+    //@   signals (NullPointerException) original == null;
+    //@   signals (NegativeArraySizeException) newLength < 0;
+    //@ pure
+    public static <T,U> T[] copyOf(U /*@ nullable @*/ [] original, int newLength, Class<? extends T[]> newType);
+    
+//    public static <T> java.util.Spliterator<T> spliterator(T[]);
+//    public static <T> java.util.Spliterator<T> spliterator(T[], int, int);
+//    public static java.util.Spliterator$OfInt spliterator(int[]);
+//    public static java.util.Spliterator$OfInt spliterator(int[], int, int);
+//    public static java.util.Spliterator$OfLong spliterator(long[]);
+//    public static java.util.Spliterator$OfLong spliterator(long[], int, int);
+//    public static java.util.Spliterator$OfDouble spliterator(double[]);
+//    public static java.util.Spliterator$OfDouble spliterator(double[], int, int);
+    
+    //@ public normal_behavior
+    //@   ensures array.equals(\result.values,array.<T>of(arr));
+    //@ pure
+    public static <T> java.util.stream.Stream<T> stream(T[] arr);
+
+//    public static <T> java.util.stream.Stream<T> stream(T[], int, int);
+
+    //@ public normal_behavior
+    //@   ensures array.equals(\result.values,array.<Integer>of(arr));
+    //@ pure
+    public static java.util.stream.IntStream stream(int[] arr);
+//    public static java.util.stream.IntStream stream(int[], int, int);
+//    public static java.util.stream.LongStream stream(long[]);
+//    public static java.util.stream.LongStream stream(long[], int, int);
+//    public static java.util.stream.DoubleStream stream(double[]);
+//    public static java.util.stream.DoubleStream stream(double[], int, int);
+
+    //@ public normal_behavior
+    //@   ensures true;
+    //@ pure helper
+    public static int hashCode(long[] b);
+    //@ public normal_behavior
+    //@   ensures true;
+    //@ pure helper
+    public static int hashCode(int[] b);
+    //@ public normal_behavior
+    //@   ensures true;
+    //@ pure helper
+    public static int hashCode(short[] b);
+    //@ public normal_behavior
+    //@   ensures true;
+    //@ pure helper
+    public static int hashCode(char[] b);
+    //@ public normal_behavior
+    //@   ensures true;
+    //@ pure helper
+    public static int hashCode(byte[] b);
+    //@ public normal_behavior
+    //@   ensures true;
+    //@ pure helper
+    public static int hashCode(boolean[] b);
+    //@ public normal_behavior
+    //@   ensures true;
+    //@ pure helper
+    public static int hashCode(float[] b);
+    //@ public normal_behavior
+    //@   ensures true;
+    //@ pure helper
+    public static int hashCode(double[] b);
+    //@ public normal_behavior
+    //@   ensures true;
+    //@ pure helper
+    public static int hashCode(Object[] b);
+    //@ public normal_behavior
+    //@   ensures true;
+    //@ pure helper
+    public static int deepHashCode(Object[] b);
+    
+    //@ public normal_behavior
+    //@   requires a != null;
+    //@   ensures true;
+    //@ pure helper
+    public static java.lang.String deepToString(Object /*@ nullable */ [] a);
+
+}
+

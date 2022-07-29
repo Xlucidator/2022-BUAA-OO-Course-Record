@@ -1,0 +1,118 @@
+// @(#)$Id: CharSequence.spec 2022 2006-08-13 02:36:42Z chalin $
+
+// Copyright (C) 2002 Iowa State University
+
+// This file is part of JML
+
+// JML is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
+
+// JML is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with JML; see the file COPYING.  If not, write to
+// the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+
+package java.lang;
+
+/** JML's specification of java.lang.CharSequence.
+ * @version $Revision: 2022 $
+ * @author Gary T. Leavens
+ * @author David Cok
+ */
+public interface CharSequence {
+    //-RAC@ public instance model char non_null [] charArray; 
+	//-RAC@ public invariant charArray != null; // FIXME - why this when there is a non_null declaration
+    
+    //@ public normal_behavior ensures \result == c.__owner;
+    //@ model pure heap_free public static Object owner(Object c);
+    
+    //-RAC@ public normal_behavior ensures \result == c.charArray;
+    //-RAC@ model pure heap_free public static Object content(CharSequence c);
+    
+    // FIXME @ axiom (\forall CharSequence c; true; owner(content(c)) == c); 
+
+    /*@ public normal_behavior
+      @   //-RAC@ ensures \result <==> ( charArray != null && charArray.__owner == this);
+      @ public pure helper model boolean initialCharSequence();
+      @*/
+
+    /*@ public normal_behavior
+        ensures \result == ( a == b || (a != null && b != null &&
+                      a.length == b.length && 
+                      equal(a,0,b,0,a.length) ));
+        public static pure helper model boolean equal(char[] a, char[] b);
+     */
+    /*@ public normal_behavior
+        requires a != null && b!= null && astart >= 0 && bstart >= 0 &&
+                 len >= 0 &&
+                 astart+len <= a.length && bstart + len <= b.length;
+        ensures \result == ((a==b && astart == bstart) ||
+                      (\forall int i; 0<=i && i<len; a[i+astart] == b[i+bstart])); 
+        public static pure helper model boolean equal(char[] a, \bigint astart, char[] b, \bigint bstart, \bigint len);
+     */
+
+    /*@ public normal_behavior
+    ensures \result == (a != null && b != null &&
+                  (\exists \bigint j; 0<=j<=a.length && j<=b.length; 
+                     ((\forall \bigint k; 0<=k<j; a[k]==b[k]) && ((j==a.length && j<b.length) || (j<a.length && j < b.length && a[j] < b[j])))
+                  ));
+    public static pure helper model boolean lessThan(char[] a, char[] b);
+ */
+
+    //@ axiom (\forall char[] a; a!=null ; equal(a,a));
+    //@ axiom (\forall char[] a,b; a!=null && b !=null; equal(a,b) <==> equal(b,a));
+    //@ axiom (\forall char[] a,b,c; a!=null && b !=null && c != null; (equal(a,b) && equal(b,c))==>equal(a,c)); 
+
+    //@ public normal_behavior
+    //@      ensures \result >= 0;
+    //-RAC@  ensures \result == (int)charArray.length;
+    //@ pure
+    int length();
+
+    /*-RAC@   public normal_behavior
+      @      requires 0 <= index < charArray.length;
+      @      ensures  \result == charArray[index];
+      @  also
+      @    public exceptional_behavior
+      @      requires !(0 <= index < charArray.length);
+      @      signals_only IndexOutOfBoundsException;
+      @*/
+    //@ pure helper
+    char charAt(int index) throws IndexOutOfBoundsException;
+
+    /*-RAC@   public normal_behavior
+      @      requires 0 <= start <= end <= charArray.length;
+      @      ensures \result != null;
+      @      ensures \result.charArray.length == end-start;
+      @      ensures equal(\result.charArray,0,charArray,start,end-start);
+      @      ensures start==0 && end == length() ==>
+      @                          equal(\result.charArray, this.charArray);
+      @  also
+      @    public exceptional_behavior
+      @      requires start < 0 || end < start || end > charArray.length;
+      @      signals_only IndexOutOfBoundsException;
+      @*/
+    //@ pure
+    CharSequence subSequence(int start, int end)
+        throws IndexOutOfBoundsException;
+
+    /*-RAC@ also
+      @    public normal_behavior
+      @      ensures \result != null
+      @           && equal(\result.charArray,charArray);
+      @*/
+    public String toString();
+
+// FIXME - need to permit interfaces to declare Object methods that are not implemented in the interface
+//    /** According to the javadocs, the equals method should not be called. */
+//    public boolean equals(Object obj);
+//
+//    /** According to the javadocs, the hashCode method should not be called. */
+//    public int hashCode();
+}

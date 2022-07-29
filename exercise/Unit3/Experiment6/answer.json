@@ -1,0 +1,4 @@
+{
+    "1": "ensures (\\forall int i; 1 <= i && i <= size;(\\forall int j; 0 <= j && j < objectId.size(); objectId.get(j) != elements[i].getId()) ==> (\\exists int k; 1 <= k && k <= size; elements[k].equals(\\old(elements[i]))))",
+    "2": "invariant (\\forall int i,j; 1 <= i && i <= size && 1 <= j && j <= size; (j // 2 == i) ==> (elements[i] < elements[j]))"
+}

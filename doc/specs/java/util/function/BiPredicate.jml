@@ -1,0 +1,22 @@
+package java.util.function;
+
+public interface BiPredicate<T,U> {
+
+  /*@
+  model public static interface Pure<T,U> extends BiPredicate<T,U> {
+    //@ pure
+    boolean test(T t, U u);
+  
+  }
+  @*/
+  
+  //@ public normal_behavior
+  boolean test(T t, U u);
+ 
+ /* 
+  //@ public normal_behavior
+  public BiPredicate<T, U> and(BiPredicate<? super T, ? super U>);
+  public BiPredicate<T, U> negate();
+  public BiPredicate<T, U> or(BiPredicate<? super T, ? super U>);
+*/
+}

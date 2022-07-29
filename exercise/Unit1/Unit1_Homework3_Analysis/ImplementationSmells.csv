@@ -1,0 +1,22 @@
+Project Name,Package Name,Type Name,Method Name,Implementation Smell,Cause of the Smell,Method start line no
+Unit1_Homework3,(default package),Expression,uniteLikeTerm,Complex Method,Cyclomatic complexity of the method is 8,58
+Unit1_Homework3,(default package),Lexer,next,Complex Conditional,The conditional expression s.equals("sin") || s.equals("cos") || s.equals("sum") is complex.,15
+Unit1_Homework3,(default package),Lexer,next,Magic Number,The method contains a magic number: 2,15
+Unit1_Homework3,(default package),Lexer,next,Magic Number,The method contains a magic number: 3,15
+Unit1_Homework3,(default package),Lexer,next,Magic Number,The method contains a magic number: 3,15
+Unit1_Homework3,(default package),Lexer,next,Magic Number,The method contains a magic number: 2,15
+Unit1_Homework3,(default package),Lexer,next,Magic Number,The method contains a magic number: 2,15
+Unit1_Homework3,(default package),MainClass,main,Magic Number,The method contains a magic number: 2,11
+Unit1_Homework3,(default package),MainClass,main,Magic Number,The method contains a magic number: 3,11
+Unit1_Homework3,(default package),MainClass,clipDupOperator,Magic Number,The method contains a magic number: 2,39
+Unit1_Homework3,(default package),MainClass,clipDupOperator,Magic Number,The method contains a magic number: 2,39
+Unit1_Homework3,(default package),MainClass,clipDupOperator,Magic Number,The method contains a magic number: 2,39
+Unit1_Homework3,(default package),MainClass,clipDupOperator,Magic Number,The method contains a magic number: 2,39
+Unit1_Homework3,(default package),MainClass,clipDupOperator,Magic Number,The method contains a magic number: 3,39
+Unit1_Homework3,(default package),Parser,parseTerm,Complex Method,Cyclomatic complexity of the method is 11,31
+Unit1_Homework3,(default package),PolyFactor,inFormat,Magic Number,The method contains a magic number: 2,38
+Unit1_Homework3,(default package),SelfFunction,refractExpr,Magic Number,The method contains a magic number: 2,16
+Unit1_Homework3,(default package),Term,findTrigSquarePair,Complex Method,Cyclomatic complexity of the method is 9,198
+Unit1_Homework3,(default package),Term,findTrigSquarePair,Magic Number,The method contains a magic number: 2,198
+Unit1_Homework3,(default package),Term,compareTo,Complex Method,Cyclomatic complexity of the method is 11,259
+Unit1_Homework3,(default package),TrigFunction,reverseInnerNeg,Magic Number,The method contains a magic number: 2,85

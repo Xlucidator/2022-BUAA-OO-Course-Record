@@ -1,0 +1,28 @@
+package org.junit.rules;
+
+import org.hamcrest.Matcher;
+
+//@ non_null_by_default // FIXME - verify this
+public class ExpectedException {
+    
+    //@ model public JMLDataGroup expectedExceptions;
+    //@ model public boolean exceptionAllowed; in expectedExceptions;
+    
+    //@ public normal_behavior
+    //@   ensures \result.exceptionAllowed == false;
+    //@ pure
+    public static ExpectedException none();
+    
+    
+    //@ public normal_behavior
+    //@   assignable \nothing;
+    public void expect(Matcher<?> matcher);
+    
+    //@ public normal_behavior
+    //@   assignable expectedExceptions;
+    public void expect(Class<? extends Throwable> exception);
+    
+    //@ public normal_behavior
+    //@ pure // TODO: fix
+    public void expectCause(Matcher<? extends Throwable> cause);
+}

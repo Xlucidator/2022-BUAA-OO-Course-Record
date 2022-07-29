@@ -1,0 +1,17 @@
+package java.net;
+ 
+//@ nullable_by_default
+public class BindException extends SocketException {
+  
+    /*@ public normal_behavior
+      @   ensures standardThrowable();
+      @*/
+    //@ pure
+    public BindException();
+  
+    /*@ public normal_behavior
+      @   ensures standardThrowable(s);
+      @*/
+    //@ pure
+    public BindException(String s);
+}

@@ -1,0 +1,7 @@
+[Rider]
+0
+(x-x)**+01
+2
+f1 sub x x
+f2 pow f1 +01
+

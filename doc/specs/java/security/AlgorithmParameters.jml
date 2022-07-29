@@ -1,0 +1,51 @@
+package java.security;
+
+//@ model import javax.crypto.spec.DHParameterSpec;
+
+public class AlgorithmParameters {
+
+    //@ model public int N;
+    
+//      private java.security.Provider provider;
+//      private java.security.AlgorithmParametersSpi paramSpi;
+//      private java.lang.String algorithm;
+//      private boolean initialized;
+//      protected AlgorithmParameters(java.security.AlgorithmParametersSpi, java.security.Provider, java.lang.String);
+//      public final java.lang.String getAlgorithm();
+
+      //@ public normal_behavior
+      //@   ensures \fresh(\result);
+      //@ pure
+      public static java.security.AlgorithmParameters getInstance(java.lang.String n) throws java.security.NoSuchAlgorithmException;
+      //@ public normal_behavior
+      //@   ensures \fresh(\result);
+      //@ pure
+      public static java.security.AlgorithmParameters getInstance(java.lang.String n, java.lang.String ss) throws java.security.NoSuchAlgorithmException, java.security.NoSuchProviderException;
+      //@ public normal_behavior
+      //@   ensures \fresh(\result);
+      //@ pure
+      public static java.security.AlgorithmParameters getInstance(java.lang.String n, java.security.Provider provider) throws java.security.NoSuchAlgorithmException;
+
+      //      public final java.security.Provider getProvider();
+//      public final void init(java.security.spec.AlgorithmParameterSpec) throws java.security.spec.InvalidParameterSpecException;
+//      public final void init(byte[]) throws java.io.IOException;
+//      public final void init(byte[], java.lang.String) throws java.io.IOException;
+
+      //@ model public final pure <T extends java.security.spec.AlgorithmParameterSpec> boolean supportedParameterSpec(java.lang.Class<T> clazz);
+
+      //@ public normal_behavior
+      //@   requires supportedParameterSpec(clazz);
+      //@   ensures \result instanceof DHParameterSpec ==> ((DHParameterSpec)\result).getP().signum() >= 0;
+      //@   ensures \result instanceof DHParameterSpec ==> ((DHParameterSpec)\result).getG().signum() >= 0;
+      //@   ensures \result instanceof DHParameterSpec ==> ((DHParameterSpec)\result).getP().value < java.math.BigInteger.pow256(N/8);
+      //@   ensures \result instanceof DHParameterSpec ==> ((DHParameterSpec)\result).getG().value < java.math.BigInteger.pow256(N/8);
+      //@ also public exceptional_behavior
+      //@   requires !supportedParameterSpec(clazz);
+      //@   signals_only java.security.spec.InvalidParameterSpecException;
+      //@ pure
+      public final <T extends java.security.spec.AlgorithmParameterSpec> T getParameterSpec(java.lang.Class<T> clazz) throws java.security.spec.InvalidParameterSpecException;
+
+//      public final byte[] getEncoded() throws java.io.IOException;
+//      public final byte[] getEncoded(java.lang.String) throws java.io.IOException;
+//      public final java.lang.String toString();
+}

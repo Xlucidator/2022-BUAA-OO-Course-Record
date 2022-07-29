@@ -1,0 +1,2 @@
+Project Name,Package Name,Architecture Smell,Cause of the Smell
+Unit1_Homework2,(default package),Feature Concentration,The tool detected the smell in this component because the component realizes more than one architectural concern/feature. Independent sets of related classes within this component are: [Expression]; [Lexer]; [MainClass; Parser]; [PolyFactor]; [SelfFunction]; [Term]; [TrigFunction]. LCC (Lack of Component Cohesion) = 0.88

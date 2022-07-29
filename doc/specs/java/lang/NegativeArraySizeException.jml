@@ -1,0 +1,15 @@
+package java.lang;
+ 
+//@ nullable_by_default
+public class NegativeArraySizeException extends RuntimeException {
+  
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowable();
+    //@ pure
+    public NegativeArraySizeException();
+  
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowable(s);
+    //@ pure
+    public NegativeArraySizeException(String s);
+}

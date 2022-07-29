@@ -1,0 +1,17 @@
+package java.io;
+ 
+//@ nullable_by_default
+abstract public class ObjectStreamException extends IOException {
+  
+    /*@ protected normal_behavior
+      @   ensures standardThrowable();
+      @*/
+    //@ pure
+    protected ObjectStreamException();
+  
+    /*@ protected normal_behavior
+      @   ensures standardThrowable(message);
+      @*/
+    //@ pure
+    protected ObjectStreamException(String message);
+}

@@ -1,0 +1,11 @@
+package java.lang;
+
+import java.io.*;
+
+class StringCoding {
+
+    public static boolean hasNegatives(byte[] ba, int off, int len);
+
+    public static int implEncodeISOArray(byte[] sa, int sp, byte[] da, int dp, int len);
+
+}

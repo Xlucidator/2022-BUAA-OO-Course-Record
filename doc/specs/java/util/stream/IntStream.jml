@@ -1,0 +1,93 @@
+package java.util.stream;
+import java.util.function.*;
+//@ non_null_by_default
+public interface IntStream extends BaseStream<Integer,IntStream> {
+    //  @ model public final instance array<Integer> intvalues;
+
+      public abstract IntStream filter(java.util.function.IntPredicate pred);
+      public abstract IntStream map(java.util.function.IntUnaryOperator op);
+      public abstract <U> Stream<U> mapToObj(java.util.function.IntFunction<? extends U> func);
+      public abstract LongStream mapToLong(java.util.function.IntToLongFunction func);
+      public abstract DoubleStream mapToDouble(java.util.function.IntToDoubleFunction func);
+      public abstract IntStream flatMap(java.util.function.IntFunction<? extends IntStream> func);
+      public abstract IntStream distinct();
+      public abstract IntStream sorted();
+      public abstract IntStream peek(java.util.function.IntConsumer consumer);
+      public abstract IntStream limit(long limit);
+      public abstract IntStream skip(long n);
+      // Since 1.9: public default IntStream takeWhile(java.util.function.IntPredicate i);
+      // Since 1.9: public default IntStream dropWhile(java.util.function.IntPredicate i);
+      public abstract void forEach(java.util.function.IntConsumer consumer);
+      public abstract void forEachOrdered(java.util.function.IntConsumer consumer);
+      public abstract int[] toArray();
+      //@ public normal_behavior
+      //@   ensures true;
+      //@ pure
+      public abstract int reduce(int n, java.util.function.IntBinaryOperator op);
+      //@ public normal_behavior
+      //@   ensures true;
+      //@ pure
+      public abstract java.util.OptionalInt reduce(java.util.function.IntBinaryOperator op);
+      public abstract <R> R collect(java.util.function.Supplier<R> supplier, java.util.function.ObjIntConsumer<R> consumer, java.util.function.BiConsumer<R, R> consumer2);
+      public abstract int sum();
+      public abstract java.util.OptionalInt min();
+      public abstract java.util.OptionalInt max();
+      public abstract long count();
+      public abstract java.util.OptionalDouble average();
+      public abstract java.util.IntSummaryStatistics summaryStatistics();
+      public abstract boolean anyMatch(java.util.function.IntPredicate pred);
+      public abstract boolean allMatch(java.util.function.IntPredicate pred);
+      public abstract boolean noneMatch(java.util.function.IntPredicate pred);
+      public abstract java.util.OptionalInt findFirst();
+      public abstract java.util.OptionalInt findAny();
+      public abstract LongStream asLongStream();
+      public abstract DoubleStream asDoubleStream();
+      public abstract Stream<java.lang.Integer> boxed();
+      
+      //@ also public normal_behavior
+      //@   ensures true;
+      //@ pure
+      public default IntStream sequential();
+      public default IntStream parallel();
+      public default java.util.PrimitiveIterator.OfInt iterator();
+      public default java.util.Spliterator.OfInt spliterator();
+      public static IntStream.Builder builder();
+      
+      //@ public normal_behavior
+      //@   ensures \result.values.length == 0;
+      //@ pure helper heap_free
+      public static IntStream empty();
+      //@ public normal_behavior
+      //@   ensures \result.values.length == 1;
+      //@   ensures \result.values[0] == i;
+      //@ pure helper heap_free
+      public static IntStream of(int i);
+      //@ public normal_behavior
+      //@   ensures \result.values.length == ints.length;
+      //@   ensures array.equals(\result.values,array.<Integer>of(ints));
+      //@ pure helper heap_free
+      public static IntStream of(int... ints);
+      public static IntStream iterate(int i, java.util.function.IntUnaryOperator op);
+      // Since 1.9: public static IntStream iterate(int i, java.util.function.IntPredicate p, java.util.function.IntUnaryOperator op);
+      public static IntStream generate(java.util.function.IntSupplier supplier);
+      //@ public normal_behavior
+      //@   requires to >= from;
+      //@   ensures \result.values.length == to - from;
+      //@   ensures \forall int k; 0 <= k < to-from; \result.values[k] == from + k;
+      //@ pure helper heap_free
+      public static IntStream range(int from, int to);
+      //@ public normal_behavior
+      //@   requires to >= from;
+      //@   ensures \result.values.length == to - from + 1;
+      //@   ensures \forall int k; 0 <= k <= to-from; \result.values[k] == from + k;
+      //@ pure helper heap_free
+      public static IntStream rangeClosed(int from, int to);
+      public static IntStream concat(IntStream first, IntStream last);
+
+      public static interface Builder {
+        public abstract void accept(int i);
+        public default java.util.stream.IntStream.Builder add(int i);
+        public abstract java.util.stream.IntStream build();
+      }
+
+}

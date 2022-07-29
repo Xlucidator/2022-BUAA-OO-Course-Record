@@ -1,0 +1,45 @@
+Ok，state count of statemachine "StateMachine1" is 12.
+Ok，state count of statemachine "StateMachine2" is 3.
+Failed, statemachine "StateMachine3" not found.
+Ok, state "State1" in statemachine "StateMachine1" is not a critical point.
+Ok, state "State2" in statemachine "StateMachine1" is a critical point.
+Ok, state "State3" in statemachine "StateMachine1" is not a critical point.
+Ok, state "State4" in statemachine "StateMachine1" is not a critical point.
+Ok, state "State5" in statemachine "StateMachine1" is a critical point.
+Ok, state "State6" in statemachine "StateMachine1" is not a critical point.
+Ok, state "State7" in statemachine "StateMachine1" is not a critical point.
+Ok, state "State8" in statemachine "StateMachine1" is not a critical point.
+Failed, statemachine "StateMachine3" not found.
+Ok, state "State1" in statemachine "StateMachine2" is not a critical point.
+Failed, state "State2" in statemachine "StateMachine2" not found.
+Ok, triggers of transition from state "State1" to state "State4" in statemachine "StateMachine1" are (Event1, Event1, Event2, multitrans1, mutlitrans2).
+Ok, triggers of transition from state "State2" to state "State5" in statemachine "StateMachine1" are (Event1, revertrans-to).
+Ok, triggers of transition from state "State3" to state "State6" in statemachine "StateMachine1" are ().
+Ok, triggers of transition from state "State6" to state "State6" in statemachine "StateMachine1" are (selftrans).
+Ok, triggers of transition from state "State6" to state "State8" in statemachine "StateMachine1" are (Event1, e2).
+Ok, triggers of transition from state "State5" to state "State2" in statemachine "StateMachine1" are (Event1, Event2, revertrans-from).
+Failed, transition from state "State8" to state "State7" in statemachine "StateMachine1" not found.
+Failed, transition from state "State7" to state "State7" in statemachine "StateMachine1" not found.
+Failed, transition from state "State3" to state "State7" in statemachine "StateMachine1" not found.
+Failed, statemachine "StateMachine3" not found.
+Failed, state "State2" in statemachine "StateMachine2" not found.
+Failed, state "State2" in statemachine "StateMachine2" not found.
+Ok, participant count of umlinteraction "Interaction1" is 3.
+Ok, participant count of umlinteraction "Interaction2" is 4.
+Ok, participant count of umlinteraction "Interaction3" is 1.
+Failed, umlinteraction "Interaction4" not found.
+Failed, lifeline "Lifeline1" in umlinteraction "Interaction1" is never created.
+Failed, lifeline "Lifeline2" in umlinteraction "Interaction1" is never created.
+Ok, lifeline "Lifeline3" in umlinteraction "Interaction1" can be created by "Lifeline1".
+Ok, lifeline "Lifeline1" in umlinteraction "Interaction2" can be created by "Lifeline2".
+Failed, lifeline "Lifeline2" in umlinteraction "Interaction2" is created repeatedly.
+Failed, lifeline "Lifeline3" in umlinteraction "Interaction2" is created repeatedly.
+Failed, lifeline "Lifeline4" in umlinteraction "Interaction2" is never created.
+Failed, umlinteraction "Interaction4" not found.
+Failed, lifeline "Lifeline5" in umlinteraction "Interaction2" not found.
+Ok, incoming found message and outgoing lost message count of lifeline "Lifeline1" of umlinteraction "Interaction1" is 0 and 0.
+Ok, incoming found message and outgoing lost message count of lifeline "Lifeline2" of umlinteraction "Interaction1" is 0 and 0.
+Ok, incoming found message and outgoing lost message count of lifeline "Lifeline3" of umlinteraction "Interaction1" is 1 and 1.
+Ok, incoming found message and outgoing lost message count of lifeline "Lifeline1" of umlinteraction "Interaction3" is 3 and 1.
+Failed, lifeline "Lifeline2" in umlinteraction "Interaction3" not found.
+Failed, umlinteraction "Interaction4" not found.

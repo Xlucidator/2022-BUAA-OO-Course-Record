@@ -1,0 +1,80 @@
+{}
+{/* UMLInterface */
+    "_parent":"AAAAAAFF+qBWK6M3Z8Y=",   // None
+    "visibility":"public",
+    "name":"Interface1",
+    "_type":"UMLInterface", 
+    "_id":"AAAAAAGBE6Sre+b9sYg="
+}
+
+{/* UMLClass */
+    "_parent":"AAAAAAFF+qBWK6M3Z8Y=",   // None
+    "visibility":"public",
+    "name":"Class1",
+    "_type":"UMLClass", 
+    "_id":"AAAAAAGBE6SArOaazKU="
+}
+
+{/* UMLAttribute */
+    "_parent":"AAAAAAGBE6SArOaazKU=",
+    "visibility":"private",
+    "name":"Attribute1",
+    "_type":"UMLAttribute", 
+    "_id":"AAAAAAGBE6deU+cxVvA=",
+    "type":{"$ref":"AAAAAAGBE6SArOaazKU="}
+}
+
+{/* UMLOperation */
+    "_parent":"AAAAAAGBE6SArOaazKU=",
+    "visibility":"private",
+    "name":"Operation2",
+    "_type":"UMLOperation", 
+    "_id":"AAAAAAGBE7XumFjFOiw="
+}
+
+{/* UMLParameter */
+    "_parent":"AAAAAAGBE7XumFjFOiw=",
+    "name":[null, "Parameter1"],        // None: if direction is !"return"
+    "_type":"UMLParameter", 
+    "_id":"AAAAAAGBE7Zd\/FjMMJQ=",
+    "type":["void", "int", {"$ref":"AAAAAAGBE6SArOaazKU="}],
+    "direction":["return", "in"]
+}
+
+{/* UMLInterfaceRealization */
+    "_parent":"AAAAAAGBE6SArOaazKU=",
+    "name":null,                        // None
+    "_type":"UMLInterfaceRealization", 
+    "_id":"AAAAAAGBE6vjpOe0V3k=",
+    "source":"AAAAAAGBE6SArOaazKU=",
+    "target":"AAAAAAGBE6Sre+b9sYg="
+}
+
+{/* UMLGeneralization */
+    "_parent":"AAAAAAGBE6SJxubDYvk=",   // None
+    "name":null,                        // None
+    "_type":"UMLGeneralization", 
+    "_id":"AAAAAAGBE6Shrebsgxg=",
+    "source":"AAAAAAGBE6SJxubDYvk=",
+    "target":"AAAAAAGBE6SArOaazKU="
+}
+
+{/* UMLAssociation */
+    "_parent":"AAAAAAF8pZCdTTQh6N0=",   // None
+    "name":null,                        // None
+    "_type":"UMLAssociation", 
+    "end2":"AAAAAAF8pZCdTjQn110=",
+    "end1":"AAAAAAF8pZCdTjQm1zQ=",
+    "_id":"AAAAAAF8pZCdTjQl2RU="
+}
+
+{/* UMLAssociationEnd */
+    "reference":"AAAAAAF8pZCdTTQdhjs=",
+    "multiplicity":"",                  
+    "_parent":"AAAAAAF8pZCdTjQl2RU=",
+    "visibility":"public",
+    "name":"Attribute0",                // None
+    "_type":"UMLAssociationEnd", 
+    "aggregation":"none",
+    "_id":"AAAAAAF8pZCdTjQn110="
+}

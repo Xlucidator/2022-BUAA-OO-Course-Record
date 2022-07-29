@@ -1,0 +1,51 @@
+package java.lang;
+
+//@ non_null_by_default
+public abstract class Enum<E  extends Enum<E>> implements Comparable<E>, java.io.Serializable {
+      /*@ spec_public */ private final String name;
+      /*@ spec_public */ private final int ordinal;
+      
+      //@ public normal_behavior
+      //-RAC@   ensures \result == name;
+      //@ pure
+      public final String name();
+      //@ public normal_behavior
+      //-RAC@   ensures \result == ordinal;
+      //@ pure
+      public final int ordinal();
+      //@ protected normal_behavior
+      //-RAC@   ensures this.name == name;
+      //-RAC@   ensures this.ordinal == ordinal;
+      //@ pure
+      protected Enum(String name, int ordinal);
+      //@ also public code normal_behavior
+      //-RAC@   ensures \result == name;
+      //@ pure
+      public String toString();
+      
+//      public final boolean equals(Object);
+      
+      //@ also public normal_behavior
+      //@   ensures true;
+      //@ pure
+      public final int hashCode();
+
+//      protected final Object clone() throws CloneNotSupportedException;
+//      public final int compareTo(E);
+//      public final Class<E> getDeclaringClass();
+
+      //@ public behavior 
+      //@   ensures \result.name().equals(name);
+      //@   ensures \result.getClass() == enumClass;
+      //@   signals_only IllegalArgumentException, NullPointerException;
+      //@   signals (NullPointerException) name == null;
+      //@   signals (IllegalArgumentException) true; // FIXME - no matching name
+      //@ pure 
+      public static <T extends Enum<T>> T valueOf(Class<T> enumClass, /*@ nullable */ String name);
+
+//      protected final void finalize();
+//      private void readObject(java.io.ObjectInputStream) throws java.io.IOException, ClassNotFoundException;
+//      private void readObjectNoData() throws java.io.ObjectStreamException;
+//      public int compareTo(Object);
+      
+    }

@@ -1,0 +1,16 @@
+[1.0]ADD-floor-10-7
+[2.1]1-FROM-C-7-TO-A-7
+[3.3]2-FROM-D-6-TO-D-3
+[3.3]3-FROM-D-6-TO-D-3
+[3.5]ADD-building-11-E
+[4.0]20-FROM-D-7-TO-D-4
+[5.0]ADD-building-6-C
+[6.0]12-FROM-C-2-TO-C-5
+[6.0]23-FROM-C-2-TO-C-6
+[6.0]14-FROM-C-2-TO-C-7
+[6.0]ADD-floor-9-5
+[6.0]15-FROM-C-2-TO-C-4
+[6.5]16-FROM-C-2-TO-C-8
+[7.0]17-FROM-C-4-TO-C-1
+[7.1]18-FROM-C-5-TO-C-2
+

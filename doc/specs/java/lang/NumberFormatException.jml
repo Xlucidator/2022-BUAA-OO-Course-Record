@@ -1,0 +1,17 @@
+package java.lang;
+
+// FIXME - needs completion
+ 
+//@ nullable_by_default
+public class NumberFormatException extends IllegalArgumentException {
+  
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowable();
+    //@ pure
+    public NumberFormatException();
+  
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowable(s);
+    //@ pure
+    public NumberFormatException(String s);
+}

@@ -1,0 +1,9 @@
+package java.nio.channels;
+
+public interface ReadableByteChannel extends Channel {
+    // FIXME - needs to model the buffer of source content
+    
+    //@ public behavior
+    //@   requires false;
+    public abstract int read(java.nio.ByteBuffer dst) throws java.io.IOException;
+}

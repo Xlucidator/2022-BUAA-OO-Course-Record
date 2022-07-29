@@ -1,0 +1,11 @@
+/* returnPara & inPara in OperationModel */
+private UmlParameter returnPara = null;
+private final ArrayList<UmlParameter> inPara = new ArrayList<>();
+
+public void addPara(UmlParameter para) {
+        if (para.getDirection() == Direction.RETURN) {
+            this.returnPara = para;
+        } else {
+            this.inPara.add(para);
+        }
+}

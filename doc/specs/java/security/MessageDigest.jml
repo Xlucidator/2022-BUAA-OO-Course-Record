@@ -1,0 +1,91 @@
+package java.security;
+
+//@ non_null_by_default
+public abstract class MessageDigest extends MessageDigestSpi {
+  //private static final sun.security.util.Debug pdebug; // Non-public API
+  private static final boolean skipDebug;
+  private java.lang.String algorithm;
+  private static final int INITIAL;
+  private static final int IN_PROGRESS;
+  private int state;
+  
+  //@ model public int length; // Length of the resulting digest, which depends on the algorithm
+  //@ model public static final int SHA256_SIZE = 32;
+  
+  //@ spec_public
+  private Provider provider;
+  
+  //@ protected normal_behavior
+  //@   ensures true;
+  //@ pure
+  protected MessageDigest(java.lang.String s);
+  
+  //@ model public Object content;
+  
+  //@ public normal_behavior
+  //@   ensures \fresh(\result);
+  //@ pure
+  public static MessageDigest getInstance(java.lang.String s) throws NoSuchAlgorithmException;
+  //@ public normal_behavior
+  //@   ensures \fresh(\result);
+  //@ pure
+  public static MessageDigest getInstance(java.lang.String s, java.lang.String ss) throws NoSuchAlgorithmException, NoSuchProviderException;
+  //@ public normal_behavior
+  //@   ensures \fresh(\result);
+  //@ pure
+  public static MessageDigest getInstance(java.lang.String s, Provider p) throws NoSuchAlgorithmException;
+  //@ public normal_behavior
+  //@   ensures \result == provider;
+  //@ pure
+  public final Provider getProvider();
+  
+  //@ public normal_behavior
+  //@   assignable this.content;
+  public void update(byte b);
+  //@ public normal_behavior
+  //@   requires offset >= 0;
+  //@   requires length >= 0;
+  //@   requires buf.length - offset >= length;
+  //@   assignable this.content;
+  public void update(byte[] buf, int offset, int length);
+  //@ public normal_behavior
+  //@   assignable this.content;
+  public void update(byte[] bb);
+  //@ public normal_behavior
+  //@   assignable this.content;
+  public final void update(java.nio.ByteBuffer bb);
+  
+  //@ public normal_behavior
+  //@   assignable this.content;
+  //@   ensures \fresh(\result);
+  public byte[] digest();
+
+  //@ public normal_behavior
+  //@   requires offset >= 0 && length >= 0 && offset <= bb.length - length;
+  //@   assignable this.content, bb[offset .. (offset+length-1)];
+  public int digest(byte[] bb, int offset, int length) throws DigestException;
+  
+  //@ public normal_behavior
+  //@   assignable this.content;
+  //@   ensures \fresh(\result);
+  //@   ensures \result.length == this.length;
+  public byte[] digest(byte[] bb);
+  
+  public java.lang.String toString();
+  
+  //@ public normal_behavior
+  //@   ensures \result == (bb.length == bbb.length && java.util.Arrays.equalArrays(bb,0,bbb,0,bb.length));
+  //@ pure
+  public static boolean isEqual(byte[] bb, byte[] bbb);
+
+  //@ public normal_behavior
+  //@   assignable this.content;
+  public void reset();
+  public final java.lang.String getAlgorithm();
+  
+  //@ public normal_behavior
+  //@   ensures \result >= 0;
+  //@ pure
+  public final int getDigestLength();
+  public java.lang.Object clone() throws java.lang.CloneNotSupportedException;
+}

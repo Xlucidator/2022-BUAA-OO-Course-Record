@@ -1,0 +1,648 @@
+Ok
+Ok
+Ok
+Ok
+Ok
+Ok
+Ok
+0
+pinf-1, 8-1
+ginf-1, 1-1
+minf-1, 1-1
+Ok
+ginf-2, 1-2
+ginf-3, 1-3
+0
+6
+None
+0
+ginf-4, 1-4
+6
+Ok
+Ok
+7
+Ok
+Ok
+0
+ginf-5, 3-1
+0
+0
+34
+ginf-6, 2-1
+minf-2, 2-1
+Ok
+Ok
+ginf-7, 2-2
+epi-1, 2-1
+Ok
+Ok
+Ok
+rnf-1, 2-1, 3-1
+Ok
+Ok
+0
+Ok
+13
+14
+ginf-8, 4-1
+0
+Ok
+Ok
+Ok
+pinf-2, 16-1
+Ok
+0
+epi-2, 10-1
+16
+Ok
+0
+Ok
+pinf-3, 19-1
+epi-3, 2-2
+13
+Ok
+ginf-9, 5-1
+Ok
+13
+Ok
+ginf-10, 5-2
+Ok
+ginf-11, 4-2
+Ok
+0
+0
+Ok
+Ok
+0
+ginf-12, 6-1
+egi-1, 2-1
+Ok
+0
+minf-3, 4-1
+Ok
+Ok
+Ok
+ginf-13, 7-1
+ginf-14, 6-2
+pinf-4, 7-1
+ginf-15, 5-3
+Ok
+The person with this number does not exist
+Ok
+0
+14
+minf-4, 6-1
+Ok
+Ok
+0
+Ok
+Ok
+egi-2, 1-1
+12
+24
+minf-5, 4-2
+0
+Ok
+ginf-16, 8-1
+ginf-17, 5-4
+Ok
+ginf-18, 7-2
+0
+4646
+Ok
+ginf-19, 7-3
+0
+0
+Ok
+0
+0
+12
+Ok
+egi-3, 3-1
+0
+ginf-20, 5-5
+rnf-2, 3-2, 6-1
+ginf-21, 6-3
+0
+Ok
+ginf-22, 6-4
+Ok
+27
+Ok
+0
+egi-4, 5-1
+144
+Ok
+13
+Ok
+Group does not exist
+Ok
+0
+28
+Ok
+Ok
+0
+Ok
+Ok
+ginf-23, 6-5
+ginf-24, 9-1
+Ok
+Ok
+Ok
+0
+Ok
+rnf-3, 2-2, 3-3
+rnf-4, 8-1, 12-1
+pinf-5, 35-1
+egi-5, 4-1
+0
+Ok
+Ok
+18
+The person with this number does not exist
+Ok
+Ok
+ginf-25, 6-6
+ginf-26, 14-1
+1
+18
+0
+Ok
+ginf-27, 6-7
+Ok
+rnf-5, 11-1, 19-1
+18
+37
+Ok
+minf-6, 9-1
+ginf-28, 8-2
+Ok
+0
+Ok
+Ok
+minf-7, 6-2
+Ok
+pinf-6, 7-2
+Ok
+24
+Ok
+0
+epi-4, 40-1
+pinf-7, 46-1
+6782
+25
+Ok
+0
+Ok
+0
+Ok
+Ok
+rnf-6, 3-4, 44-1
+Ok
+ginf-29, 11-1
+None
+rnf-7, 8-2, 12-2
+rnf-8, 8-3, 12-3
+0
+0
+0
+minf-8, 8-1
+Ok
+Ok
+Ok
+rnf-9, 8-4, 12-4
+minf-9, 9-2
+0
+0
+25
+0
+Ok
+ginf-30, 8-3
+Ok
+rnf-10, 5-1, 34-1
+ginf-31, 8-4
+rnf-11, 16-1, 27-1
+0
+ginf-32, 16-1
+Ok
+0
+Ok
+28
+Ok
+epi-5, 48-1
+egi-6, 2-2
+egi-7, 5-2
+pinf-8, 7-3
+Ok
+Ok
+egi-8, 6-1
+None
+0
+None
+epi-6, 1-1
+0
+er-1, 39-1, 39-1
+28
+Ok
+rnf-12, 6-2, 26-1
+0
+0
+0
+ginf-33, 18-1
+er-2, 10-1, 13-1
+0
+0
+rnf-13, 2-3, 29-1
+Ok
+52
+ginf-34, 14-2
+Ok
+The person with this number does not exist
+ginf-35, 20-1
+egi-9, 5-3
+Ok
+0
+Ok
+Ok
+54
+ginf-36, 15-1
+minf-10, 13-1
+Ok
+2168
+0
+0
+Ok
+0
+rnf-14, 5-2, 37-1
+30
+Ok
+29
+Ok
+ginf-37, 11-2
+Ok
+rnf-15, 38-1, 43-1
+ginf-38, 20-2
+rnf-16, 8-5, 12-5
+Ok
+0
+None
+Ok
+0
+Ok
+Ok
+Ok
+Ok
+Ok
+Ok
+Ok
+Ok
+Ok
+rnf-17, 5-3, 47-1
+0
+ginf-39, 14-3
+rnf-18, 1-1, 46-1
+pinf-9, 63-1
+Ok
+0
+0
+rnf-19, 6-3, 47-2
+ginf-40, 14-4
+0
+rnf-20, 7-1, 56-1
+pinf-10, 13-1
+0
+32
+ginf-41, 9-2
+rnf-21, 19-2, 22-1
+Ok
+0
+0
+Ok
+ginf-42, 20-3
+rnf-22, 8-6, 12-6
+egi-10, 17-1
+pinf-11, 5-1
+62
+Ok
+0
+minf-11, 11-1
+ginf-43, 22-1
+31
+Ok
+0
+epi-7, 3-1
+epi-8, 32-1
+pinf-12, 7-4
+ginf-44, 8-5
+30
+Ok
+egi-11, 4-2
+rnf-23, 8-7, 12-7
+None
+63
+egi-12, 13-1
+Ok
+egi-13, 3-2
+0
+63
+Ok
+0
+egi-14, 7-1
+0
+ginf-45, 8-6
+Ok
+30
+rnf-24, 3-5, 44-2
+0
+Ok
+Ok
+0
+0
+1
+Ok
+Ok
+Ok
+egi-15, 6-2
+1
+10501
+minf-12, 7-1
+Ok
+Ok
+Ok
+ginf-46, 19-1
+33
+Ok
+Ok
+Ok
+Ok
+Ok
+Ok
+rnf-25, 44-3, 53-1
+Ok
+pinf-13, 72-1
+0
+32
+0
+Ok
+Ok
+Ok
+Ok
+rnf-26, 5-4, 47-3
+pinf-14, 74-1
+Ok
+ginf-47, 27-1
+Ok
+Ok
+0
+74
+74
+34
+74
+rnf-27, 60-1, 71-1
+er-3, 6-1, 23-1
+Group does not exist
+34
+0
+Ok
+Ok
+0
+Ok
+ginf-48, 22-2
+ginf-49, 8-7
+Ok
+minf-13, 19-1
+Ok
+Ok
+Ok
+Ok
+ginf-50, 15-2
+pinf-15, 77-1
+76
+Ok
+Ok
+ginf-51, 21-1
+0
+32
+Ok
+0
+78
+None
+Group does not exist
+Ok
+egi-16, 2-3
+ginf-52, 22-3
+ginf-53, 29-1
+0
+20922
+ginf-54, 31-1
+34
+Ok
+Ok
+epi-9, 16-1
+Ok
+Ok
+ginf-55, 28-1
+ginf-56, 9-3
+Ok
+ginf-57, 26-1
+Ok
+minf-14, 20-1
+Ok
+34
+Ok
+ginf-58, 14-5
+pinf-16, 83-1
+0
+Ok
+Ok
+82
+0
+None
+0
+Ok
+egi-17, 20-1
+34
+minf-15, 19-2
+Ok
+rnf-28, 7-2, 65-1
+er-4, 65-1, 68-1
+1
+33
+0
+ginf-59, 22-4
+Ok
+Ok
+84
+0
+Ok
+rnf-29, 25-1, 74-1
+Ok
+Ok
+pinf-17, 85-1
+ginf-60, 29-2
+0
+ginf-61, 18-2
+Ok
+85
+Ok
+Ok
+rnf-30, 68-1, 80-1
+Ok
+Ok
+37
+Ok
+Ok
+Ok
+rnf-31, 32-1, 69-1
+0
+Ok
+Ok
+Ok
+ginf-62, 28-2
+Ok
+87
+Ok
+egi-18, 5-4
+Ok
+0
+^D
+0.09375
+
+
+ap 1 A 10
+ap 2 B 10
+ap 3 C 10
+ap 4 D 10
+ap 5 E 10
+ap 6 F 10
+ap 7 A 10
+ap 8 B 10
+ap 9 C 10
+ap 10 D 10
+ar 1 2 1
+ar 1 5 2
+ar 1 7 3
+ar 2 3 4
+ar 2 4 6
+ar 2 5 5
+ar 3 4 7
+ar 5 2 5
+ar 5 6 2
+ar 6 7 8
+ar 8 9 10
+qlc 1
+qlc 2
+qlc 6
+qlc 9
+
+=================
+
+ap 1 1000 80
+ap 2 1001 36
+ap 3 1002 66
+ap 4 1003 59
+ap 5 1004 77
+ap 6 1005 31
+ap 7 1006 67
+dfg 4 2
+ag 1
+ar 6 2 605
+qrm 2
+qgps 1
+qv 5 4
+qgps 3
+qgps 2
+ap 8 1868060888 177
+qgps 3
+qrm 6
+ag 1
+qps
+qrm 2
+qps
+qlc 1
+ar 4 5 243
+qsv 9
+ap 9 1591316568 119
+ag 1
+ap 10 6861473875 82
+sm 2
+ar 10 5 315
+qsv 4
+qbs
+qv 5 12
+qci 2 2
+qgps 2
+qgps 2
+qrm 6
+ap 11 1264319530 22
+sm 1
+qrm 11
+qsv 4
+dfg 8 1
+ar 13 9 596
+sm 1
+qbs
+qsv 7
+ar 4 1 834
+qgps 2
+qgav 3
+qps
+qgav 4
+qgav 1
+qrm 2
+ap 12 6203807035 0
+ag 4
+qbs
+qgps 4
+qgvs 4
+qci 9 4
+dfg 13 1
+qgvs 3
+qci 14 4
+sm 1
+ar 1 5 385
+ar 13 6 749
+qgvs 5
+qbs
+qgps 3
+ap 13 9571270152 102
+qci 1 9
+qgps 5
+ap 14 102808720 198
+ap 15 3802902086 139
+ar 13 11 280
+qgps 2
+ap 16 3196538128 109
+qv 6 5
+qgps 1
+qgav 5
+qbs
+qrm 14
+ap 17 918636547 44
+ag 2
+qci 16 2
+ar 4 17 242
+qbs
+ap 18 6270689091 71
+sm 2
+ar 5 15 253
+ap 19 2193809948 2
+ap 20 1863940870 114
+qsv 14
+qrm 11
+ap 21 5024885834 111
+qlc 7
+ar 20 16 276
+ag 4
+ap 22 5609957954 8
+ag 7
+qlc 1
+ar 23 7 437
+ar 13 20 397
+ap 23 4074773828 44
+ap 24 2389429838 120
+ar 14 2 77
+atg 13 5
+ag 7
+
+

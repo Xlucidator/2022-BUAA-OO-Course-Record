@@ -1,0 +1,28 @@
+Detecting code smells...
+Exporting analysis results...
+Done.
+
+--Analysis summary--
+        Total LOC analyzed: 336 Number of packages: 1
+        Number of classes: 5    Number of methods: 35
+-Total architecture smell instances detected-
+        Cyclic dependency: 0    God component: 0
+        Ambiguous interface: 0  Feature concentration: 0
+        Unstable dependency: 0  Scattered functionality: 0
+        Dense structure: 0
+-Total design smell instances detected-
+        Imperative abstraction: 0       Multifaceted abstraction: 0
+        Unnecessary abstraction: 0      Unutilized abstraction: 5
+        Feature envy: 0 Deficient encapsulation: 0
+        Unexploited encapsulation: 0    Broken modularization: 0
+        Cyclically-dependent modularization: 0  Hub-like modularization: 0
+        Insufficient modularization: 0  Broken hierarchy: 0
+        Cyclic hierarchy: 0     Deep hierarchy: 0
+        Missing hierarchy: 0    Multipath hierarchy: 0
+        Rebellious hierarchy: 0 Wide hierarchy: 0
+-Total implementation smell instances detected-
+        Abstract function call from constructor: 0      Complex conditional: 0
+        Complex method: 0       Empty catch clause: 0
+        Long identifier: 0      Long method: 0
+        Long parameter list: 0  Long statement: 0
+        Magic number: 6 Missing default: 0

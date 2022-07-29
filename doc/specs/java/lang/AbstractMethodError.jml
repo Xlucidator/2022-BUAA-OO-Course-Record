@@ -1,0 +1,16 @@
+// @author David R. Cok
+
+package java.lang;
+
+//@ nullable_by_default
+public class AbstractMethodError extends IncompatibleClassChangeError {
+
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowable();
+    public /*@ pure @*/ AbstractMethodError();
+
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowable(s);
+    public /*@ pure @*/ AbstractMethodError(String s);
+}
+

@@ -1,0 +1,238 @@
+package java.util.stream;
+import java.util.function.*;
+
+//@ nullable_by_default
+public interface Stream<T> extends BaseStream<T, Stream<T>> {
+    
+    //@ public normal_behavior
+    //@   requires true;
+    /*@   { 
+            //@ loop_invariant i == \count && 0 <= i <= values.length;
+            //@ decreases values.length - i;
+            for (\bigint i=0; i < values.length; i++) {
+                consumer.accept(values[i]); 
+            }
+          }
+     */
+    void forEachOrdered(Consumer<? super T> consumer);
+    // Line 9 appears in error messages so we put it near the top of this file, so it does not change often
+    
+    //@ public normal_behavior
+    //@   ensures \result == (\forall int i; 0<=i && i<values.length; values[i] != null);
+    //@ pure
+    //@ model public boolean isNonNull();
+
+    //@ public normal_behavior
+    //@   requires pred != null;
+    //@   ensures \result == this;
+    //@   ensures \forall int i; 0 <= i < \result.values.length; pred.test(\result.values[i]);
+    //@ pure
+    //@ model Stream<T> assume(java.util.function.Predicate<? super T> pred);
+    
+    //@ public normal_behavior
+    //@// Does not specify preserving order
+    //@   requires pred != null;
+    //@   ensures \result != null;
+    //@   ensures \fresh(\result);
+    //@   ensures \forall int i; 0 <= i < \result.values.length; pred.test(\result.values[i]);
+    //@   ensures \forall int i; 0 <= i < \result.values.length; (\exists int j; 0 <= j < this.values.length; \result.values[i] == this.values[j]);
+    //@   ensures \forall int i; 0 <= i < values.length; pred.test(this.values[i]) ==> (\exists int j; 0 <= j < \result.values.length; \result.values[j] == this.values[i]);
+    //@ also public normal_behavior
+    //@// Special case for short streams
+    //@   requires pred != null;
+    //@   old boolean b0 = this.values.length > 0 && pred.test(this.values[0]);
+    //@   old boolean b1 = this.values.length > 1 && pred.test(this.values[1]);
+    //@   old boolean b2 = this.values.length > 2 && pred.test(this.values[2]);
+    //@   old boolean b3 = this.values.length > 3 && pred.test(this.values[3]);
+    //@   old boolean b4 = this.values.length > 4 && pred.test(this.values[4]);
+    //@   ensures b0 ==> \result.values.length > 0 && \result.values[0] == this.values[0];
+    //@   ensures !b0 & b1 ==> \result.values.length > 0 && \result.values[0] == this.values[1];
+    //@   ensures !b0 & !b1 & b2 ==> \result.values.length > 0 && \result.values[0] == this.values[2];
+
+    //@   ensures b0 & b1 ==> \result.values.length > 1 && \result.values[1] == this.values[1];
+    //@   ensures ((b0 & !b1)|(!b0 & b1)) & b2 ==> \result.values.length > 1 && \result.values[1] == this.values[2];
+
+    //@   ensures b0 & b1 & b2 ==> \result.values.length > 2 && \result.values[2] == this.values[2];
+    //@   ensures b0 & !b1 & b2 & b3 ==> \result.values.length > 2 && \result.values[2] == this.values[3];
+
+    //@   ensures b0 & b1 & b2 & b3 ==> \result.values.length > 3 && \result.values[3] == this.values[3];
+
+    //@   ensures b0 & b1 & b2 & b3 & !b4 & this.values.length == 5 ==> \result.values.length == 4;
+    //@   ensures b0 & !b1 & b2 & b3 & this.values.length == 4 ==> \result.values.length == 3;
+    //@   ensures b0 & b1 & b2 & this.values.length == 3 ==> \result.values.length == 3;
+    //@   ensures !b0 & b1 & b2 & this.values.length == 3 ==> \result.values.length == 2;
+    //@   ensures b0 & b1 & this.values.length == 2 ==> \result.values.length == 2;
+    //@ pure
+    Stream<T> filter(Predicate<? super T> pred);
+
+    //@ public normal_behavior
+    //@   requires func != null;
+    //@   ensures \result != null;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.values.length == this.values.length;
+    //@   ensures func instanceof Function.NoNulls ==> \forall int i; 0 <= i < values.length; \result.values[i] != null;
+    //@   // ensures \forall int i; 0 <= i < values.length; \result.values[i] == func.apply(values[i]); // FIXME - not translated properly yet
+    //@ pure
+    <R> Stream<R> map(Function<? super T, ? extends R> func);
+
+    //@ public normal_behavior
+    //@   ensures \result != null;
+    //-RAC@   ensures \result.values.length == values.length;
+    //-RAC@   ensures (\forall int i; 0<=i && i<values.length; \result.values[i] == func.applyAsInt(values[i]));
+    //@ pure
+    IntStream mapToInt(ToIntFunction<? super T> func);
+
+    //@ public normal_behavior
+    //@   ensures \result != null;
+    //-RAC@   ensures \result.values.length == values.length;
+    //-RAC@   ensures (\forall int i; 0<=i && i<values.length; \result.values[i] == func.applyAsLong(values[i]));
+    //@ pure
+    LongStream mapToLong(ToLongFunction<? super T> func);
+
+    DoubleStream mapToDouble(ToDoubleFunction<? super T> func);
+    <R> Stream<R> flatMap(Function<? super T, ? extends Stream<? extends R>> func);
+    IntStream flatMapToInt(Function<? super T, ? extends IntStream> func);
+    LongStream flatMapToLong(Function<? super T, ? extends LongStream> func);
+    DoubleStream flatMapToDouble(Function<? super T, ? extends DoubleStream> func);
+    Stream<T> distinct();
+    Stream<T> sorted();
+    Stream<T> sorted(java.util.Comparator<? super T> comparator);
+    Stream<T> peek(Consumer<? super T> consumer);
+    Stream<T> limit(long limit);
+    Stream<T> skip(long n);
+
+    // FIXME - clients should not be able to rely on the actions being ordered
+    //@ public normal_behavior
+    /*@   { 
+            //@ loop_invariant 0 <= i && i <= values.length;
+            //@ decreases values.length - i;  // FIXME - allow the decreases to be a \bigint
+            for (int i=0; i < values.length; i++) consumer.accept(get(i)); 
+          }
+     */
+    void forEach(Consumer<? super T> consumer);
+
+    //@ public normal_behavior
+    //@   ensures \result != null;
+    //@   ensures \result.length == values.length;
+    //@   ensures array.equals(array.<Object>of(\result),values);
+    //@ pure
+    Object[] toArray();
+    
+    //@ public normal_behavior
+    //@   ensures \result != null;
+    //@   ensures \result.length == values.length;
+    //@   ensures array.equals(array.<A>of(\result),values); 
+    //@ pure
+    <A> A[] toArray(IntFunction<A[]> generator);
+
+    T reduce(T t, BinaryOperator<T> op);
+    java.util.Optional<T> reduce(BinaryOperator<T> op);
+    <U> U reduce(U u, BiFunction<U, ? super T, U> func, BinaryOperator<U> op);
+
+    //@ public normal_behavior
+    //@   ensures \result != null;
+    //@ pure
+    <R> R collect(Supplier<R> supplier, BiConsumer<R, ? super T> consumer, BiConsumer<R, R> consumer2);
+
+    //@ public normal_behavior
+    //@   requires collector != null;
+    //@   assignable collector.content;
+    //@   ensures \result != null;
+    //@   ensures \fresh(\result); // FIXME - not always true
+    // -RAC@ also public normal_behavior
+    // -RAC@   requires collector != null;
+    // -RAC@   requires collector == Collectors.toList();
+    // -RAC@   assignable collector.content;
+    //-RAC@   ensures \result instanceof java.util.List ==> ((java.util.List)\result).values == this.values; 
+    //-RAC@   ensures \result instanceof java.util.Set ==> ((java.util.Set)\result).values == this.values; 
+    <R, A> R collect(Collector<? super T, A, R> collector);
+    
+    java.util.Optional<T> min(java.util.Comparator<? super T> comparator);
+    java.util.Optional<T> max(java.util.Comparator<? super T> comparator);
+
+    //@ public normal_behavior
+    //-RAC@   ensures \result == values.length;
+    //@ pure
+    long count();
+    
+    //@ public normal_behavior
+    /* @ {
+         loop_invariant 0<=i && i<= values.length;
+        loop_invariant (\forall int j; 0<=j && j<i; !pred.test(values[j]));
+        decreases values.length - i;
+        for (int i=0; i<values.length; i++) {
+            if (pred.test(values[i])) return true;
+        }
+        return false;
+        }
+     */
+    //@   { return !(\forall int j; 0<=j && j<values.length; !pred.test(values[j]));}
+    //@ pure
+    boolean anyMatch(Predicate<? super T> pred);
+
+    //@ public normal_behavior
+    //@   ensures \result == (\forall int j; 0<=j && j<values.length; pred.test(values[j]) == true);
+    //@ pure
+    boolean allMatch(Predicate<? super T> pred);
+
+    //@ public normal_behavior
+    //@   ensures \result == (\forall int j; 0<=j && j<values.length; pred.test(values[j]) == false);
+    //@ pure
+    boolean noneMatch(Predicate<? super T> pred);
+
+    //@ public normal_behavior
+    //@   ensures \result != null;
+    //@   ensures \fresh(\result);
+    //@   ensures (\result.value == null) <==> (values.length == 0); 
+    //@   ensures \result.value != null ==> (\result.value == values[0]);
+    //@ pure
+    java.util.Optional<T> findFirst();
+
+    //@ public normal_behavior
+    //@   ensures \result != null;
+    //-RAC@   ensures \fresh(\result);
+    //-RAC@   ensures (\result.value == null) <==> (values.length == 0); 
+    //-RAC@   ensures \result.value != null ==> (\exists int i; 0 <= i < values.length; \result.value == values[i]);
+    //@ pure
+    java.util.Optional<T> findAny();
+    
+    public static <T> Stream.Builder<T> builder();
+
+    //@ public normal_behavior
+    //@   ensures \result != null;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.values.length == 0;
+    //@ pure
+    public static <T> Stream<T> empty();
+    //@ public normal_behavior
+    //@   ensures \result != null;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.values.length == 1;
+    //@   ensures \result.values[0] == t;
+    //@ pure
+    public static <T> Stream<T> of(T t);
+    //@ public normal_behavior
+    //@   ensures \result != null;
+    //@   ensures \fresh(\result);
+    //@   ensures \result.values.length == values.length;
+    //@   ensures (\forall int i; 0 <= i < values.length; \result.values[i] == values[i]);
+    //@ pure
+    @SuppressWarnings("unchecked")
+    public static <T> Stream<T> of(T... values);
+    
+    //@ public normal_behavior
+    //@   ensures \result != null;
+    public static <T> Stream<T> iterate(T value, UnaryOperator<T> op);
+    //@ public normal_behavior
+    //@   ensures \result != null;
+    public static <T> Stream<T> generate(Supplier<? extends T> supplier);
+    //@ public normal_behavior
+    //@   ensures \result != null;
+    public static <T> Stream<T> concat(Stream<? extends T> first, Stream<? extends T> last);
+
+    public static interface Builder<T> {
+      public abstract void accept(T t);
+      public default Builder<T> add(T t);
+      public abstract Stream<T> build();
+    }
+}

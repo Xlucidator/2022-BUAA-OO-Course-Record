@@ -1,0 +1,13 @@
+ap 1 Jack 10
+ap 2 Jason 11
+ap 3 Pae 12
+qbs
+ar 1 2 100
+qbs
+ar 2 3 115
+qbs
+
+ap 1 Jack 10
+ag 1
+atg 1 1
+dfg 1 1

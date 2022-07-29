@@ -1,0 +1,1 @@
+Failed, wrong type of parameters or return value in method "class2method1" of class "class2".

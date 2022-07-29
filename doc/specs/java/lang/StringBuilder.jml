@@ -1,0 +1,225 @@
+package java.lang;
+
+//@ non_null_by_default
+public final class StringBuilder extends AbstractStringBuilder implements java.io.Serializable,CharSequence {
+    static final long serialVersionUID;
+    //@ ghost public final static int extraCapacity = 16;
+  
+    //@ public normal_behavior
+    //@   ensures capacity == extraCapacity;
+    //@   ensures count == 0;
+    //@   ensures \invariant_for(_value);
+    //@ pure
+    public StringBuilder();
+
+    //@ public normal_behavior
+    //@   requires k >= 0;
+    //@   ensures \invariant_for(_value);
+    //@   ensures count == 0;
+    //@   ensures capacity == k;
+    //@ also public exceptional_behavior
+    //@   requires k < 0;
+    //@   signals_only NegativeArraySizeException;
+    //@ pure
+    public StringBuilder(int k);
+ 
+    //@ public normal_behavior
+    //@   requires str != null;
+    //@   ensures _value == str;
+    //@   ensures capacity == str.length() + extraCapacity;
+    //@   ensures count == str.length();
+    //@ also public exceptional_behavior
+    //@   requires str == null;
+    //@   signals_only NullPointerException;
+    //@ pure
+    public StringBuilder(/*@ nullable @*/ String str);
+
+    //@ public normal_behavior
+    //@   requires cs != null;
+    //@   ensures (* _value == cs *);
+    //@   ensures capacity == cs.length() + extraCapacity;
+    //@   ensures count == cs.length();
+    //@ also public exceptional_behavior
+    //@   requires cs == null;
+    //@   signals_only NullPointerException;
+    //@ pure
+    public StringBuilder(/*@ nullable @*/ CharSequence cs);
+
+    //@ also public normal_behavior
+    //@   assignable _value, charArray;
+    //@   ensures (* _value == \old(_value) + o *);
+    //@   ensures \result == this;
+    @Override
+    public StringBuilder append(/*@ nullable */ Object o);
+  
+    //@ also public normal_behavior
+    //@   assignable _value, charArray;
+    //@   ensures (* _value == \old(_value) + s *);
+    //@   ensures \result == this;
+    @Override
+    public StringBuilder append(/*@ nullable @*/ String s);
+    
+    //@ also public normal_behavior
+    //@   assignable _value, charArray;
+    //@   ensures (* _value == \old(_value) + b *);
+    //@   ensures \result == this;
+    @Override
+    public StringBuilder append(/*@ nullable @*/ StringBuffer b);
+
+    //@ also public normal_behavior
+    //@   assignable _value, charArray;
+    //@   ensures (* _value == \old(_value) + cs *);
+    //@   ensures \result == this;
+    @Override
+    public StringBuilder append(/*@ nullable @*/ CharSequence cs);
+
+    //@ also public normal_behavior
+    //@   assignable _value, charArray;
+    //@   ensures (* _value == \old(_value) + cs *);
+    //@   ensures \result == this;
+    @Override
+    public StringBuilder append(/*@ nullable @*/ CharSequence cs, int offset, int length);// FIXME - check that it is length, not end
+
+    //@ also public normal_behavior
+    //@   assignable _value, charArray;
+    //@   ensures (* _value == \old(_value) + s *);
+    //@   ensures \result == this;
+    @Override
+    public StringBuilder append(char /*@ nullable @*/ [] ch);
+
+    //@ also public normal_behavior
+    //@   assignable _value, charArray;
+    //@   ensures (* _value == \old(_value) + s *);
+    //@   ensures \result == this;
+    @Override
+    public StringBuilder append(char /*@ nullable @*/ [] ch, int offset, int length);
+    
+    //@ also public normal_behavior
+    //@   assignable _value, charArray;
+    //@   ensures (* _value == \old(_value) + s *);
+    //@   ensures \result == this;
+    @Override
+    public StringBuilder append(boolean b);
+  
+    //@ also public normal_behavior
+    //@   assignable _value, charArray;
+    //@   ensures (* _value == \old(_value) + c *);
+    //@   ensures \result == this;
+    @Override
+    public StringBuilder append(char c);
+    
+    //@ also public normal_behavior
+    //@   assignable _value, charArray;
+    //@   ensures (* _value == \old(_value) + s *);
+    //@   ensures \result == this;
+    @Override
+    public StringBuilder append(int i);
+    
+    //@ also public normal_behavior
+    //@   assignable _value, charArray;
+    //@   ensures (* _value == \old(_value) + s *);
+    //@   ensures \result == this;
+    @Override
+    public StringBuilder append(long i);
+
+    //@ also public normal_behavior
+    //@   assignable _value, charArray;
+    //@   ensures (* _value == \old(_value) + s *);
+    //@   ensures \result == this;
+    @Override
+    public StringBuilder append(float f);
+
+    //@ also public normal_behavior
+    //@   assignable _value, charArray;
+    //@   ensures (* _value == \old(_value) + s *);
+    //@   ensures \result == this;
+    @Override
+    public StringBuilder append(double d);
+
+    //@ also public normal_behavior
+    //@   assignable _value, charArray;
+    //@   ensures (* _value == \old(_value) + s *);
+    //@   ensures \result == this;
+    @Override
+    public StringBuilder appendCodePoint(int k);
+//  public StringBuilder delete(int, int);
+//  public StringBuilder deleteCharAt(int);
+//  public StringBuilder replace(int, int, String);
+
+    public StringBuilder insert(int index, char /*@ nullable @*/[] ca, int offset, int len);
+    @Override
+    public StringBuilder insert(int index, /*@ nullable @*/Object obj);
+    @Override
+    public StringBuilder insert(int index, /*@ nullable @*/String str);
+    @Override
+    public StringBuilder insert(int index, char /*@ nullable @*/[] ca);
+    @Override
+    public StringBuilder insert(int index, /*@ nullable @*/CharSequence cs);
+    @Override
+    public StringBuilder insert(int index, /*@ nullable @*/CharSequence cs, int start, int end);
+//  public StringBuilder insert(int, boolean);
+//  public StringBuilder insert(int, char);
+//  public StringBuilder insert(int, int);
+//  public StringBuilder insert(int, long);
+//  public StringBuilder insert(int, float);
+//  public StringBuilder insert(int, double);
+    
+  //@ pure
+  public int indexOf(@org.jmlspecs.annotation.Nullable String s);
+
+  //@ pure
+  public int indexOf(/*@ nullable */String s , int k);
+
+  //@ pure
+  public String toString();
+//  private void writeObject(java.io.ObjectOutputStream) throws java.io.IOException;
+//  private void readObject(java.io.ObjectInputStream) throws java.io.IOException, ClassNotFoundException;
+//  public AbstractStringBuilder reverse();
+//  public AbstractStringBuilder insert(int, double);
+//  public AbstractStringBuilder insert(int, float);
+//  public AbstractStringBuilder insert(int, long);
+//  public AbstractStringBuilder insert(int, int);
+//  public AbstractStringBuilder insert(int, char);
+//  public AbstractStringBuilder insert(int, boolean);
+//  public AbstractStringBuilder insert(int, CharSequence, int, int);
+//  public AbstractStringBuilder insert(int, CharSequence);
+//  public AbstractStringBuilder insert(int, char[]);
+//  public AbstractStringBuilder insert(int, String);
+//  public AbstractStringBuilder insert(int, Object);
+//  public AbstractStringBuilder insert(int, char[], int, int);
+//  public String substring(int, int);
+//  public CharSequence subSequence(int, int);
+//  public String substring(int);
+//  public AbstractStringBuilder replace(int, int, String);
+//  public AbstractStringBuilder deleteCharAt(int);
+//  public AbstractStringBuilder appendCodePoint(int);
+//  public AbstractStringBuilder delete(int, int);
+//  public AbstractStringBuilder append(double);
+//  public AbstractStringBuilder append(float);
+//  public AbstractStringBuilder append(long);
+//  public AbstractStringBuilder append(int);
+//  public AbstractStringBuilder append(char);
+//  public AbstractStringBuilder append(boolean);
+//  public AbstractStringBuilder append(char[], int, int);
+//  public AbstractStringBuilder append(char[]);
+//  public AbstractStringBuilder append(CharSequence, int, int);
+//  public AbstractStringBuilder append(CharSequence);
+//  public AbstractStringBuilder append(StringBuffer);
+//  public AbstractStringBuilder append(String);
+//  public AbstractStringBuilder append(Object);
+//  public void setCharAt(int, char);
+//  public void getChars(int, int, char[], int);
+//  public int offsetByCodePoints(int, int);
+//  public int codePointCount(int, int);
+//  public int codePointBefore(int);
+//  public int codePointAt(int);
+//  public char charAt(int);
+//  public void setLength(int);
+//  public void trimToSize();
+//  public void ensureCapacity(int);
+//  public int capacity();
+//  public int length();
+//  public Appendable append(char) throws java.io.IOException;
+//  public Appendable append(CharSequence, int, int) throws java.io.IOException;
+//  public Appendable append(CharSequence) throws java.io.IOException;
+}

@@ -1,0 +1,92 @@
+classDiagram
+    class Main
+
+    class InputThread {
+        -waitQueue : RequestQueue
+        +run() void
+    }
+
+    class ScheduleThread {
+        -waitQueue : RequestQueue
+        -processQueues : ArrayList~RequestQueue~
+        +run() void
+    }
+
+    class ProcessThread {
+        -processQueue : RequestQueue
+        -elevator : Elevator
+        +run() void
+        +getOrient(PersonRequest req) int
+        +dealWithAlsBeta() void
+        +hasIn(Integer orient) boolean
+        +getIn(Integer orient) void
+        +arriveTo(int to) void
+        +sleepForInOut(long time) void
+    }
+
+    class Elevator {
+        -CAPACITY : static int
+        -RANGE : static int
+        -MOVE_TIME : static int
+        -OPEN_TIME : static int
+        -CLOSE_TIME : static int
+        -id : int
+        -belong : char
+        -location : int
+        -passengers : ArrayList~PersonRequest~
+        +isEmpty() boolean
+        +isFull() boolean
+        +size() int
+        +getRequest(int num) PersonRequest
+        +getLocation() int
+        
+        +open() void
+        +in() void
+        +out() void
+        +close() void
+        +move(int step) void
+
+        +hasOut() boolean
+        +getOut() void
+
+        +toPostString() String
+    }
+
+    class RequestQueue {
+        -requests : ArrayList~PersonRequest~
+        -isEnd : boolean
+        +size() synchronized int
+        +isEmpty() synchronized boolean
+        +isEnd() synchronized boolean
+        +setEnd(boolean isEnd) synchronized void
+        +addRequest(PersonRequest req) synchronized void
+        +containRequest(PersonRequest req) synchronized boolean
+        +getRequest(int i) synchronized PersonRequest
+        +getNearestRequest(int location) synchronized PersonRequest
+        +delRequest(int i) synchronized void
+        +getOneRequest() synchronized PersonRequest
+    }
+
+    class SecureTimableOutput {
+        +println(String str)$ synchronized void
+    }
+
+    Main ..> InputThread : create
+    Main ..> ProcessThread : create
+    Main ..> ScheduleThread : create
+    Main ..> Elevator : create
+    Main ..> RequestQueue : create
+
+    InputThread "1"*-->"1" RequestQueue
+    InputThread ..> RequestQueue
+
+    ScheduleThread "1"*-->"1" RequestQueue
+    ScheduleThread "1"*-->"*" RequestQueue
+    ScheduleThread ..> RequestQueue
+
+    ProcessThread "1"*-->"1" RequestQueue
+    ProcessThread "1"*-->"1" Elevator
+    ProcessThread ..> RequestQueue
+    ProcessThread ..> Elevator
+
+    Elevator ..> SecureTimableOutput

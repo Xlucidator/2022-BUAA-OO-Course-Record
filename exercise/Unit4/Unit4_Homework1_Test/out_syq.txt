@@ -1,0 +1,1 @@
+Failed, duplicated method "class0method2" in class "class0".

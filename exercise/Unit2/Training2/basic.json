@@ -1,0 +1,12 @@
+{
+    "1":"实现Runnable接口",
+    "2":"继承Thread类",
+    "3":"start()",
+    "4":"synchronized",
+    "5":"nullify()",
+    "6":"nullifyAll()",
+    "7":"单例模式",
+    "8":"extends Thread",
+    "9":"Thread thread = new Thread(process2); thread.start();",
+    "10":"C"
+}

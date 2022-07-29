@@ -1,0 +1,409 @@
+Ok
+Ok
+Ok
+Ok
+Ok
+Ok
+Ok
+Ok
+Ok
+minf-1, 1-1
+Ok
+Ok
+0
+-1
+0
+The person with this number does not exist
+Ok
+Ok
+0
+einf-1, 2-1
+Ok
+Ok
+Ok
+Ok
+Ok
+0
+9
+Ok
+einf-2, 2-2
+-1
+Ok
+einf-3, 2-3
+Ok
+Ok
+Ok
+Ok
+Ok
+Ok
+minf-2, 5-1
+Ok
+Ok
+Ok
+Ok
+Ok
+Ok
+rnf-1, 3-1, 8-1
+0
+Ok
+Ok
+-1
+einf-4, 3-1
+Ok
+pinf-1, 10-1
+Ok
+0
+0
+Ok
+pinf-2, 17-1
+Ok
+Ok
+0
+Ok
+0
+er-1, 6-1, 6-1
+Ok
+Ok
+Ok
+Ok
+pinf-3, 19-1
+Ok
+0
+Ok
+einf-5, 1-1
+einf-6, 3-2
+Ok
+The person with this number does not exist
+Ok
+0
+Ok
+0
+Ok
+Ok
+0
+None
+The person with this number does not exist
+einf-7, 4-1
+rnf-2, 14-1, 19-1
+0
+0
+0
+-1
+Ok
+0
+Ok
+einf-8, 2-4
+rnf-3, 2-1, 8-2
+0
+Ok
+Ok
+Ok
+3524
+Ok
+0
+Ok
+pinf-4, 20-1
+0
+Ok
+Ok
+-1
+einf-9, 3-3
+Ok
+Ok
+Ok
+einf-10, 6-1
+Ok
+Ok
+0
+Ok
+0
+0
+Ok
+pinf-5, 24-1
+Ok
+Ok
+Ok
+0
+Ok
+None
+Ok
+0
+pinf-6, 2-1
+Ok
+pinf-7, 25-1
+0
+1
+Ok
+pinf-8, 25-2
+Ok
+Ok
+Ok
+0
+Ok
+Ok
+0
+minf-3, 9-1
+einf-11, 2-5
+The person with this number does not exist
+-1
+epi-1, 22-1
+Ok
+Ok
+3280
+Ok
+Ok
+0
+Ok
+Ok
+pinf-9, 30-1
+Ok
+epi-2, 14-1
+0
+0
+Ok
+Ok
+None
+Ok
+Ok
+Ok
+minf-4, 2-1
+None
+Ok
+0
+Ok
+Ok
+0
+0
+Ok
+Ok
+461
+Ok
+14
+Ok
+Ok
+einf-12, 13-1
+pinf-10, 34-1
+Ok
+1
+0
+epi-3, 28-1
+0
+Ok
+minf-5, 6-1
+Ok
+The person with this number does not exist
+6956
+Ok
+Ok
+0
+Ok
+Ok
+0
+Ok
+0
+Ok
+emi-1, 29-1
+emi-2, 29-2
+Ok
+epi-4, 30-1
+0
+Ok
+Ok
+einf-13, 1-2
+Ok
+einf-14, 13-2
+Ok
+0
+Ok
+0
+Ok
+0
+rnf-4, 18-1, 24-1
+Ok
+Ok
+einf-15, 7-1
+Ok
+minf-6, 29-1
+pinf-11, 41-1
+Ok
+Ok
+Ok
+Ok
+Ok
+epi-5, 14-2
+Ok
+Ok
+0
+Ok
+Ok
+Ok
+Ok
+Ok
+Ok
+Ok
+epi-6, 16-1
+Ok
+Ok
+Ok
+emi-3, 34-1
+rnf-5, 12-1, 21-1
+Ok
+Ok
+Ok
+Ok
+Ok
+0
+7496
+0
+Ok
+minf-7, 9-2
+0
+emi-4, 34-2
+Ok
+Ok
+Ok
+einf-16, 1-3
+einf-17, 9-1
+Ok
+einf-18, 4-2
+einf-19, 11-1
+0
+Ok
+1
+emi-5, 38-1
+Ok
+Ok
+None
+einf-20, 3-4
+minf-8, 20-1
+Ok
+Ok
+Ok
+0
+Ok
+20
+er-2, 2-1, 7-1
+Ok
+Ok
+Ok
+einf-21, 8-1
+3053
+Ok
+Ok
+Ok
+Ok
+Ok
+pinf-12, 50-1
+0
+Ok
+2282
+einf-22, 24-1
+rnf-6, 28-1, 31-1
+Ok
+Ok
+Ok
+Ok
+Ok
+0
+631
+Ok
+Ok
+er-3, 16-1, 21-1
+Ok
+0
+Ok
+Ok
+The person with this number does not exist
+Ok
+Ok
+einf-23, 8-2
+Ok
+Ok
+Ok
+Ok
+minf-9, 50-1
+Ok
+Ok
+19
+Ok
+rnf-7, 39-1, 41-1
+Ok
+Ok
+er-4, 16-2, 16-2
+Ok
+epi-7, 43-1
+Ok
+Ok
+0
+pinf-13, 26-1
+Ok
+0
+Ok
+Ok
+17
+Ok
+Ok
+0
+pinf-14, 28-1
+None
+Ok
+Ok
+Ok
+-1
+0
+Ok
+Ok
+Ok
+0
+Ok
+57
+0
+0
+Ok
+einf-24, 2-6
+Ok
+Ok
+The person with this number does not exist
+Ok
+0
+Ok
+epi-8, 58-1
+Ok
+0
+minf-10, 39-1
+Ok
+minf-11, 21-1
+Ok
+minf-12, 39-2
+minf-13, 15-1
+0
+Ok
+Ok
+22
+Ok
+minf-14, 8-1
+emi-6, 59-1
+Ok
+Ok
+minf-15, 33-1
+er-5, 1-1, 4-1
+Ok
+Ok
+Ok
+Ok
+Ok
+274
+Ok
+Ok
+Ok
+Ok
+Ok
+1
+0
+pinf-15, 4-1
+Ok
+27
+Ok
+Ok
+-1
+0.125

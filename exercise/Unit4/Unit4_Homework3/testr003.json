@@ -1,0 +1,16 @@
+{"_parent":"AAAAAAFF+qBWK6M3Z8Y=","visibility":"public","name":"Interface1","_type":"UMLInterface","_id":"AAAAAAGBnb0blQC3aGM="}
+{"_parent":"AAAAAAGBnb0blQC3aGM=","name":null,"_type":"UMLGeneralization","_id":"AAAAAAGBnb2FjQGvk0k=","source":"AAAAAAGBnb0blQC3aGM=","target":"AAAAAAGBnb0nSwDgWmw="}
+{"_parent":"AAAAAAGBnb0blQC3aGM=","name":null,"_type":"UMLGeneralization","_id":"AAAAAAGBnb6axwIVNNk=","source":"AAAAAAGBnb0blQC3aGM=","target":"AAAAAAGBnb0zBAEJ8Fs="}
+{"_parent":"AAAAAAFF+qBWK6M3Z8Y=","visibility":"public","name":"Interface2","_type":"UMLInterface","_id":"AAAAAAGBnb0nSwDgWmw="}
+{"_parent":"AAAAAAGBnb0nSwDgWmw=","name":null,"_type":"UMLGeneralization","_id":"AAAAAAGBnb29HgHETrQ=","source":"AAAAAAGBnb0nSwDgWmw=","target":"AAAAAAGBnb0zBAEJ8Fs="}
+{"_parent":"AAAAAAFF+qBWK6M3Z8Y=","visibility":"public","name":"Interface3","_type":"UMLInterface","_id":"AAAAAAGBnb0zBAEJ8Fs="}
+{"_parent":"AAAAAAGBnb0zBAEJ8Fs=","name":null,"_type":"UMLGeneralization","_id":"AAAAAAGBnb3rgAHVlCo=","source":"AAAAAAGBnb0zBAEJ8Fs=","target":"AAAAAAGBnb1SiwGE4iA="}
+{"_parent":"AAAAAAGBnb0zBAEJ8Fs=","name":null,"_type":"UMLGeneralization","_id":"AAAAAAGBnb5rFgIExUA=","source":"AAAAAAGBnb0zBAEJ8Fs=","target":"AAAAAAGBnb0+SwEyA4k="}
+{"_parent":"AAAAAAGBnb0zBAEJ8Fs=","name":null,"_type":"UMLGeneralization","_id":"AAAAAAGBnb7IhgImRY4=","source":"AAAAAAGBnb0zBAEJ8Fs=","target":"AAAAAAGBnb1GQwFbm+4="}
+{"_parent":"AAAAAAFF+qBWK6M3Z8Y=","visibility":"public","name":"Interface4","_type":"UMLInterface","_id":"AAAAAAGBnb0+SwEyA4k="}
+{"_parent":"AAAAAAGBnb0+SwEyA4k=","name":null,"_type":"UMLGeneralization","_id":"AAAAAAGBnb9ZSQJJqEA=","source":"AAAAAAGBnb0+SwEyA4k=","target":"AAAAAAGBnb0zBAEJ8Fs="}
+{"_parent":"AAAAAAFF+qBWK6M3Z8Y=","visibility":"public","name":"Interface5","_type":"UMLInterface","_id":"AAAAAAGBnb1GQwFbm+4="}
+{"_parent":"AAAAAAGBnb1GQwFbm+4=","name":null,"_type":"UMLGeneralization","_id":"AAAAAAGBnb7jsAI43WI=","source":"AAAAAAGBnb1GQwFbm+4=","target":"AAAAAAGBnb0+SwEyA4k="}
+{"_parent":"AAAAAAFF+qBWK6M3Z8Y=","visibility":"public","name":"Interface6","_type":"UMLInterface","_id":"AAAAAAGBnb1SiwGE4iA="}
+{"_parent":"AAAAAAGBnb1SiwGE4iA=","name":null,"_type":"UMLGeneralization","_id":"AAAAAAGBnb+bMAJa6b0=","source":"AAAAAAGBnb1SiwGE4iA=","target":"AAAAAAGBnb0nSwDgWmw="}
+END_OF_MODEL

@@ -1,0 +1,15 @@
+package java.lang;
+ 
+//@ nullable_by_default
+public class IllegalAccessException extends ReflectiveOperationException {
+  
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowable();
+    //@ pure
+    public IllegalAccessException();
+  
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowable(s);
+    //@ pure
+    public IllegalAccessException(String s);
+}

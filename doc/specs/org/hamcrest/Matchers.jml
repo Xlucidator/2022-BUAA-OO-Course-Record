@@ -1,0 +1,54 @@
+package org.hamcrest;
+
+//@ non_null_by_default
+public class Matchers {
+    
+    
+    //@ public normal_behavior
+    //@   ensures \fresh(\result);
+    //  FIXME @   ensures ???
+    //@ pure
+    public static <T> Matcher<T> is(Matcher<T> x);
+    
+    //@ public normal_behavior
+    //@   ensures \fresh(\result);
+    //  FIXME @   ensures ???
+    //@ pure
+    // same as is(equalTo(x))
+    public static <T> Matcher<T> is(T x);
+    
+    
+    //@ public normal_behavior
+    //@   ensures \fresh(\result);
+    //  FIXME @   ensures ???
+    //@ pure
+    public static <T> Matcher<T> not(Matcher<T> x);
+    
+    //@ public normal_behavior
+    //@   ensures \fresh(\result);
+    //  FIXME @   ensures ???
+    //@ pure
+    // same as not(equalTo(x))
+    public static <T> Matcher<T> not(T x);
+    
+    
+    //@ public normal_behavior
+    //@   ensures \fresh(\result);
+    //  FIXME @   ensures \result.matches == (z -> z == x || Object.equals(z,x));
+    //@ pure
+    public static <T> Matcher<T> equalTo(T x);
+    
+    
+    //@ public normal_behavior
+    //@   ensures \fresh(\result);
+    //  FIXME @   ensures \result.matches == (z -> z == x || Object.equals(z,x));
+    //@ pure
+    public static <T> Matcher<T> instanceOf(Class<?> x);
+    
+    //@ public normal_behavior
+    //@   ensures \fresh(\result);
+    //  FIXME @   ensures \result.matches == (z -> z == x );
+    //@ pure
+    // matches identical object
+    public static <T> Matcher<T> sameInstance(T x);    
+}

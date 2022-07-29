@@ -1,0 +1,17 @@
+package java.net;
+ 
+//@ nullable_by_default
+public class SocketException extends java.io.IOException {
+  
+    /*@ public normal_behavior
+      @   ensures standardThrowable();
+      @*/
+    //@ pure
+    public SocketException();
+  
+    /*@ public normal_behavior
+      @   ensures standardThrowable(s);
+      @*/
+    //@ pure
+    public SocketException(String s);
+}

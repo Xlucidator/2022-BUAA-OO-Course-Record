@@ -1,0 +1,20 @@
+package java.lang;
+ 
+//@ nullable_by_default
+public class ArrayIndexOutOfBoundsException extends IndexOutOfBoundsException {
+  
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowable();
+    //@ pure
+    public ArrayIndexOutOfBoundsException();
+  
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowableUnspecifiedMessage();
+    //@ pure
+    public ArrayIndexOutOfBoundsException(int index);
+  
+    //@ public normal_behavior
+    //-RAC@   ensures standardThrowable(s);
+    //@ pure
+    public ArrayIndexOutOfBoundsException(String s);
+}

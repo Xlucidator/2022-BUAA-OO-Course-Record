@@ -1,0 +1,17 @@
+package java.io;
+ 
+//@ nullable_by_default
+public class NotActiveException extends ObjectStreamException {
+  
+    /*@ public normal_behavior
+      @   ensures standardThrowable();
+      @*/
+    //@ pure
+    public NotActiveException();
+  
+    /*@ public normal_behavior
+      @   ensures standardThrowable(reason);
+      @*/
+    //@ pure
+    public NotActiveException(String reason);
+}

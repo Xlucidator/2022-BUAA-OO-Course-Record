@@ -1,0 +1,17 @@
+package java.net;
+ 
+//@ nullable_by_default
+public class NoRouteToHostException extends SocketException {
+  
+    /*@ public normal_behavior
+      @   ensures standardThrowable();
+      @*/
+    //@ pure
+    public NoRouteToHostException();
+  
+    /*@ public normal_behavior
+      @   ensures standardThrowable(s);
+      @*/
+    //@ pure
+    public NoRouteToHostException(String s);
+}
